@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bottom navigation -->
+    <string name="nav_home">الرئيسية</string>
+    <string name="nav_transactions">المعاملات</string>
+    <string name="nav_analytics">التحليلات</string>
+
+    <!-- Language picker -->
+    <string name="settings_language_title">اللغة</string>
+    <string name="settings_language_subtitle">اختر لغة عرض التطبيق</string>
+    <string name="language_dialog_title">لغة التطبيق</string>
+    <string name="language_system">لغة النظام</string>
+    <string name="language_english">English</string>
+    <string name="language_arabic">العربية</string>
+</resources>

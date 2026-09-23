@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Display-only translations for built-in category names. Keys map 1:1 with
+  values-ar/strings_categories.xml. Canonical names stay English in storage,
+  filters, budgets and rules; this is presentation only.
+-->
+<resources>
+    <string name="cat_food_dining">Food &amp; Dining</string>
+    <string name="cat_groceries">Groceries</string>
+    <string name="cat_transportation">Transportation</string>
+    <string name="cat_shopping">Shopping</string>
+    <string name="cat_bills_utilities">Bills &amp; Utilities</string>
+    <string name="cat_entertainment">Entertainment</string>
+    <string name="cat_healthcare">Healthcare</string>
+    <string name="cat_investments">Investments</string>
+    <string name="cat_banking">Banking</string>
+    <string name="cat_personal_care">Personal Care</string>
+    <string name="cat_education">Education</string>
+    <string name="cat_mobile">Mobile</string>
+    <string name="cat_mobile_recharge">Mobile &amp; Recharge</string>
+    <string name="cat_fitness">Fitness</string>
+    <string name="cat_insurance">Insurance</string>
+    <string name="cat_travel">Travel</string>
+    <string name="cat_salary">Salary</string>
+    <string name="cat_income">Income</string>
+    <string name="cat_others">Others</string>
+    <string name="cat_food">Food</string>
+    <string name="cat_cashback">Cashback</string>
+    <string name="cat_housing">Housing</string>
+    <string name="cat_emi">EMI</string>
+    <string name="cat_transfer">Transfer</string>
+    <string name="cat_tax">Tax</string>
+    <string name="cat_bank_charges">Bank Charges</string>
+    <string name="cat_credit_card_payment">Credit Card Payment</string>
+    <string name="cat_refunds">Refunds</string>
+    <string name="cat_interest">Interest</string>
+    <string name="cat_dividends">Dividends</string>
+    <string name="cat_subscriptions">Subscriptions</string>
+
+    <!-- Local (GCC/Arabic-market) categories -->
+    <string name="cat_zakat_sadaqah">Zakat &amp; Sadaqah</string>
+    <string name="cat_remittances">Remittances</string>
+    <string name="cat_gold_jewellery">Gold &amp; Jewellery</string>
+    <string name="cat_gifts_eidiya">Gifts &amp; Eidiya</string>
+    <string name="cat_hospitality_majlis">Hospitality &amp; Majlis</string>
+    <string name="cat_domestic_help">Domestic Help &amp; Driver</string>
+    <string name="cat_government_fees">Government Fees &amp; Fines</string>
+    <string name="cat_rent_housing">Rent &amp; Housing</string>
+    <string name="cat_loans_emis">Loans &amp; EMIs</string>
+    <string name="cat_fuel">Fuel</string>
+
+    <!-- Category groups -->
+    <string name="group_needs">Needs</string>
+    <string name="group_wants">Wants</string>
+    <string name="group_savings">Savings</string>
+    <string name="group_income">Income</string>
+    <string name="group_excluded">Excluded</string>
+    <string name="group_other">Other</string>
+
+    <!-- Category detail screen -->
+    <string name="cat_detail_this_month">This month</string>
+    <string name="cat_detail_monthly_avg">Monthly average</string>
+    <string name="cat_detail_count">Transactions</string>
+    <string name="cat_detail_trend">Monthly trend</string>
+    <string name="cat_detail_top_merchants">Top merchants</string>
+    <string name="cat_detail_recent">Recent transactions</string>
+    <string name="cat_detail_budget">Budget</string>
+    <string name="cat_detail_budget_spent">%1$s of %2$s used</string>
+    <string name="cat_detail_budget_remaining">%1$s remaining</string>
+    <string name="cat_detail_budget_over">%1$s over budget</string>
+    <string name="cat_detail_budget_group">In “%1$s”</string>
+    <string name="cat_detail_empty">No transactions in this category yet</string>
+    <string name="cat_detail_period_all">All time</string>
+    <string name="cat_detail_period_year">Last 12 months</string>
+    <string name="cat_detail_period_6m">Last 6 months</string>
+    <string name="cat_detail_period_3m">Last 3 months</string>
+    <string name="cat_detail_period_this_month">This month</string>
+    <string name="cat_detail_period_30d">Last 30 days</string>
+</resources>

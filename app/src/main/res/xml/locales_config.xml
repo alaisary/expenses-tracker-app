@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Languages the app ships UI translations for. Android 13+ reads this to
+  populate Settings > Apps > PennyWise > Language and the system per-app
+  language picker. Keep it in sync with the values-*/ folders that exist.
+-->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="en" />
+    <locale android:name="ar" />
+</locale-config>

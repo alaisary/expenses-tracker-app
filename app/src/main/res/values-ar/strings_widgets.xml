@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Widget, notification, and background-worker strings (Arabic). Kept in its own
+  file so the extraction stays reviewable; Android merges every res/values-ar/*.xml.
+-->
+<resources>
+    <!-- Budget widget -->
+    <string name="wid_monthly_budget">الميزانية الشهرية</string>
+    <string name="wid_tap_to_set_up">اضغط للإعداد</string>
+    <string name="wid_percent_used">%1$d%% مستخدم</string>
+    <string name="wid_of_amount">من %1$s</string>
+    <string name="wid_amount_left">متبقٍ %1$s</string>
+    <string name="wid_amount_over">تجاوز %1$s</string>
+    <string name="wid_per_day">%1$s/يوم</string>
+    <string name="wid_saved">وفّرت %1$s</string>
+    <string name="wid_over">تجاوزت %1$s</string>
+
+    <!-- Recent transactions widget -->
+    <string name="wid_total_spend_this_month">إجمالي إنفاق هذا الشهر</string>
+    <string name="wid_no_transactions_yet">لا توجد معاملات بعد</string>
+    <string name="wid_tap_plus_to_add">اضغط + للإضافة يدويًا</string>
+    <string name="wid_transaction">معاملة</string>
+    <string name="wid_add">إضافة</string>
+
+    <!-- Category pie widget -->
+    <string name="wid_spending">الإنفاق</string>
+    <string name="wid_spending_by_category">الإنفاق حسب الفئة</string>
+    <string name="wid_no_spending_yet">لا يوجد إنفاق هذا الشهر بعد</string>
+    <string name="wid_other">أخرى</string>
+
+    <!-- Transaction notification -->
+    <string name="wid_transaction_notifications_channel">إشعارات المعاملات</string>
+    <string name="wid_transaction_notifications_channel_description">إشعارات بالمعاملات الجديدة</string>
+    <string name="wid_transaction_notification_title">%1$s %2$s - %3$s</string>
+    <string name="wid_category_bank">%1$s • %2$s</string>
+    <string name="wid_needs_category">يحتاج إلى فئة — اضغط &quot;اختيار الفئة…&quot; • %1$s</string>
+    <string name="wid_balance_off">⚠ الرصيد يختلف بمقدار %1$s — المتوقع %2$s، والبنك يقول %3$s</string>
+    <string name="wid_pick_category">اختيار الفئة…</string>
+    <string name="wid_more">المزيد…</string>
+    <string name="wid_new_transaction">%1$s معاملة جديدة</string>
+    <string name="wid_balance_needs_look">%1$s • الرصيد يحتاج إلى مراجعة</string>
+    <string name="wid_unknown_merchant">غير معروف</string>
+    <string name="wid_unknown_bank">البنك</string>
+
+    <!-- SMS scan foreground notification -->
+    <string name="wid_sms_scan_channel">فحص SMS</string>
+    <string name="wid_scanning_transactions">جارٍ فحص المعاملات…</string>
+    <string name="wid_processed_progress">تمت معالجة %1$d / %2$d</string>
+    <string name="wid_reading_sms">جارٍ قراءة SMS…</string>
+</resources>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="budg_title">Budgets</string>
+    <string name="budg_edit_title">Edit Budget</string>
+    <string name="budg_new_title">New Budget</string>
+    <string name="budg_history_title">Budget History</string>
+    <string name="budg_back">Back</string>
+    <string name="budg_add_budget">Add Budget</string>
+    <string name="budg_delete_budget">Delete Budget</string>
+    <string name="budg_delete_budget_confirm">Are you sure you want to delete \"%1$s\"? This cannot be undone.</string>
+    <string name="budg_save_changes">Save Changes</string>
+    <string name="budg_create_budget">Create Budget</string>
+    <string name="budg_delete">Delete</string>
+    <string name="budg_cancel">Cancel</string>
+    <string name="budg_ok">OK</string>
+
+    <string name="budg_section_color">Color</string>
+    <string name="budg_section_budget_period">Budget Period</string>
+    <string name="budg_period_weekly">Weekly (recurring)</string>
+    <string name="budg_period_monthly">Monthly (recurring)</string>
+    <string name="budg_period_one_time">One-time</string>
+    <string name="budg_start_date">Start date</string>
+    <string name="budg_end_date">End date</string>
+    <string name="budg_resets_every">Resets every %1$s</string>
+    <string name="budg_resets_on_day_of_month">Resets on day %1$d of every month</string>
+    <string name="budg_runs_once_no_rollover">Runs once, no rollover</string>
+    <string name="budg_current_window">Current window</string>
+    <string name="budg_current_window_range">%1$s – %2$s · %3$s</string>
+    <string name="budg_week_starts_on">Week starts on</string>
+    <string name="budg_month_starts_on_day">Month starts on day</string>
+    <string name="budg_decrease_day">Decrease day</string>
+    <string name="budg_increase_day">Increase day</string>
+
+    <string name="budg_category_limits_optional">Category Limits (optional)</string>
+    <string name="budg_no_categories_added">No categories added. This budget will track all expenses.</string>
+    <string name="budg_unallocated">Unallocated: %1$s</string>
+    <string name="budg_limits_exceed">Category limits exceed budget by %1$s</string>
+    <string name="budg_add_category">Add Category</string>
+    <string name="budg_all_option">%1$s (all)</string>
+    <string name="budg_budget_name">Budget name</string>
+    <string name="budg_edit_name">Edit name</string>
+    <string name="budg_delete_budget_desc">Delete budget</string>
+    <string name="budg_edit_budget">Edit budget</string>
+    <string name="budg_remove">Remove</string>
+    <string name="budg_spent_colon">Spent: %1$s</string>
+    <string name="budg_zero">0</string>
+
+    <string name="budg_setup_title">Set Up Your Budget</string>
+    <string name="budg_setup_desc">Organize your spending into budgets to track where your money goes.</string>
+    <string name="budg_use_smart_defaults">Use Smart Defaults</string>
+    <string name="budg_create_custom_budget">Create Custom Budget</string>
+    <string name="budg_previous_month">Previous month</string>
+    <string name="budg_next_month">Next month</string>
+    <string name="budg_more_options">More options</string>
+    <string name="budg_view_period_history">View this period history</string>
+    <string name="budg_move_up">Move up</string>
+    <string name="budg_move_down">Move down</string>
+
+    <string name="budg_percent">%1$d%%</string>
+    <string name="budg_over_budget">%1$s over budget</string>
+    <string name="budg_remaining">%1$s remaining</string>
+    <string name="budg_finished">Finished</string>
+    <string name="budg_over_by">Over by %1$s</string>
+    <string name="budg_resets_today_renew">Resets today · %1$s renew</string>
+    <string name="budg_resets_in_one_day_renew">Resets in 1 day · %1$s renew</string>
+    <string name="budg_resets_in_days_renew">Resets in %1$d days · %2$s renew</string>
+    <string name="budg_resets_today_day">Resets today · day %1$d</string>
+    <string name="budg_resets_in_one_day_day">Resets in 1 day · day %1$d</string>
+    <string name="budg_resets_in_days_day">Resets in %1$d days · day %2$d</string>
+    <string name="budg_runs_range_days_remaining">Runs %1$s · %2$d days remaining</string>
+    <string name="budg_runs_range_one_day_remaining">Runs %1$s · 1 day remaining</string>
+    <string name="budg_runs_range_finished">Runs %1$s · Finished</string>
+    <string name="budg_days_remaining">%1$d days remaining</string>
+    <string name="budg_spent_of">Spent %1$s of %2$s</string>
+    <string name="budg_spent">Spent %1$s</string>
+    <string name="budg_tracking_all_expenses">Tracking all expenses</string>
+    <string name="budg_of_amount">%1$s of %2$s</string>
+    <string name="budg_chart_actual">Actual</string>
+    <string name="budg_chart_budget_pace">Budget Pace</string>
+
+    <string name="budg_loading">Loading…</string>
+    <string name="budg_not_found">Budget not found</string>
+    <string name="budg_window_range">Window: %1$s – %2$s</string>
+    <string name="budg_per_week_breakdown">Per-week breakdown</string>
+    <string name="budg_cycle">Cycle</string>
+    <string name="budg_range">Range</string>
+    <string name="budg_current">Current</string>
+    <string name="budg_live_badge">Live · still accumulating</string>
+    <string name="budg_frozen_as_of">Frozen as of %1$s</string>
+    <string name="budg_window_dates">%1$s – %2$s</string>
+    <string name="budg_categories">Categories</string>
+    <string name="budg_of_percent">of %1$s · %2$d%%</string>
+    <string name="budg_zero_remaining">0 remaining</string>
+    <string name="budg_percent_used">%1$d%% used</string>
+</resources>

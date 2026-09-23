@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Time periods -->
+    <string name="filter_time_this_month">هذا الشهر</string>
+    <string name="filter_time_last_month">الشهر الماضي</string>
+    <string name="filter_time_current_fy">السنة المالية الحالية</string>
+    <string name="filter_time_all_time">كل الوقت</string>
+    <string name="filter_time_custom_range">نطاق مخصص</string>
+
+    <!-- Transaction type filter -->
+    <string name="filter_type_all">الكل</string>
+    <string name="filter_type_income">دخل</string>
+    <string name="filter_type_expense">مصروف</string>
+    <string name="filter_type_credit">ائتمان</string>
+    <string name="filter_type_transfer">تحويل</string>
+    <string name="filter_type_investment">استثمار</string>
+
+    <!-- Short chip labels -->
+    <string name="filter_type_short_invest">استثمار</string>
+
+    <!-- Transaction date grouping -->
+    <string name="filter_date_today">اليوم</string>
+    <string name="filter_date_yesterday">أمس</string>
+    <string name="filter_date_this_week">هذا الأسبوع</string>
+    <string name="filter_date_earlier">سابقًا</string>
+
+    <!-- Sort options -->
+    <string name="filter_sort_newest">الأحدث أولًا</string>
+    <string name="filter_sort_oldest">الأقدم أولًا</string>
+    <string name="filter_sort_amount_highest">الأعلى مبلغًا</string>
+    <string name="filter_sort_amount_lowest">الأقل مبلغًا</string>
+    <string name="filter_sort_merchant_az">التاجر (أ-ي)</string>
+    <string name="filter_sort_merchant_za">التاجر (ي-أ)</string>
+
+    <!-- Account detail date ranges -->
+    <string name="filter_range_last_7_days">آخر 7 أيام</string>
+    <string name="filter_range_last_30_days">آخر 30 يومًا</string>
+    <string name="filter_range_last_3_months">آخر 3 أشهر</string>
+    <string name="filter_range_last_6_months">آخر 6 أشهر</string>
+    <string name="filter_range_last_year">آخر سنة</string>
+
+    <!-- Recurring frequency -->
+    <string name="filter_frequency_daily">يومي</string>
+    <string name="filter_frequency_weekly">أسبوعي</string>
+    <string name="filter_frequency_monthly">شهري</string>
+
+    <!-- Rule condition operators -->
+    <string name="filter_condition_less_than">&lt;</string>
+    <string name="filter_condition_greater_than">&gt;</string>
+    <string name="filter_condition_equals">=</string>
+    <string name="filter_condition_before">قبل</string>
+    <string name="filter_condition_after">بعد</string>
+    <string name="filter_condition_at_or_after">في أو بعد</string>
+    <string name="filter_condition_at_or_before">في أو قبل</string>
+    <string name="filter_condition_exactly_at">بالضبط عند</string>
+    <string name="filter_condition_is_any_of">أي من</string>
+    <string name="filter_condition_is">هو</string>
+    <string name="filter_condition_is_not">ليس</string>
+    <string name="filter_condition_equals_word">يساوي</string>
+    <string name="filter_condition_starts_with">يبدأ بـ</string>
+    <string name="filter_condition_contains">يحتوي على</string>
+
+    <!-- Account types -->
+    <string name="filter_account_savings">توفير</string>
+    <string name="filter_account_current">جاري</string>
+    <string name="filter_account_credit_card">بطاقة ائتمان</string>
+    <string name="filter_account_cash">نقدًا</string>
+
+    <!-- Home sections -->
+    <string name="filter_home_budgets">الميزانيات</string>
+    <string name="filter_home_loans">القروض</string>
+    <string name="filter_home_groups">المجموعات</string>
+    <string name="filter_home_recent_transactions">المعاملات الأخيرة</string>
+    <string name="filter_home_accounts">الحسابات البنكية</string>
+    <string name="filter_home_subscriptions">الاشتراكات القادمة</string>
+    <string name="filter_home_activity">النشاط</string>
+
+    <!-- More-filters chip -->
+    <string name="filter_more_filters_count">فلتران</string>
+    <string name="filter_more_category">الفئة</string>
+    <string name="filter_more_filters">الفلاتر</string>
+</resources>

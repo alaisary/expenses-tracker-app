@@ -1,0 +1,156 @@
+<resources>
+    <!-- ViewModel messages: AddViewModel -->
+    <string name="vm_transfer_select_both_accounts">اختر حساب المصدر وحساب الوجهة</string>
+    <string name="vm_transfer_accounts_must_differ">يجب أن يكون حسابا المصدر والوجهة مختلفين</string>
+    <string name="vm_transfer_same_currency">يجب أن يستخدم الحسابان نفس العملة</string>
+    <string name="vm_failed_save_transaction">تعذّر حفظ المعاملة</string>
+    <string name="vm_failed_save_transfer">تعذّر حفظ التحويل</string>
+    <string name="vm_service_name_required">اسم الخدمة مطلوب</string>
+    <string name="vm_failed_save_subscription">تعذّر حفظ الاشتراك</string>
+    <string name="vm_amount_required">المبلغ مطلوب</string>
+    <string name="vm_amount_invalid">مبلغ غير صالح</string>
+    <string name="vm_amount_must_be_greater_than_zero">يجب أن يكون المبلغ أكبر من 0</string>
+    <string name="vm_merchant_required">التاجر/الوصف مطلوب</string>
+    <string name="vm_too_short">قصير جدًا</string>
+    <string name="vm_category_required">الفئة مطلوبة</string>
+
+    <!-- ViewModel messages: TransactionsViewModel -->
+    <string name="vm_bulk_updated_to">تم تحديث %1$d إلى \"%2$s\"</string>
+    <string name="vm_transfer_select_exactly_two">اختر معاملتين بالضبط لوضع علامة تحويل</string>
+    <string name="vm_transfer_pick_one_each">اختر معاملة صادرة (مصروف) ومعاملة واردة (دخل)</string>
+    <string name="vm_marked_as_transfer">تم وضع علامة كتحويل</string>
+    <string name="vm_bulk_deleted">تم حذف %1$d</string>
+    <string name="vm_bulk_added_to_group">تمت إضافة %1$d إلى \"%2$s\"</string>
+
+    <!-- ViewModel messages: TransactionDetailViewModel -->
+    <string name="vm_adjustment_failed">تعذّر إضافة التسوية: %1$s</string>
+    <string name="vm_amount_must_be_positive_number">يجب أن يكون المبلغ رقمًا موجبًا</string>
+    <string name="vm_category_exists_as_type">توجد فئة باسم \"%1$s\" بالفعل كـ %2$s</string>
+    <string name="vm_type_income">دخل</string>
+    <string name="vm_type_expense">مصروف</string>
+    <string name="vm_category_create_failed">تعذّر إنشاء الفئة: %1$s</string>
+    <string name="vm_splits_expenses_only">التقسيم متاح فقط للمصروفات ومشتريات البطاقات</string>
+    <string name="vm_splits_min_two">مطلوب تقسيمان على الأقل</string>
+    <string name="vm_splits_amounts_positive">يجب أن تكون جميع مبالغ التقسيم موجبة</string>
+    <string name="vm_splits_must_equal_total">يجب أن تساوي مبالغ التقسيم إجمالي المعاملة</string>
+    <string name="vm_merchant_name_required">اسم التاجر مطلوب</string>
+    <string name="vm_amount_must_be_positive">يجب أن يكون المبلغ موجبًا</string>
+    <string name="vm_transfer_source_dest_differ">يجب أن يكون حسابا المصدر والوجهة مختلفين</string>
+    <string name="vm_tag_rule_create_failed">تم الحفظ، لكن تعذّر إنشاء قاعدة الوسوم: %1$s</string>
+    <string name="vm_failed_save_changes">تعذّر حفظ التغييرات: %1$s</string>
+    <string name="vm_failed_delete_transaction">تعذّر حذف المعاملة</string>
+    <string name="vm_failed_create_loan">تعذّر إنشاء القرض: %1$s</string>
+    <string name="vm_failed_unlink_loan">تعذّر إلغاء ربط القرض: %1$s</string>
+
+    <!-- ViewModel messages: SubscriptionsViewModel -->
+    <string name="vm_sub_fallback_name">اشتراك</string>
+    <string name="vm_sub_marked_paid">تم تعليم %1$s كمدفوع · الدورة التالية في %2$s</string>
+    <string name="vm_sub_linked">تم ربط %1$s · الدورة التالية في %2$s</string>
+    <string name="vm_sub_already_marked">%1$s معلّم بالفعل لهذه الدورة · تم التقدم إلى %2$s</string>
+    <string name="vm_sub_set_next_payment">عيّن تاريخ الدفعة التالية لـ %1$s أولًا</string>
+    <string name="vm_sub_not_found">تعذّر العثور على هذا الاشتراك</string>
+    <string name="vm_sub_linked_existing">تم ربط %1$s بمدفوعات موجودة · الدورة التالية في %2$s</string>
+    <string name="vm_sub_linked_short">تم الربط</string>
+
+    <!-- ViewModel messages: ExchangeRatesViewModel -->
+    <string name="vm_rates_load_failed">تعذّر تحميل الأسعار</string>
+    <string name="vm_rates_refresh_failed">تعذّر تحديث الأسعار</string>
+    <string name="vm_rate_set_failed">تعذّر تعيين سعر مخصص</string>
+    <string name="vm_rate_clear_failed">تعذّر مسح السعر المخصص</string>
+    <string name="vm_rates_clear_all_failed">تعذّر مسح الأسعار المخصصة</string>
+
+    <!-- ViewModel messages: ManageAccountsViewModel -->
+    <string name="vm_account_already_exists">الحساب موجود بالفعل</string>
+    <string name="vm_card_linked_balance">تم ربط البطاقة بنجاح. تم تحديث الرصيد إلى %1$s</string>
+    <string name="vm_card_linked_balance_failed">تم ربط البطاقة بنجاح (فشل تحديث الرصيد)</string>
+    <string name="vm_card_linked">تم ربط البطاقة بنجاح</string>
+    <string name="vm_card_link_failed">تعذّر ربط البطاقة: %1$s</string>
+    <string name="vm_card_deleted">تم حذف البطاقة بنجاح</string>
+    <string name="vm_card_delete_failed">تعذّر حذف البطاقة: %1$s</string>
+    <string name="vm_card_missing">لم تعد البطاقة موجودة — ربما حُذفت.</string>
+    <string name="vm_card_updated">تم تحديث البطاقة</string>
+    <string name="vm_card_update_failed">تعذّر تحديث البطاقة: %1$s</string>
+    <string name="vm_account_deleted">تم حذف الحساب بنجاح (أُزيل %1$d من سجلات الرصيد)</string>
+    <string name="vm_account_delete_failed">تعذّر حذف الحساب: %1$s</string>
+    <string name="vm_merge_same_account">الحساب المصدر والحساب الهدف هو نفسه</string>
+    <string name="vm_merge_currency_mismatch">العملات غير متطابقة (%1$s مقابل %2$s)</string>
+    <string name="vm_merge_credit_mismatch">لا يمكن دمج بطاقة ائتمان مع حساب عادي</string>
+    <string name="vm_merge_success">تم دمج %1$d معاملة في %2$s</string>
+    <string name="vm_merge_failed">فشل الدمج: %1$s</string>
+    <string name="vm_account_profile_failed">تعذّر تحديث ملف الحساب: %1$s</string>
+    <string name="vm_account_rename_failed">تعذّر إعادة تسمية الحساب: %1$s</string>
+    <string name="vm_account_alert_failed">تعذّر تعيين التنبيه: %1$s</string>
+    <string name="vm_move_transactions_failed">تعذّر نقل المعاملات: %1$s</string>
+    <string name="vm_account_updated">تم تحديث الحساب بنجاح</string>
+    <string name="vm_account_update_failed">تعذّر تحديث الحساب: %1$s</string>
+
+    <!-- ViewModel messages: UpgradeViewModel -->
+    <string name="vm_plans_loading">لا تزال الخطط قيد التحميل. حاول مرة أخرى بعد لحظات.</string>
+    <string name="vm_purchase_failed">فشلت عملية الشراء. حاول مرة أخرى.</string>
+    <string name="vm_play_store_unavailable">متجر Play غير متاح. تحقق من اتصالك وحاول مرة أخرى.</string>
+    <string name="vm_purchases_unavailable">عمليات الشراء غير متاحة في هذا الإصدار.</string>
+    <string name="vm_play_store_unreachable">تعذّر الوصول إلى متجر Play. حاول لاحقًا.</string>
+
+    <!-- ViewModel messages: AppLockViewModel -->
+    <string name="vm_auth_failed">فشلت المصادقة. حاول مرة أخرى.</string>
+
+    <!-- ViewModel messages: RulesViewModel -->
+    <string name="vm_rules_nothing_to_export">ليس لديك أي قواعد مخصصة لتصديرها بعد.</string>
+    <string name="vm_rules_file_too_large">هذا الملف كبير جدًا ليكون ملف قواعد.</string>
+    <string name="vm_rules_open_failed">تعذّر فتح الملف.</string>
+    <string name="vm_rules_open_write_failed">تعذّر فتح الملف للكتابة.</string>
+    <string name="vm_rules_exported_one">تم تصدير قاعدة واحدة.</string>
+    <string name="vm_rules_exported_count">تم تصدير %1$d قواعد.</string>
+    <string name="vm_rules_export_failed">فشل التصدير: %1$s</string>
+    <string name="vm_rules_imported_one">تم استيراد قاعدة واحدة.</string>
+    <string name="vm_rules_imported_count">تم استيراد %1$d قواعد.</string>
+    <string name="vm_rules_duplicates_existed">%1$d موجودة بالفعل.</string>
+    <string name="vm_rules_one_repeated_collapsed">تم دمج اسم مكرر واحد في الملف.</string>
+    <string name="vm_rules_repeated_collapsed">تم دمج %1$d أسماء مكررة في الملف.</string>
+    <string name="vm_rules_blocked_pro">%1$d أخرى تحتاج إلى Pro — أنت عند الحد المجاني البالغ %2$d.</string>
+    <string name="vm_rules_import_failed">فشل الاستيراد.</string>
+    <string name="vm_error_prefix">خطأ: %1$s</string>
+
+    <!-- ViewModel messages: CategoriesViewModel -->
+    <string name="vm_category_system_edit">لا يمكن تعديل فئات النظام</string>
+    <string name="vm_category_updated">تم تحديث الفئة بنجاح</string>
+    <string name="vm_category_exists">الفئة \'%1$s\' موجودة بالفعل</string>
+    <string name="vm_category_created">تم إنشاء الفئة بنجاح</string>
+    <string name="vm_category_save_error">خطأ في حفظ الفئة: %1$s</string>
+    <string name="vm_category_system_delete">لا يمكن حذف فئات النظام</string>
+    <string name="vm_category_deleted">تم حذف الفئة بنجاح</string>
+    <string name="vm_category_cannot_delete">لا يمكن حذف هذه الفئة</string>
+    <string name="vm_category_delete_error">خطأ في حذف الفئة: %1$s</string>
+    <string name="vm_category_hidden">تم إخفاء %1$s</string>
+    <string name="vm_category_shown">تم إظهار %1$s</string>
+    <string name="vm_category_update_error">خطأ في تحديث الفئة: %1$s</string>
+
+    <!-- ViewModel messages: SettingsViewModel -->
+    <string name="vm_delete_none">لم تكن هناك معاملات لحذفها.</string>
+    <string name="vm_delete_one">تم حذف معاملة واحدة.</string>
+    <string name="vm_delete_count">تم حذف %1$d معاملة.</string>
+    <string name="vm_arrived_one">وصلت معاملة جديدة واحدة أثناء تنفيذه.</string>
+    <string name="vm_arrived_count">وصلت %1$d معاملات جديدة أثناء تنفيذه.</string>
+    <string name="vm_delete_count_changed">وصلت معاملات جديدة أثناء تأكيدك، لذا لم يُحذف شيء. يوجد الآن %1$d. تحقق من الرقم وحاول مرة أخرى.</string>
+    <string name="vm_delete_failed">تعذّر حذف المعاملات: %1$s</string>
+    <string name="vm_backup_created">تم إنشاء النسخة الاحتياطية بنجاح! اختر مكان حفظها.</string>
+    <string name="vm_export_failed">فشل التصدير: %1$s</string>
+    <string name="vm_export_error">خطأ في التصدير: %1$s</string>
+    <string name="vm_backup_saved">تم حفظ النسخة الاحتياطية بنجاح!</string>
+    <string name="vm_backup_save_failed">تعذّر حفظ النسخة الاحتياطية: %1$s</string>
+    <string name="vm_importing_backup">جارٍ استيراد النسخة الاحتياطية...</string>
+    <string name="vm_import_success">تم الاستيراد بنجاح! استُوردت %1$d معاملة و%2$d فئة. تم تخطي %3$d مكررة.</string>
+    <string name="vm_import_rows_skipped">تعذّر استيراد %1$d صفًا.</string>
+    <string name="vm_import_failed">فشل الاستيراد: %1$s</string>
+    <string name="vm_import_error">خطأ في الاستيراد: %1$s</string>
+    <string name="vm_importing_transactions">جارٍ استيراد المعاملات...</string>
+    <string name="vm_csv_import_success">استُوردت %1$d معاملة، وتم تخطي %2$d مكررة</string>
+    <string name="vm_csv_rows_failed">تعذّر تحليل %1$d صفًا</string>
+    <string name="vm_folder_backup_disabled">تم تعطيل النسخ الاحتياطي التلقائي للمجلد</string>
+    <string name="vm_folder_access_failed">تعذّر الوصول إلى المجلد المحدد: %1$s</string>
+    <string name="vm_select_folder_first">اختر مجلد نسخ احتياطي أولًا</string>
+    <string name="vm_folder_cannot_write">تعذّر الكتابة إلى مجلد النسخ الاحتياطي المحدد</string>
+    <string name="vm_backup_saved_folder">تم حفظ النسخة الاحتياطية في المجلد</string>
+    <string name="vm_folder_backup_enabled">تم تفعيل النسخ الاحتياطي التلقائي للمجلد. تُشغَّل النسخ يوميًا عند الساعة 2:00 صباحًا.</string>
+    <string name="vm_share_backup_title">مشاركة النسخة الاحتياطية</string>
+</resources>

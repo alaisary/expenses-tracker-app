@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Arabic translations for the feature screens. Keys mirror
+  values/strings_features.xml exactly. Latin product names (غوازي, Pro,
+  SMS, AI, UPI, API, PDF, CSV, Google Pay, PhonePe, Paytm, slice) are kept
+  as-is.
+-->
+<resources>
+    <!-- Upgrade sheet -->
+    <string name="feat_upgrade_brand_title">غوازي Pro</string>
+    <string name="feat_upgrade_brand_subtitle_member">جميع ميزات Pro مفعّلة</string>
+    <string name="feat_upgrade_brand_subtitle_upgrade">بلمسة واحدة افتح كل شيء</string>
+    <string name="feat_upgrade_support_note">تطوير مطوّر واحد — ترقيتك تموّل ما هو قادم. شكرًا لك.</string>
+    <string name="feat_upgrade_select_plan">اختر خطة</string>
+    <string name="feat_upgrade_feature_rules">قواعد مخصّصة غير محدودة</string>
+    <string name="feat_upgrade_feature_pdf">استيراد غير محدود لكشوف PDF</string>
+    <string name="feat_upgrade_feature_csv">تصدير CSV غير محدود</string>
+    <string name="feat_upgrade_feature_merge">دمج الحسابات المكرّرة</string>
+    <string name="feat_upgrade_includes">تشمل</string>
+    <string name="feat_upgrade_cancel_anytime">إلغاء في أي وقت</string>
+    <string name="feat_upgrade_on_device_data">بيانات على جهازك</string>
+    <string name="feat_upgrade_restore">استعادة</string>
+    <string name="feat_upgrade_prices_disclaimer">الأسعار المعروضة تقريبية · يؤكّدها متجر Play عند الدفع</string>
+    <string name="feat_upgrade_welcome">مرحبًا</string>
+    <string name="feat_upgrade_celebrate_title">أنت الآن عضو Pro</string>
+    <string name="feat_upgrade_celebrate_subtitle">شكرًا لدعمك غوازي — كل ميزة في القائمة أصبحت لك.</string>
+    <string name="feat_upgrade_continue">متابعة</string>
+    <string name="feat_upgrade_active">نشط</string>
+    <string name="feat_upgrade_all_unlocked">جميع ميزات Pro مفتوحة</string>
+    <string name="feat_upgrade_manage_subscription">إدارة الاشتراك</string>
+
+    <!-- Share card sheet -->
+    <string name="feat_share_no_amounts">لا يتم تضمين أي مبالغ.</string>
+    <string name="feat_share_share">مشاركة</string>
+    <string name="feat_share_done">تم</string>
+    <string name="feat_share_customise">تخصيص</string>
+    <string name="feat_share_show">عرض</string>
+    <string name="feat_share_transactions">المعاملات</string>
+    <string name="feat_share_subscriptions">الاشتراكات</string>
+    <string name="feat_share_no_subs_detected">لم يتم رصد اشتراكات بعد — يعثر عليها غوازي من المدفوعات المتكررة في رسائلك النصية.</string>
+    <string name="feat_share_period">الفترة</string>
+    <string name="feat_share_this_month">هذا الشهر</string>
+    <string name="feat_share_last_month">الشهر الماضي</string>
+    <string name="feat_share_all_time">كل الوقت</string>
+
+    <!-- Exchange rates -->
+    <string name="feat_rates_title">أسعار الصرف</string>
+    <string name="feat_rates_back">رجوع</string>
+    <string name="feat_rates_refresh">تحديث الأسعار</string>
+    <string name="feat_rates_empty_title">لا توجد أسعار صرف متاحة</string>
+    <string name="feat_rates_empty_desc">ستظهر الأسعار عندما تكون لديك معاملات بعملات متعددة</string>
+    <string name="feat_rates_last_updated">آخر تحديث: %1$s</string>
+    <string name="feat_rates_custom_hint">اضغط على أي سعر لتحديد قيمة مخصّصة. تُحفظ الأسعار المخصّصة خلال عمليات تحديث API.</string>
+    <string name="feat_rates_reset_all">إعادة الكل إلى التلقائي</string>
+    <string name="feat_rates_custom">مخصّص</string>
+    <string name="feat_rates_api">API</string>
+    <string name="feat_rates_exchange_rate">سعر الصرف</string>
+    <string name="feat_rates_invalid_number">أدخل رقمًا موجبًا صالحًا</string>
+    <string name="feat_rates_reset_to_auto">إعادة إلى التلقائي</string>
+    <string name="feat_rates_set_custom">تعيين سعر مخصّص</string>
+    <string name="feat_rates_cancel">إلغاء</string>
+
+    <!-- Categories screen -->
+    <string name="feat_categories_title">الفئات</string>
+    <string name="feat_categories_back">رجوع</string>
+    <string name="feat_categories_add_cd">إضافة فئة</string>
+    <string name="feat_categories_expense_section">فئات المصروفات</string>
+    <string name="feat_categories_income_section">فئات الدخل</string>
+    <string name="feat_categories_delete_cd">حذف</string>
+    <string name="feat_categories_show_cd">إظهار الفئة</string>
+    <string name="feat_categories_hide_cd">إخفاء الفئة</string>
+    <string name="feat_categories_system_badge">نظامية</string>
+    <string name="feat_categories_edit_cd">تعديل</string>
+
+    <!-- Category edit dialog -->
+    <string name="feat_category_edit_add_title">إضافة فئة</string>
+    <string name="feat_category_edit_edit_title">تعديل الفئة</string>
+    <string name="feat_category_edit_name_required">اسم الفئة مطلوب</string>
+    <string name="feat_category_edit_name_label">اسم الفئة</string>
+    <string name="feat_category_edit_type_label">نوع الفئة</string>
+    <string name="feat_category_edit_expense">مصروف</string>
+    <string name="feat_category_edit_income">دخل</string>
+    <string name="feat_category_edit_none">بلا</string>
+    <string name="feat_category_edit_parent_label">الفئة الأصلية (اختياري)</string>
+    <string name="feat_category_edit_icon_label">الأيقونة (رمز تعبيري، اختياري)</string>
+    <string name="feat_category_edit_icon_placeholder">اضغط لاختيار رمز تعبيري</string>
+    <string name="feat_category_edit_clear_icon">مسح الأيقونة</string>
+    <string name="feat_category_edit_color">اللون</string>
+    <string name="feat_category_edit_preview">معاينة</string>
+    <string name="feat_category_edit_name_placeholder">اسم الفئة</string>
+    <string name="feat_category_edit_cancel">إلغاء</string>
+    <string name="feat_category_edit_add">إضافة</string>
+    <string name="feat_category_edit_save">حفظ</string>
+    <string name="feat_category_edit_delete_category">حذف الفئة</string>
+    <string name="feat_category_edit_delete_confirm_title">حذف الفئة؟</string>
+    <string name="feat_category_edit_delete_confirm_text">ستتم إزالة \"%1$s\". ستحتفظ المعاملات الحالية بتصنيفها الحالي. لا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="feat_category_edit_delete">حذف</string>
+
+    <!-- Statement import -->
+    <string name="feat_import_title">استيراد كشف حساب</string>
+    <string name="feat_import_back">رجوع</string>
+    <string name="feat_import_idle_desc">استورد المعاملات من كشوف PDF الخاصة بـ Google Pay أو PhonePe أو Paytm أو slice. يتم رصد المعاملات المكرّرة وتخطّيها تلقائيًا.</string>
+    <string name="feat_import_select_pdf">اختيار كشف PDF</string>
+    <string name="feat_import_loading_title">جارٍ استيراد المعاملات...</string>
+    <string name="feat_import_loading_desc">تحليل PDF والتحقق من المعاملات المكرّرة</string>
+    <string name="feat_import_success_title">اكتمل الاستيراد</string>
+    <string name="feat_import_row_imported">المعاملات المستوردة</string>
+    <string name="feat_import_row_enriched">المعاملات المعزّزة</string>
+    <string name="feat_import_row_total">الإجمالي المستخرَج من PDF</string>
+    <string name="feat_import_duplicates_skipped">المكرّرة المتخطّاة: %1$d</string>
+    <string name="feat_import_row_exact">عمليات إعادة الاستيراد المطابقة</string>
+    <string name="feat_import_row_upi">حسب مرجع UPI</string>
+    <string name="feat_import_row_amount_date">حسب المبلغ والتاريخ</string>
+    <string name="feat_import_import_another">استيراد كشف آخر</string>
+    <string name="feat_import_done">تم</string>
+    <string name="feat_import_failed_title">فشل الاستيراد</string>
+    <string name="feat_import_try_again">حاول مرة أخرى</string>
+
+    <!-- Unrecognized SMS -->
+    <string name="feat_sms_title">رسائل SMS غير المعروفة</string>
+    <string name="feat_sms_back">رجوع</string>
+    <string name="feat_sms_header_title">رسائل بنكية غير معروفة</string>
+    <string name="feat_sms_header_desc">تعذّر تحليل هذه الرسائل من بنوك محتملة تلقائيًا. ساعد في تحسين غوازي بالإبلاغ عنها لنتمكّن من دعم مزيد من البنوك.</string>
+    <string name="feat_sms_show_reported">عرض المُبلَّغ عنها</string>
+    <string name="feat_sms_new_count">%1$d جديد</string>
+    <string name="feat_sms_reported_count">%1$d مُبلَّغ عنه</string>
+    <string name="feat_sms_empty_title">تم التعرّف على جميع الرسائل</string>
+    <string name="feat_sms_empty_desc">لا توجد رسائل بنكية غير معروفة</string>
+    <string name="feat_sms_delete_title">حذف الرسالة</string>
+    <string name="feat_sms_delete_text">هل أنت متأكد من حذف هذه الرسالة غير المعروفة؟ لا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="feat_sms_delete">حذف</string>
+    <string name="feat_sms_cancel">إلغاء</string>
+    <string name="feat_sms_reported">مُبلَّغ عنها</string>
+    <string name="feat_sms_report">إبلاغ</string>
+    <string name="feat_sms_report_cd">إبلاغ</string>
+    <string name="feat_sms_delete_cd">حذف</string>
+</resources>

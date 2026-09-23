@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Settings screen strings (Arabic). Kept in its own file so screen-level
+  extraction stays reviewable; Android merges every res/values-ar/*.xml. Keys
+  shared with the language picker and support dialog live in strings_i18n.xml /
+  strings.xml.
+-->
+<resources>
+    <!-- Screen chrome -->
+    <string name="settings_title">الإعدادات</string>
+    <string name="settings_back_cd">رجوع</string>
+
+    <!-- غوازي Pro -->
+    <string name="settings_pro_title">غوازي Pro</string>
+    <string name="settings_pro_upgrade_title">الترقية إلى غوازي Pro</string>
+    <string name="settings_pro_active_subtitle">مُفعّل · جميع المزايا القوية متاحة</string>
+    <string name="settings_pro_upgrade_subtitle">قواعد وكشوف حساب وعمليات تصدير غير محدودة، والمزيد</string>
+
+    <!-- Personalization -->
+    <string name="settings_personalization_section">التخصيص</string>
+    <string name="settings_appearance_title">المظهر</string>
+    <string name="settings_appearance_subtitle">الثيم والألوان والخطوط والتنقل</string>
+
+    <!-- Currency -->
+    <string name="settings_currency_section">العملة</string>
+    <string name="settings_currency_label">العملة</string>
+    <string name="settings_unified_currency_title">وضع العملة الموحّدة</string>
+    <string name="settings_unified_currency_subtitle">حوّل كل المعاملات إلى عملة العرض</string>
+    <string name="settings_display_currency_title">عملة العرض</string>
+    <string name="settings_display_currency_subtitle">تظهر جميع المبالغ بهذه العملة</string>
+    <string name="settings_exchange_rates_title">أسعار الصرف</string>
+    <string name="settings_exchange_rates_subtitle">اعرض الأسعار وخصّصها</string>
+    <string name="settings_count_card_spend_title">احتساب الإنفاق بالبطاقة كمصروف</string>
+    <string name="settings_count_card_spend_subtitle">ضمّن إنفاق البطاقة الائتمانية في \"المصروف هذا الشهر\"</string>
+    <string name="settings_default_currency_title">العملة الافتراضية</string>
+    <string name="settings_default_currency_subtitle">العملة المستخدمة في التحويلات</string>
+    <string name="settings_main_account_title">الحساب الرئيسي</string>
+    <string name="settings_main_account_subtitle">يحدّد عملتك الافتراضية</string>
+    <string name="settings_not_set">غير محدَّد</string>
+    <string name="settings_number_format_title">تنسيق الأرقام</string>
+    <string name="settings_number_format_subtitle">كيفية تجميع المبالغ الكبيرة</string>
+    <string name="settings_number_format_auto">تلقائي</string>
+    <string name="settings_number_format_indian">هندي</string>
+    <string name="settings_number_format_international">دولي</string>
+    <string name="settings_number_format_example_auto">يطابق كل عملة (₹1,50,000 · $150,000)</string>
+    <string name="settings_number_format_example_indian">1,50,000 (لاك / كرور)</string>
+    <string name="settings_number_format_example_international">150,000 (ألف / مليون)</string>
+
+    <!-- Budget -->
+    <string name="settings_budget_section">الميزانية</string>
+    <string name="settings_budget_cycle_title">يوم بدء دورة الميزانية</string>
+    <string name="settings_budget_cycle_subtitle">يغيّر بداية كل دورة ميزانية شهرية؛ مثلًا 25 تعني أن دورتك تمتد من 25 إلى 24</string>
+    <string name="settings_budget_cycle_dialog_body">اختر اليوم الذي تبدأ فيه كل دورة ميزانية شهرية. مثلًا 25 تعني أن الدورة تمتد من اليوم 25 حتى 24 من الشهر التالي.</string>
+
+    <!-- Contacts -->
+    <string name="settings_contacts_section">جهات الاتصال</string>
+    <string name="settings_contacts_replace_title">استبدال عناوين UPI بأسماء جهات الاتصال</string>
+    <string name="settings_contacts_replace_subtitle">اعرض \'John Doe\' بدلًا من \'9876543210@paytm\'. يحتاج إلى إذن جهات الاتصال.</string>
+
+    <!-- Security -->
+    <string name="settings_security_section">الأمان</string>
+    <string name="settings_app_lock_title">قفل التطبيق</string>
+    <string name="settings_app_lock_subtitle">احمِ بياناتك بالمصادقة الحيوية</string>
+    <string name="settings_lock_timeout_title">مهلة القفل</string>
+    <string name="settings_lock_immediately">اقفل فورًا</string>
+    <string name="settings_lock_after_1_minute">بعد دقيقة واحدة</string>
+    <string name="settings_lock_after_minutes">بعد %1$d دقائق</string>
+    <string name="settings_lock_timeout_dialog_body">اختر متى يُقفل التطبيق بعد انتقاله إلى الخلفية</string>
+    <string name="settings_timeout_immediately">فورًا</string>
+    <string name="settings_timeout_1_minute">دقيقة واحدة</string>
+    <string name="settings_timeout_5_minutes">5 دقائق</string>
+    <string name="settings_timeout_15_minutes">15 دقيقة</string>
+    <string name="settings_done">تم</string>
+
+    <!-- Data Management -->
+    <string name="settings_data_management_section">إدارة البيانات</string>
+    <string name="settings_manage_accounts_title">إدارة الحسابات</string>
+    <string name="settings_manage_accounts_subtitle">اعرض حساباتك البنكية وأدِرها</string>
+    <string name="settings_categories_title">الفئات</string>
+    <string name="settings_categories_subtitle">أدِر فئات المصروفات والإيرادات</string>
+    <string name="settings_smart_rules_title">القواعد الذكية</string>
+    <string name="settings_smart_rules_subtitle">تصنيف المعاملات تلقائيًا</string>
+    <string name="settings_budgets_title">الميزانيات</string>
+    <string name="settings_budgets_subtitle">تابع حدود الإنفاق حسب الفئة</string>
+    <string name="settings_loans_title">القروض</string>
+    <string name="settings_loans_subtitle">تابع الأموال المُقرَضة والمُقترَضة</string>
+    <string name="settings_recurring_title">المعاملات المتكررة</string>
+    <string name="settings_recurring_subtitle">أضِف المعاملات النقدية المجدولة واليدوية تلقائيًا</string>
+    <string name="settings_transaction_groups_title">مجموعات المعاملات</string>
+    <string name="settings_transaction_groups_subtitle">نظّم المعاملات ضمن موضوع واحد</string>
+    <string name="settings_export_data_title">تصدير البيانات</string>
+    <string name="settings_export_data_subtitle">احفظ كل البيانات في ملف احتياطي</string>
+    <string name="settings_folder_backup_title">النسخ الاحتياطي التلقائي إلى مجلد</string>
+    <string name="settings_folder_backup_daily_subtitle">نسخة احتياطية يوميًا في 2:00 صباحًا إلى مجلدك المختار</string>
+    <string name="settings_folder_backup_pro_subtitle">Pro · احفظ نسخة احتياطية في مجلد كل يوم في 2:00 صباحًا</string>
+    <string name="settings_folder_backup_subtitle">احفظ نسخة احتياطية في مجلد كل يوم في 2:00 صباحًا</string>
+    <string name="settings_backup_now_title">انسخ احتياطيًا الآن</string>
+    <string name="settings_backup_last">آخر نسخة احتياطية: %1$s</string>
+    <string name="settings_backup_now_subtitle">شغّل نسخة احتياطية إلى مجلدك الآن</string>
+    <string name="settings_change_backup_folder_title">تغيير مجلد النسخ الاحتياطي</string>
+    <string name="settings_change_backup_folder_subtitle">اختر مجلدًا مختلفًا للنسخ الاحتياطي التلقائي</string>
+    <string name="settings_import_data_title">استيراد البيانات</string>
+    <string name="settings_import_data_subtitle">استعِد البيانات من نسخة احتياطية</string>
+    <string name="settings_import_csv_title">استيراد المعاملات (CSV)</string>
+    <string name="settings_import_csv_subtitle">استورِد من ملف CSV مُصدَّر من غوازي</string>
+    <string name="settings_import_statement_title">استيراد كشف حساب</string>
+    <string name="settings_import_statement_subtitle">استورِد من GPay وPhonePe وPaytm</string>
+    <string name="settings_unrecognized_sms_title">رسائل SMS غير المعروفة</string>
+    <string name="settings_unrecognized_sms_subtitle">اعرض رسائل البنوك غير المدعومة وأبلغ عنها</string>
+    <string name="settings_sms_scan_title">فترة فحص SMS</string>
+    <string name="settings_sms_scan_dialog_body">اختر إلى أي مدى تريد فحص رسائل SMS بحثًا عن المعاملات</string>
+    <string name="settings_sms_scan_all_subtitle">افحص جميع رسائل SMS</string>
+    <string name="settings_sms_scan_from_date">افحص من %1$s حتى اليوم</string>
+    <string name="settings_sms_scan_custom_subtitle">افحص من تاريخ بدء مخصص حتى اليوم</string>
+    <string name="settings_sms_scan_last_months">افحص آخر %1$d أشهر</string>
+    <string name="settings_sms_scan_all_time">كل الوقت</string>
+    <string name="settings_sms_scan_custom">مخصص</string>
+    <string name="settings_sms_scan_months_short">%1$d شهر</string>
+    <string name="settings_sms_scan_months">%1$d أشهر</string>
+    <string name="settings_sms_scan_1_month">شهر واحد</string>
+    <string name="settings_sms_scan_2_years">سنتان</string>
+    <string name="settings_sms_scan_custom_date">تاريخ مخصص (%1$s)</string>
+    <string name="settings_sms_scan_custom_date_none">تاريخ مخصص</string>
+    <string name="settings_delete_all_title">حذف كل المعاملات</string>
+    <string name="settings_delete_all_subtitle">امسح سجل معاملاتك — تبقى الحسابات والميزانيات</string>
+
+    <!-- Notifications -->
+    <string name="settings_notifications_section">الإشعارات</string>
+    <string name="settings_bank_notif_title">الوصول إلى إشعارات البنك</string>
+    <string name="settings_enabled">مُفعّل</string>
+    <string name="settings_bank_notif_subtitle">اضغط لتفعيل إشعارات تطبيقات البنوك</string>
+    <string name="settings_on">تشغيل</string>
+    <string name="settings_off">إيقاف</string>
+
+    <!-- Developer -->
+    <string name="settings_developer_section">المطوّر</string>
+    <string name="settings_developer_mode_title">وضع المطوّر</string>
+    <string name="settings_developer_mode_subtitle">اعرض المعلومات التقنية</string>
+
+    <!-- Support & Community -->
+    <string name="settings_support_section">الدعم والمجتمع</string>
+    <string name="settings_help_faq_title">المساعدة والأسئلة الشائعة</string>
+    <string name="settings_help_faq_subtitle">الأسئلة الشائعة والمساعدة</string>
+    <string name="settings_report_issue_title">الإبلاغ عن مشكلة</string>
+    <string name="settings_report_issue_subtitle">أرسِل تقارير الأخطاء على GitHub</string>
+
+    <!-- Version -->
+    <string name="settings_app_version">غوازي v%1$s</string>
+    <string name="settings_author_credit">من خالد الحارثي</string>
+
+    <!-- Shared dialog buttons -->
+    <string name="settings_cancel">إلغاء</string>
+    <string name="settings_ok">موافق</string>
+
+    <!-- Delete-all-transactions dialog -->
+    <string name="settings_delete_all_dialog_title">هل تريد حذف كل المعاملات؟</string>
+    <string name="settings_delete_single_body">سيؤدي هذا إلى حذف معاملتك الواحدة نهائيًا مع تقسيماتها ووسومها. لا يمكن التراجع عن ذلك.</string>
+    <string name="settings_delete_many_body">سيؤدي هذا إلى حذف جميع المعاملات (%1$d) نهائيًا مع تقسيماتها ووسومها. لا يمكن التراجع عن ذلك.</string>
+    <string name="settings_delete_kept_body">تبقى حساباتك وميزانياتك وقروضك وفئاتك وقواعدك. صدّر البيانات أولًا إن كنت قد تحتاج هذا السجل لاحقًا.</string>
+    <string name="settings_delete_confirm_hint">اكتب DELETE للتأكيد</string>
+    <string name="settings_deleting">جارٍ الحذف…</string>
+    <string name="settings_delete_all_button">حذف الكل</string>
+    <string name="settings_transactions_title">المعاملات</string>
+
+    <!-- Backup / import status dialogs -->
+    <string name="settings_backup_status_title">حالة النسخ الاحتياطي</string>
+    <string name="settings_save_backup_title">حفظ نسخة احتياطية</string>
+    <string name="settings_backup_created">تم إنشاء النسخة الاحتياطية بنجاح!</string>
+    <string name="settings_save_backup_prompt">اختر كيف تريد حفظها:</string>
+    <string name="settings_save_to_files">الحفظ في الملفات</string>
+    <string name="settings_share">مشاركة</string>
+</resources>

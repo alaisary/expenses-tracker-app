@@ -1,0 +1,165 @@
+<resources>
+    <!-- Subscriptions -->
+    <string name="sched_title_subscriptions">الاشتراكات</string>
+    <string name="sched_subscription_hidden">تم إخفاء %1$s</string>
+    <string name="sched_subscription_ended">تم إنهاء %1$s</string>
+    <string name="sched_add_subscription">إضافة اشتراك</string>
+    <string name="sched_active_subscriptions">الاشتراكات النشطة</string>
+    <string name="sched_empty_subscriptions_headline">لم يتم اكتشاف أي اشتراكات بعد</string>
+    <string name="sched_empty_subscriptions_description">زامن رسائل SMS لاكتشاف الاشتراكات</string>
+    <string name="sched_cancelled_count">الملغاة (%1$d)</string>
+    <string name="sched_collapse">طيّ</string>
+    <string name="sched_expand">توسيع</string>
+    <string name="sched_reactivate">إعادة التنشيط</string>
+    <string name="sched_delete_subscription_title">حذف الاشتراك؟</string>
+    <string name="sched_delete_subscription_message">هل تريد حذف \'%1$s\' نهائيًا؟ لا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="sched_no_active_subscriptions">لا توجد اشتراكات نشطة</string>
+    <string name="sched_active_subscription_count">الاشتراكات النشطة: %1$d</string>
+    <string name="sched_all_paid_this_cycle">تم دفع جميع %1$d هذه الدورة</string>
+    <string name="sched_paid_of_total_this_cycle">تم دفع %1$d من %2$d هذه الدورة</string>
+    <string name="sched_monthly_subscriptions">الاشتراكات الشهرية</string>
+    <string name="sched_hide">إخفاء</string>
+    <string name="sched_sms_available">SMS متاح</string>
+    <string name="sched_no_date_set">لم يُحدد تاريخ</string>
+    <string name="sched_due_today">مستحق اليوم</string>
+    <string name="sched_due_tomorrow">مستحق غدًا</string>
+    <string name="sched_due_in_days">مستحق خلال %1$d أيام</string>
+    <string name="sched_paid_date">مدفوع %1$s</string>
+    <string name="sched_mark_as_paid">وضع علامة كمدفوع</string>
+    <string name="sched_view_source">عرض المصدر</string>
+    <string name="sched_end_subscription">إنهاء الاشتراك</string>
+    <string name="sched_notes">ملاحظات</string>
+    <string name="sched_original_sms">SMS الأصلي</string>
+    <string name="sched_remove_subscription_message">سيتم حذف \"%1$s\" نهائيًا. لا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="sched_edit_subscription">تعديل الاشتراك</string>
+    <string name="sched_amount_with_currency">المبلغ (%1$s)</string>
+    <string name="sched_tap_to_set">اضغط للتعيين</string>
+    <string name="sched_next_payment_date">تاريخ الدفعة التالية</string>
+    <string name="sched_category_optional">الفئة (اختياري)</string>
+    <string name="sched_no_account">لا يوجد حساب</string>
+    <string name="sched_paid_from">دُفع من</string>
+    <string name="sched_pick_account">اختر حسابًا</string>
+    <string name="sched_selected">محدد</string>
+
+    <!-- Mark as paid sheet -->
+    <string name="sched_eyebrow_mark_received">وضع علامة كمستلم</string>
+    <string name="sched_eyebrow_mark_paid">وضع علامة كمدفوع</string>
+    <string name="sched_mark_received">وضع علامة مستلم</string>
+    <string name="sched_mark_paid">وضع علامة مدفوع</string>
+    <string name="sched_already_marked_paid_on">تم وضع علامة مدفوع مسبقًا في %1$s</string>
+    <string name="sched_matching_payments">المدفوعات المطابقة: %1$d</string>
+    <string name="sched_when">متى؟</string>
+    <string name="sched_cta_with_amount">%1$s · %2$s</string>
+    <string name="sched_income_roll_schedule">سنُسجّل دخلًا بقيمة %1$s وننقل الجدول إلى الدورة التالية.</string>
+    <string name="sched_expense_roll_schedule">سنُسجّل المصروف وننقل الجدول إلى الدورة التالية.</string>
+    <string name="sched_link_this_payment">ربط هذه الدفعة</string>
+    <string name="sched_or_mark_today">أو ضع علامة اليوم</string>
+    <string name="sched_today">اليوم</string>
+    <string name="sched_yesterday">أمس</string>
+
+    <!-- Recurring transactions -->
+    <string name="sched_recurring">المتكررة</string>
+    <string name="sched_add_recurring_transaction">إضافة معاملة متكررة</string>
+    <string name="sched_empty_recurring_headline">لا توجد معاملات متكررة</string>
+    <string name="sched_empty_recurring_description">جدول المصروف النقدي أو اليدوي ليُضاف تلقائيًا — الإيجار أو مصروف الجيب أو عامل التنظيف الأسبوعي.</string>
+    <string name="sched_active">نشط</string>
+    <string name="sched_paused">متوقف</string>
+    <string name="sched_untitled">بلا عنوان</string>
+    <string name="sched_frequency_next">%1$s · التالي %2$s</string>
+    <string name="sched_pause">إيقاف مؤقت</string>
+    <string name="sched_resume">استئناف</string>
+    <string name="sched_delete_recurring_title">حذف المعاملة المتكررة؟</string>
+    <string name="sched_delete_recurring_message">سيتوقف \"%1$s\" عن الإضافة تلقائيًا. لا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="sched_new_recurring">معاملة متكررة جديدة</string>
+    <string name="sched_edit_recurring">تعديل المتكررة</string>
+    <string name="sched_amount">المبلغ</string>
+    <string name="sched_currency">العملة</string>
+    <string name="sched_expense">مصروف</string>
+    <string name="sched_income">دخل</string>
+    <string name="sched_category">الفئة</string>
+    <string name="sched_frequency">التكرار</string>
+    <string name="sched_day_of_month">يوم الشهر (1-31)</string>
+    <string name="sched_any">أي</string>
+    <string name="sched_day_of_week">يوم الأسبوع</string>
+    <string name="sched_note_optional">ملاحظة (اختياري)</string>
+    <string name="sched_day_mon">الإثنين</string>
+    <string name="sched_day_tue">الثلاثاء</string>
+    <string name="sched_day_wed">الأربعاء</string>
+    <string name="sched_day_thu">الخميس</string>
+    <string name="sched_day_fri">الجمعة</string>
+    <string name="sched_day_sat">السبت</string>
+    <string name="sched_day_sun">الأحد</string>
+
+    <!-- Loans -->
+    <string name="sched_loans">القروض</string>
+    <string name="sched_empty_loans_headline">لا توجد قروض بعد</string>
+    <string name="sched_empty_loans_description">ضع علامة \"أقرضت\" أو \"اقترضت\" على معاملة لبدء التتبع</string>
+    <string name="sched_settled_count">المسوّاة (%1$d)</string>
+    <string name="sched_owed_to_you">مستحق لك</string>
+    <string name="sched_you_owe">مستحق عليك</string>
+    <string name="sched_lent">أقرضت</string>
+    <string name="sched_borrowed">اقترضت</string>
+    <string name="sched_settled">مسوّاة</string>
+    <string name="sched_of_amount">من %1$s</string>
+
+    <!-- Loan detail -->
+    <string name="sched_loan">قرض</string>
+    <string name="sched_set_expected_return">تعيين تاريخ الإرجاع المتوقع</string>
+    <string name="sched_settle">تسوية</string>
+    <string name="sched_reopen">إعادة الفتح</string>
+    <string name="sched_record_payment">تسجيل دفعة</string>
+    <string name="sched_remaining_of">المتبقي من %1$s</string>
+    <string name="sched_percent_repaid">تم سداد %1$d%%</string>
+    <string name="sched_history">السجل</string>
+    <string name="sched_settle_loan_title">تسوية القرض</string>
+    <string name="sched_settle_loan_message">هل تريد وضع علامة تسوية على هذا القرض؟ سيتم التنازل عن أي رصيد متبقٍ.</string>
+    <string name="sched_expected_return">الإرجاع المتوقع</string>
+    <string name="sched_amount_expected_back">المبلغ المتوقع إرجاعه</string>
+    <string name="sched_delete_loan_title">حذف القرض</string>
+    <string name="sched_delete_loan_message">هل تريد حذف هذا القرض؟ سيتم إلغاء ربط المعاملات المرتبطة به دون حذفها.</string>
+    <string name="sched_original">الأصلي</string>
+    <string name="sched_record_payment_from">تسجيل دفعة من %1$s</string>
+    <string name="sched_amount_remaining">المتبقي %1$s</string>
+    <string name="sched_link_existing_transaction">ربط معاملة موجودة</string>
+    <string name="sched_or_enter_manually">أو أدخل يدويًا</string>
+    <string name="sched_enter_amount">أدخل المبلغ</string>
+
+    <!-- Transaction groups -->
+    <string name="sched_transaction_groups">مجموعات المعاملات</string>
+    <string name="sched_create_group">إنشاء مجموعة</string>
+    <string name="sched_empty_groups_headline">لا توجد مجموعات بعد</string>
+    <string name="sched_empty_groups_description">أنشئ مجموعة لتنظيم المعاملات المرتبطة</string>
+    <string name="sched_transaction_count">المعاملات: %1$d</string>
+    <string name="sched_new_group">مجموعة جديدة</string>
+    <string name="sched_group_name">اسم المجموعة</string>
+    <string name="sched_group">مجموعة</string>
+    <string name="sched_export_csv">تصدير CSV</string>
+    <string name="sched_add_transaction">إضافة معاملة</string>
+    <string name="sched_transactions">المعاملات</string>
+    <string name="sched_expenses">المصروفات</string>
+    <string name="sched_no_transactions_yet">لا توجد معاملات بعد</string>
+    <string name="sched_tap_plus_add_transactions">اضغط + لإضافة معاملات إلى هذه المجموعة</string>
+    <string name="sched_delete_group_title">حذف المجموعة</string>
+    <string name="sched_delete_group_message">هل تريد حذف هذه المجموعة؟ سيتم إلغاء تجميع المعاملات المرتبطة دون حذفها.</string>
+    <string name="sched_remove_from_group">إزالة من المجموعة</string>
+    <string name="sched_add_transactions">إضافة معاملات</string>
+    <string name="sched_search_transactions">ابحث في المعاملات…</string>
+    <string name="sched_no_ungrouped_transactions">لا توجد معاملات غير مجمّعة</string>
+    <string name="sched_no_results">لا توجد نتائج</string>
+    <string name="sched_edit_group">تعديل المجموعة</string>
+
+    <!-- Shared -->
+    <string name="sched_back">رجوع</string>
+    <string name="sched_undo">تراجع</string>
+    <string name="sched_delete">حذف</string>
+    <string name="sched_cancel">إلغاء</string>
+    <string name="sched_save">حفظ</string>
+    <string name="sched_ok">حسنًا</string>
+    <string name="sched_edit">تعديل</string>
+    <string name="sched_more">المزيد</string>
+    <string name="sched_more_options">المزيد من الخيارات</string>
+    <string name="sched_name">الاسم</string>
+    <string name="sched_pick_date">اختر التاريخ</string>
+    <string name="sched_add">إضافة</string>
+    <string name="sched_create">إنشاء</string>
+</resources>

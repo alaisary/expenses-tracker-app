@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Strings for the "Add transaction" feature (AddScreen + tab contents).
+  Kept in its own file (Android merges every res/values/*.xml) so screen-level
+  extraction stays reviewable.
+-->
+<resources>
+    <!-- Screen chrome -->
+    <string name="add_title">إضافة جديد</string>
+    <string name="add_back">رجوع</string>
+    <string name="add_tab_transaction">معاملة</string>
+    <string name="add_tab_subscription">اشتراك</string>
+
+    <!-- Shared actions -->
+    <string name="add_save">حفظ</string>
+    <string name="add_ok">موافق</string>
+    <string name="add_cancel">إلغاء</string>
+    <string name="add_clear">مسح</string>
+    <string name="add_selected">محدد</string>
+
+    <!-- Transaction tab -->
+    <string name="add_amount_label">المبلغ *</string>
+    <string name="add_merchant_label">التاجر</string>
+    <string name="add_notes_optional">ملاحظات (اختياري)</string>
+    <string name="add_am">ص</string>
+    <string name="add_pm">م</string>
+    <string name="add_from_account">من حساب</string>
+    <string name="add_to_account">إلى حساب</string>
+    <string name="add_select_account">اختر الحساب</string>
+    <string name="add_category_label">الفئة</string>
+    <string name="add_no_account_manual">بدون حساب (إدخال يدوي)</string>
+    <string name="add_no_account_manual_subtitle">لن يؤثر على رصيد الحساب</string>
+    <string name="add_select_time">اختر الوقت</string>
+    <string name="add_receipt_optional">الإيصال (اختياري)</string>
+    <string name="add_receipt">إيصال</string>
+    <string name="add_remove_receipt">إزالة الإيصال</string>
+    <string name="add_gallery">المعرض</string>
+    <string name="add_camera">الكاميرا</string>
+
+    <!-- Budget impact -->
+    <string name="add_budget_impact">تأثير الميزانية</string>
+    <string name="add_budget_none">بدون</string>
+    <string name="add_budget_refund">استرداد</string>
+    <string name="add_budget_extra">ميزانية إضافية</string>
+    <string name="add_select_category">اختر الفئة</string>
+    <string name="add_budget_category_label">فئة الميزانية</string>
+    <string name="add_no_budget_categories">لا توجد فئات ميزانية</string>
+
+    <!-- Subscription tab -->
+    <string name="add_direction_expense">مصروف</string>
+    <string name="add_direction_income">دخل</string>
+    <string name="add_sub_info_income">تابع الدخل المتكرر (تعبئة المحفظة، المصروف). تُنشأ المعاملة تلقائيًا في كل تاريخ مجدول.</string>
+    <string name="add_sub_info_expense">تابع المصروفات المتكررة. ستحتاج إلى إضافة المعاملات يدويًا كل شهر.</string>
+    <string name="add_billing_cycle_label">دورة الفوترة</string>
+    <string name="add_service_name_label">اسم الخدمة *</string>
+    <string name="add_paid_from_optional">الدفع من (اختياري)</string>
+    <string name="add_no_account">بدون حساب</string>
+    <string name="add_no_balance_impact">لن يؤثر على أي رصيد</string>
+</resources>

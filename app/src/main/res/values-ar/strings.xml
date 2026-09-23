@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">غوازي</string>
+    <string name="widget_name_budget">نظرة عامة على الميزانية</string>
+    <string name="widget_description_budget">يعرض تقدّم ميزانيتك الشهرية ومدخراتك وبدلك اليومي بلمحة.</string>
+    <string name="widget_loading">جارٍ تحميل الودجة…</string>
+    <string name="widget_name_recent">المعاملات الأخيرة</string>
+    <string name="widget_description_recent">اطّلع على إنفاقك الشهري وأحدث معاملاتك بلمحة.</string>
+    <string name="widget_name_category_pie">إنفاق الفئات</string>
+    <string name="widget_description_category_pie">إنفاق هذا الشهر حسب الفئة كمخطط دائري مع مفتاح.</string>
+    <string name="widget_name_add_transaction">إضافة معاملة</string>
+    <string name="widget_description_add_transaction">اضغط لإضافة معاملة يدويًا بسرعة دون فتح التطبيق.</string>
+
+    <!-- Quick-add entry points: QS tile + launcher long-press shortcut -->
+    <string name="tile_add_transaction">إضافة معاملة</string>
+    <string name="shortcut_add_transaction_short">إضافة</string>
+    <string name="shortcut_add_transaction_long">إضافة معاملة</string>
+
+    <string name="support_title">ادعم التطوير</string>
+    <string name="support_subtitle">طوّره مطوّر واحد — بقشيش صغير يبقيه مستمرًا 🦉</string>
+    <string name="support_dialog_body">غوازي مجاني ومفتوح المصدر، طوّره مطوّر واحد. إذا كان مفيدًا لك، بقشيش صغير يساعد في استمراره 🦉</string>
+    <string name="support_pay_via_upi">الدفع عبر UPI</string>
+    <string name="support_close">إغلاق</string>
+    <string name="support_copy_upi_id">نسخ معرّف UPI</string>
+    <string name="support_copied_toast">تم نسخ معرّف UPI</string>
+    <string name="support_no_upi_app">لم يتم العثور على تطبيق UPI. انسخ معرّف UPI بدلًا من ذلك.</string>
+    <string name="support_nudge_body">أعجبك غوازي؟ ادعم التطوير 💛</string>
+</resources>

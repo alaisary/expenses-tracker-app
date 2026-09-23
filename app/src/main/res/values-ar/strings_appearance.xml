@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Appearance screen: title -->
+    <string name="appr_appearance_title">المظهر</string>
+
+    <!-- Appearance screen: AMOLED / blur toggles -->
+    <string name="appr_amoled_black">أسود AMOLED</string>
+    <string name="appr_amoled_black_subtitle">استخدم خلفية سوداء نقية لتباين أعمق</string>
+    <string name="appr_blur_effects">تأثيرات الضبابية</string>
+    <string name="appr_blur_effects_subtitle">تفعيل تأثيرات الضبابية الزجاجية في عناصر الواجهة</string>
+
+    <!-- Appearance screen: section headers -->
+    <string name="appr_section_navigation">التنقل</string>
+    <string name="appr_section_cover_style">نمط الغلاف</string>
+    <string name="appr_section_fonts">الخطوط</string>
+
+    <!-- Shared content descriptions -->
+    <string name="appr_back">رجوع</string>
+    <string name="appr_selected">محدَّد</string>
+
+    <!-- Theme mode selector -->
+    <string name="appr_theme_mode_system">النظام</string>
+    <string name="appr_theme_mode_light">فاتح</string>
+    <string name="appr_theme_mode_dark">داكن</string>
+
+    <!-- Theme style selector -->
+    <string name="appr_theme_style_dynamic">ديناميكي</string>
+    <string name="appr_theme_style_dynamic_desc">ألوان الخلفية</string>
+    <string name="appr_theme_style_default">الافتراضي</string>
+    <string name="appr_theme_style_default_desc">ألوان Rose Pine</string>
+
+    <!-- Accent color preview sample -->
+    <string name="appr_color_sample">أبج</string>
+
+    <!-- Navigation bar style selector -->
+    <string name="appr_nav_floating">عائم</string>
+    <string name="appr_nav_floating_desc">عصري وأنيق</string>
+    <string name="appr_nav_normal">عادي</string>
+    <string name="appr_nav_normal_desc">قياسي M3</string>
+
+    <!-- Cover style selector -->
+    <string name="appr_cover_none">بلا</string>
+
+    <!-- Font selector -->
+    <string name="appr_font_default">الافتراضي</string>
+    <string name="appr_font_system">النظام</string>
+    <string name="appr_font_sn_pro">SN Pro</string>
+    <string name="appr_font_sn_pro_desc">أحادي عصري</string>
+
+    <!-- FAQ screen: title -->
+    <string name="appr_faq_title">الأسئلة الشائعة</string>
+
+    <!-- FAQ: Transaction Types -->
+    <string name="appr_faq_cat_transaction_types">أنواع المعاملات</string>
+    <string name="appr_faq_q_wallet_credit">لماذا تُصنَّف معاملات المحفظة على أنها ائتمان؟</string>
+    <string name="appr_faq_a_wallet_credit">تُصنَّف معاملات المحفظة (Amazon Pay وPaytm وما شابه) على أنها ائتمان لأنها تُخصم أولاً من حسابك البنكي أو بطاقتك الائتمانية، وليس مباشرةً كخصم بنكي. يساعد ذلك في تتبّع وسيلة الدفع الفعلية المستخدمة.</string>
+    <string name="appr_faq_q_transaction_types">ما الفرق بين أنواع المعاملات الخمسة؟</string>
+    <string name="appr_faq_a_transaction_types">• مصروف: أموال تخرج من حسابك (خصومات، مشتريات، دفع فواتير)\n• دخل: أموال تدخل إلى حسابك (راتب، استرداد، استرداد نقدي)\n• استثمار: صناديق مشتركة، أسهم، خطط SIP، حسابات تداول\n• ائتمان: معاملات بطاقات الائتمان ومدفوعات المحافظ (أموال ستدفعها لاحقاً)\n• تحويل: أموال تُنقل بين حساباتك الشخصية (تحويلات ذاتية)</string>
+    <string name="appr_faq_q_transfer_vs_expense">متى أستخدم التحويل مقابل المصروف؟</string>
+    <string name="appr_faq_a_transfer_vs_expense">استخدم التحويل عند نقل الأموال بين حساباتك الشخصية (مثل من حساب التوفير إلى الحساب الجاري). لا تؤثر هذه على صافي ثروتك. واستخدم المصروف للنفقات الفعلية.</string>
+
+    <!-- FAQ: SMS Parsing -->
+    <string name="appr_faq_cat_sms_parsing">تحليل رسائل SMS</string>
+    <string name="appr_faq_q_sms_not_detected">لماذا لا يتم اكتشاف رسائل SMS البنكية؟</string>
+    <string name="appr_faq_a_sms_not_detected">تحقق من دعم بنكك في قائمتنا. وإن لم يكن مدعوماً، أبلغنا عبر GitHub. تأكد من منح صلاحيات SMS ومن أن صيغة المُرسل تطابق أنماط رسائل SMS البنكية القياسية.</string>
+    <string name="appr_faq_q_unrecognized_sms">ماذا يحدث لرسائل SMS غير المعروفة؟</string>
+    <string name="appr_faq_a_unrecognized_sms">تُحفظ في «الرسائل غير المعروفة» حيث يمكنك مراجعتها يدوياً أو الإبلاغ عنها لمساعدتنا في تحسين التحليل.</string>
+    <string name="appr_faq_q_duplicates">لماذا تتكرر بعض المعاملات؟</string>
+    <string name="appr_faq_a_duplicates">ترسل بعض البنوك رسائل SMS متعددة للمعاملة نفسها. يحاول التطبيق اكتشاف التكرارات، لكن يمكنك حذف أي معاملة تمرّ دون اكتشاف يدوياً.</string>
+
+    <!-- FAQ: Privacy & Data -->
+    <string name="appr_faq_cat_privacy_data">الخصوصية والبيانات</string>
+    <string name="appr_faq_q_secure">هل بياناتي المالية آمنة؟</string>
+    <string name="appr_faq_a_secure">نعم! تبقى جميع البيانات على جهازك. ليس لدينا خوادم أو تخزين سحابي.</string>
+    <string name="appr_faq_q_backup">هل يمكنني نسخ بياناتي احتياطياً؟</string>
+    <string name="appr_faq_a_backup">حالياً تُخزَّن البيانات محلياً فقط. من المخطط إضافة ميزات التصدير/النسخ الاحتياطي في تحديثات قادمة.</string>
+    <string name="appr_faq_q_data_access">ما البيانات التي يصل إليها التطبيق؟</string>
+    <string name="appr_faq_a_data_access">رسائل SMS من مرسلي البنوك المعروفين فقط. لا نقرأ الرسائل الشخصية ولا نصل إلى بيانات التطبيقات الأخرى.</string>
+
+    <!-- FAQ: Account Management -->
+    <string name="appr_faq_cat_account_management">إدارة الحسابات</string>
+    <string name="appr_faq_q_manual_accounts">ما الحسابات اليدوية؟</string>
+    <string name="appr_faq_a_manual_accounts">تتيح لك الحسابات اليدوية تتبّع النقد والاستثمارات أو الحسابات من بنوك غير مدعومة. وتحدّث الأرصدة يدوياً.</string>
+    <string name="appr_faq_q_multiple_accounts">كيف أتتبّع عدة حسابات من البنك نفسه؟</string>
+    <string name="appr_faq_a_multiple_accounts">يكتشف التطبيق الحسابات المختلفة تلقائياً استناداً إلى آخر 4 أرقام الظاهرة في رسائل SMS.</string>
+
+    <!-- FAQ: expand/collapse + help section -->
+    <string name="appr_collapse">طي</string>
+    <string name="appr_expand">توسيع</string>
+    <string name="appr_still_need_help">ما زلت بحاجة إلى مساعدة؟</string>
+    <string name="appr_report_issue">الإبلاغ عن مشكلة</string>
+    <string name="appr_report_issue_desc">أرسل تقارير الأخطاء أو طلبات البنوك أو تحسينات الميزات على GitHub</string>
+</resources>

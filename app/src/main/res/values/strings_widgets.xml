@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Widget, notification, and background-worker strings. Kept in its own file so
+  the Glance / RemoteViews / notification extraction stays reviewable; Android
+  merges every res/values/*.xml. Widget picker names live in strings.xml and are
+  referenced directly rather than redefined here.
+-->
+<resources>
+    <!-- Budget widget -->
+    <string name="wid_monthly_budget">Monthly Budget</string>
+    <string name="wid_tap_to_set_up">Tap to set up</string>
+    <string name="wid_percent_used">%1$d%% used</string>
+    <string name="wid_of_amount">of %1$s</string>
+    <string name="wid_amount_left">%1$s left</string>
+    <string name="wid_amount_over">%1$s over</string>
+    <string name="wid_per_day">%1$s/day</string>
+    <string name="wid_saved">Saved %1$s</string>
+    <string name="wid_over">Over %1$s</string>
+
+    <!-- Recent transactions widget -->
+    <string name="wid_total_spend_this_month">Total spend this month</string>
+    <string name="wid_no_transactions_yet">No transactions yet</string>
+    <string name="wid_tap_plus_to_add">Tap + to add manually</string>
+    <string name="wid_transaction">Transaction</string>
+    <string name="wid_add">Add</string>
+
+    <!-- Category pie widget -->
+    <string name="wid_spending">Spending</string>
+    <string name="wid_spending_by_category">Spending by category</string>
+    <string name="wid_no_spending_yet">No spending yet this month</string>
+    <string name="wid_other">Other</string>
+
+    <!-- Transaction notification -->
+    <string name="wid_transaction_notifications_channel">Transaction Notifications</string>
+    <string name="wid_transaction_notifications_channel_description">Notifications for new transactions</string>
+    <string name="wid_transaction_notification_title">%1$s %2$s - %3$s</string>
+    <string name="wid_category_bank">%1$s • %2$s</string>
+    <string name="wid_needs_category">Needs a category — tap &quot;Pick category…&quot; • %1$s</string>
+    <string name="wid_balance_off">⚠ Balance off by %1$s — expected %2$s, bank says %3$s</string>
+    <string name="wid_pick_category">Pick category…</string>
+    <string name="wid_more">More…</string>
+    <string name="wid_new_transaction">%1$s New transaction</string>
+    <string name="wid_balance_needs_look">%1$s • balance needs a look</string>
+    <string name="wid_unknown_merchant">Unknown</string>
+    <string name="wid_unknown_bank">Bank</string>
+
+    <!-- SMS scan foreground notification -->
+    <string name="wid_sms_scan_channel">SMS Scan</string>
+    <string name="wid_scanning_transactions">Scanning transactions…</string>
+    <string name="wid_processed_progress">Processed %1$d / %2$d</string>
+    <string name="wid_reading_sms">Reading SMS…</string>
+</resources>

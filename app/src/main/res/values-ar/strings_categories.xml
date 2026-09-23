@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Arabic display-only translations for built-in category names. Keys map 1:1
+  with values/strings_categories.xml. Stored category values remain English.
+-->
+<resources>
+    <string name="cat_food_dining">الطعام والمطاعم</string>
+    <string name="cat_groceries">البقالة</string>
+    <string name="cat_transportation">المواصلات</string>
+    <string name="cat_shopping">التسوق</string>
+    <string name="cat_bills_utilities">الفواتير والمرافق</string>
+    <string name="cat_entertainment">الترفيه</string>
+    <string name="cat_healthcare">الرعاية الصحية</string>
+    <string name="cat_investments">الاستثمارات</string>
+    <string name="cat_banking">الخدمات البنكية</string>
+    <string name="cat_personal_care">العناية الشخصية</string>
+    <string name="cat_education">التعليم</string>
+    <string name="cat_mobile">الهاتف</string>
+    <string name="cat_mobile_recharge">الهاتف وإعادة الشحن</string>
+    <string name="cat_fitness">اللياقة</string>
+    <string name="cat_insurance">التأمين</string>
+    <string name="cat_travel">السفر</string>
+    <string name="cat_salary">الراتب</string>
+    <string name="cat_income">الدخل</string>
+    <string name="cat_others">أخرى</string>
+    <string name="cat_food">الطعام</string>
+    <string name="cat_cashback">استرداد نقدي</string>
+    <string name="cat_housing">السكن</string>
+    <string name="cat_emi">الأقساط</string>
+    <string name="cat_transfer">التحويل</string>
+    <string name="cat_tax">الضرائب</string>
+    <string name="cat_bank_charges">رسوم بنكية</string>
+    <string name="cat_credit_card_payment">سداد بطاقة الائتمان</string>
+    <string name="cat_refunds">المبالغ المستردة</string>
+    <string name="cat_interest">الفوائد</string>
+    <string name="cat_dividends">الأرباح</string>
+    <string name="cat_subscriptions">الاشتراكات</string>
+
+    <!-- Local (GCC/Arabic-market) categories -->
+    <string name="cat_zakat_sadaqah">الزكاة والصدقة</string>
+    <string name="cat_remittances">التحويلات المالية</string>
+    <string name="cat_gold_jewellery">الذهب والمجوهرات</string>
+    <string name="cat_gifts_eidiya">الهدايا والعيدية</string>
+    <string name="cat_hospitality_majlis">الضيافة والمجالس</string>
+    <string name="cat_domestic_help">العمالة المنزلية والسائق</string>
+    <string name="cat_government_fees">رسوم ومخالفات حكومية</string>
+    <string name="cat_rent_housing">الإيجار والسكن</string>
+    <string name="cat_loans_emis">القروض والأقساط</string>
+    <string name="cat_fuel">الوقود</string>
+
+    <!-- Category groups -->
+    <string name="group_needs">الاحتياجات</string>
+    <string name="group_wants">الرغبات</string>
+    <string name="group_savings">المدخرات</string>
+    <string name="group_income">الدخل</string>
+    <string name="group_excluded">مستثنى</string>
+    <string name="group_other">أخرى</string>
+
+    <!-- Category detail screen -->
+    <string name="cat_detail_this_month">هذا الشهر</string>
+    <string name="cat_detail_monthly_avg">المتوسط الشهري</string>
+    <string name="cat_detail_count">العمليات</string>
+    <string name="cat_detail_trend">الاتجاه الشهري</string>
+    <string name="cat_detail_top_merchants">أعلى التجار</string>
+    <string name="cat_detail_recent">أحدث العمليات</string>
+    <string name="cat_detail_budget">الميزانية</string>
+    <string name="cat_detail_budget_spent">%1$s من %2$s مستخدم</string>
+    <string name="cat_detail_budget_remaining">%1$s متبقٍ</string>
+    <string name="cat_detail_budget_over">%1$s تجاوز الميزانية</string>
+    <string name="cat_detail_budget_group">ضمن «%1$s»</string>
+    <string name="cat_detail_empty">لا توجد عمليات في هذه الفئة بعد</string>
+    <string name="cat_detail_period_all">كل الوقت</string>
+    <string name="cat_detail_period_year">آخر ١٢ شهرًا</string>
+    <string name="cat_detail_period_6m">آخر ٦ أشهر</string>
+    <string name="cat_detail_period_3m">آخر ٣ أشهر</string>
+    <string name="cat_detail_period_this_month">هذا الشهر</string>
+    <string name="cat_detail_period_30d">آخر ٣٠ يومًا</string>
+</resources>

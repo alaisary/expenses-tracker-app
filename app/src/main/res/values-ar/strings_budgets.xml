@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="budg_title">الميزانيات</string>
+    <string name="budg_edit_title">تعديل الميزانية</string>
+    <string name="budg_new_title">ميزانية جديدة</string>
+    <string name="budg_history_title">سجل الميزانية</string>
+    <string name="budg_back">رجوع</string>
+    <string name="budg_add_budget">إضافة ميزانية</string>
+    <string name="budg_delete_budget">حذف الميزانية</string>
+    <string name="budg_delete_budget_confirm">هل أنت متأكد من حذف \"%1$s\"؟ لا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="budg_save_changes">حفظ التغييرات</string>
+    <string name="budg_create_budget">إنشاء ميزانية</string>
+    <string name="budg_delete">حذف</string>
+    <string name="budg_cancel">إلغاء</string>
+    <string name="budg_ok">حسناً</string>
+
+    <string name="budg_section_color">اللون</string>
+    <string name="budg_section_budget_period">فترة الميزانية</string>
+    <string name="budg_period_weekly">أسبوعية (متكررة)</string>
+    <string name="budg_period_monthly">شهرية (متكررة)</string>
+    <string name="budg_period_one_time">لمرة واحدة</string>
+    <string name="budg_start_date">تاريخ البدء</string>
+    <string name="budg_end_date">تاريخ الانتهاء</string>
+    <string name="budg_resets_every">تتجدّد كل %1$s</string>
+    <string name="budg_resets_on_day_of_month">تتجدّد في اليوم %1$d من كل شهر</string>
+    <string name="budg_runs_once_no_rollover">تعمل لمرة واحدة دون تجدّد</string>
+    <string name="budg_current_window">النافذة الحالية</string>
+    <string name="budg_current_window_range">%1$s – %2$s · %3$s</string>
+    <string name="budg_week_starts_on">يبدأ الأسبوع يوم</string>
+    <string name="budg_month_starts_on_day">يبدأ الشهر في اليوم</string>
+    <string name="budg_decrease_day">إنقاص اليوم</string>
+    <string name="budg_increase_day">زيادة اليوم</string>
+
+    <string name="budg_category_limits_optional">حدود الفئات (اختياري)</string>
+    <string name="budg_no_categories_added">لم تُضف أي فئات. ستتتبع هذه الميزانية جميع المصروفات.</string>
+    <string name="budg_unallocated">غير مُخصَّص: %1$s</string>
+    <string name="budg_limits_exceed">حدود الفئات تتجاوز الميزانية بمقدار %1$s</string>
+    <string name="budg_add_category">إضافة فئة</string>
+    <string name="budg_all_option">%1$s (الكل)</string>
+    <string name="budg_budget_name">اسم الميزانية</string>
+    <string name="budg_edit_name">تعديل الاسم</string>
+    <string name="budg_delete_budget_desc">حذف الميزانية</string>
+    <string name="budg_edit_budget">تعديل الميزانية</string>
+    <string name="budg_remove">إزالة</string>
+    <string name="budg_spent_colon">المصروف: %1$s</string>
+    <string name="budg_zero">0</string>
+
+    <string name="budg_setup_title">أنشئ ميزانيتك</string>
+    <string name="budg_setup_desc">نظّم مصروفاتك في ميزانيات لتتبع أين تذهب أموالك.</string>
+    <string name="budg_use_smart_defaults">استخدام الإعدادات الذكية</string>
+    <string name="budg_create_custom_budget">إنشاء ميزانية مخصّصة</string>
+    <string name="budg_previous_month">الشهر السابق</string>
+    <string name="budg_next_month">الشهر التالي</string>
+    <string name="budg_more_options">خيارات إضافية</string>
+    <string name="budg_view_period_history">عرض سجل هذه الفترة</string>
+    <string name="budg_move_up">تحريك لأعلى</string>
+    <string name="budg_move_down">تحريك لأسفل</string>
+
+    <string name="budg_percent">%1$d%%</string>
+    <string name="budg_over_budget">%1$s تجاوز الميزانية</string>
+    <string name="budg_remaining">المتبقي %1$s</string>
+    <string name="budg_finished">منتهية</string>
+    <string name="budg_over_by">تجاوز بمقدار %1$s</string>
+    <string name="budg_resets_today_renew">تتجدّد اليوم · تجدّد %1$s</string>
+    <string name="budg_resets_in_one_day_renew">تتجدّد خلال يوم واحد · تجدّد %1$s</string>
+    <string name="budg_resets_in_days_renew">تتجدّد خلال %1$d أيام · تجدّد %2$s</string>
+    <string name="budg_resets_today_day">تتجدّد اليوم · اليوم %1$d</string>
+    <string name="budg_resets_in_one_day_day">تتجدّد خلال يوم واحد · اليوم %1$d</string>
+    <string name="budg_resets_in_days_day">تتجدّد خلال %1$d أيام · اليوم %2$d</string>
+    <string name="budg_runs_range_days_remaining">تعمل %1$s · يتبقى %2$d أيام</string>
+    <string name="budg_runs_range_one_day_remaining">تعمل %1$s · يتبقى يوم واحد</string>
+    <string name="budg_runs_range_finished">تعمل %1$s · منتهية</string>
+    <string name="budg_days_remaining">يتبقى %1$d أيام</string>
+    <string name="budg_spent_of">أُنفق %1$s من %2$s</string>
+    <string name="budg_spent">أُنفق %1$s</string>
+    <string name="budg_tracking_all_expenses">تتتبع جميع المصروفات</string>
+    <string name="budg_of_amount">%1$s من %2$s</string>
+    <string name="budg_chart_actual">الفعلي</string>
+    <string name="budg_chart_budget_pace">وتيرة الميزانية</string>
+
+    <string name="budg_loading">جارٍ التحميل…</string>
+    <string name="budg_not_found">الميزانية غير موجودة</string>
+    <string name="budg_window_range">النافذة: %1$s – %2$s</string>
+    <string name="budg_per_week_breakdown">التفصيل الأسبوعي</string>
+    <string name="budg_cycle">الدورة</string>
+    <string name="budg_range">النطاق</string>
+    <string name="budg_current">الحالي</string>
+    <string name="budg_live_badge">مباشر · لا يزال يتراكم</string>
+    <string name="budg_frozen_as_of">مجمّد اعتباراً من %1$s</string>
+    <string name="budg_window_dates">%1$s – %2$s</string>
+    <string name="budg_categories">الفئات</string>
+    <string name="budg_of_percent">من %1$s · %2$d%%</string>
+    <string name="budg_zero_remaining">المتبقي 0</string>
+    <string name="budg_percent_used">%1$d%% مستخدم</string>
+</resources>

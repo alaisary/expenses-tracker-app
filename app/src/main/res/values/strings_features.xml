@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Strings for feature screens extracted for localization: paywall upgrade
+  sheet, share card sheet, exchange rates, categories, category edit dialog,
+  statement import, and unrecognized SMS. Kept in its own file so screen-level
+  extraction stays reviewable; Android merges every res/values/*.xml.
+-->
+<resources>
+    <!-- Upgrade sheet -->
+    <string name="feat_upgrade_brand_title">غوازي Pro</string>
+    <string name="feat_upgrade_brand_subtitle_member">All Pro capabilities active</string>
+    <string name="feat_upgrade_brand_subtitle_upgrade">One tap to unlock everything</string>
+    <string name="feat_upgrade_support_note">Built by a solo dev — your upgrade funds what\'s next. Thank you.</string>
+    <string name="feat_upgrade_select_plan">Select a plan</string>
+    <string name="feat_upgrade_feature_rules">Unlimited custom rules</string>
+    <string name="feat_upgrade_feature_pdf">Unlimited PDF statement imports</string>
+    <string name="feat_upgrade_feature_csv">Unlimited CSV export</string>
+    <string name="feat_upgrade_feature_merge">Merge duplicate accounts</string>
+    <string name="feat_upgrade_includes">Includes</string>
+    <string name="feat_upgrade_cancel_anytime">Cancel anytime</string>
+    <string name="feat_upgrade_on_device_data">On-device data</string>
+    <string name="feat_upgrade_restore">Restore</string>
+    <string name="feat_upgrade_prices_disclaimer">Prices shown are indicative · Play Store confirms at checkout</string>
+    <string name="feat_upgrade_welcome">WELCOME</string>
+    <string name="feat_upgrade_celebrate_title">You\'re a Pro member</string>
+    <string name="feat_upgrade_celebrate_subtitle">Thank you for backing غوازي — every feature on the list is now yours.</string>
+    <string name="feat_upgrade_continue">Continue</string>
+    <string name="feat_upgrade_active">ACTIVE</string>
+    <string name="feat_upgrade_all_unlocked">All Pro features unlocked</string>
+    <string name="feat_upgrade_manage_subscription">Manage subscription</string>
+
+    <!-- Share card sheet -->
+    <string name="feat_share_no_amounts">No amounts are included.</string>
+    <string name="feat_share_share">Share</string>
+    <string name="feat_share_done">Done</string>
+    <string name="feat_share_customise">Customise</string>
+    <string name="feat_share_show">Show</string>
+    <string name="feat_share_transactions">Transactions</string>
+    <string name="feat_share_subscriptions">Subscriptions</string>
+    <string name="feat_share_no_subs_detected">No subscriptions detected yet — غوازي finds these from recurring payments in your SMS.</string>
+    <string name="feat_share_period">Period</string>
+    <string name="feat_share_this_month">This month</string>
+    <string name="feat_share_last_month">Last month</string>
+    <string name="feat_share_all_time">All time</string>
+
+    <!-- Exchange rates -->
+    <string name="feat_rates_title">Exchange Rates</string>
+    <string name="feat_rates_back">Back</string>
+    <string name="feat_rates_refresh">Refresh rates</string>
+    <string name="feat_rates_empty_title">No exchange rates available</string>
+    <string name="feat_rates_empty_desc">Rates will appear when you have transactions in multiple currencies</string>
+    <string name="feat_rates_last_updated">Last updated: %1$s</string>
+    <string name="feat_rates_custom_hint">Tap a rate to set a custom value. Custom rates are preserved across API refreshes.</string>
+    <string name="feat_rates_reset_all">Reset All to Auto</string>
+    <string name="feat_rates_custom">Custom</string>
+    <string name="feat_rates_api">API</string>
+    <string name="feat_rates_exchange_rate">Exchange Rate</string>
+    <string name="feat_rates_invalid_number">Enter a valid positive number</string>
+    <string name="feat_rates_reset_to_auto">Reset to Auto</string>
+    <string name="feat_rates_set_custom">Set Custom Rate</string>
+    <string name="feat_rates_cancel">Cancel</string>
+
+    <!-- Categories screen -->
+    <string name="feat_categories_title">Categories</string>
+    <string name="feat_categories_back">Back</string>
+    <string name="feat_categories_add_cd">Add Category</string>
+    <string name="feat_categories_expense_section">Expense Categories</string>
+    <string name="feat_categories_income_section">Income Categories</string>
+    <string name="feat_categories_delete_cd">Delete</string>
+    <string name="feat_categories_show_cd">Show category</string>
+    <string name="feat_categories_hide_cd">Hide category</string>
+    <string name="feat_categories_system_badge">System</string>
+    <string name="feat_categories_edit_cd">Edit</string>
+
+    <!-- Category edit dialog -->
+    <string name="feat_category_edit_add_title">Add Category</string>
+    <string name="feat_category_edit_edit_title">Edit Category</string>
+    <string name="feat_category_edit_name_required">Category name is required</string>
+    <string name="feat_category_edit_name_label">Category Name</string>
+    <string name="feat_category_edit_type_label">Category Type</string>
+    <string name="feat_category_edit_expense">Expense</string>
+    <string name="feat_category_edit_income">Income</string>
+    <string name="feat_category_edit_none">None</string>
+    <string name="feat_category_edit_parent_label">Parent category (optional)</string>
+    <string name="feat_category_edit_icon_label">Icon (emoji, optional)</string>
+    <string name="feat_category_edit_icon_placeholder">Tap to pick an emoji</string>
+    <string name="feat_category_edit_clear_icon">Clear icon</string>
+    <string name="feat_category_edit_color">Color</string>
+    <string name="feat_category_edit_preview">Preview</string>
+    <string name="feat_category_edit_name_placeholder">Category Name</string>
+    <string name="feat_category_edit_cancel">Cancel</string>
+    <string name="feat_category_edit_add">Add</string>
+    <string name="feat_category_edit_save">Save</string>
+    <string name="feat_category_edit_delete_category">Delete category</string>
+    <string name="feat_category_edit_delete_confirm_title">Delete category?</string>
+    <string name="feat_category_edit_delete_confirm_text">\"%1$s\" will be removed. Existing transactions keep their current label. This can\'t be undone.</string>
+    <string name="feat_category_edit_delete">Delete</string>
+
+    <!-- Statement import -->
+    <string name="feat_import_title">Import Statement</string>
+    <string name="feat_import_back">Back</string>
+    <string name="feat_import_idle_desc">Import transactions from Google Pay, PhonePe, Paytm, or slice PDF statements. Duplicates are automatically detected and skipped.</string>
+    <string name="feat_import_select_pdf">Select PDF Statement</string>
+    <string name="feat_import_loading_title">Importing transactions...</string>
+    <string name="feat_import_loading_desc">Parsing PDF and checking for duplicates</string>
+    <string name="feat_import_success_title">Import Complete</string>
+    <string name="feat_import_row_imported">Transactions imported</string>
+    <string name="feat_import_row_enriched">Transactions enriched</string>
+    <string name="feat_import_row_total">Total parsed from PDF</string>
+    <string name="feat_import_duplicates_skipped">Duplicates skipped: %1$d</string>
+    <string name="feat_import_row_exact">Exact re-imports</string>
+    <string name="feat_import_row_upi">By UPI reference</string>
+    <string name="feat_import_row_amount_date">By amount &amp; date</string>
+    <string name="feat_import_import_another">Import Another</string>
+    <string name="feat_import_done">Done</string>
+    <string name="feat_import_failed_title">Import Failed</string>
+    <string name="feat_import_try_again">Try Again</string>
+
+    <!-- Unrecognized SMS -->
+    <string name="feat_sms_title">Unrecognized SMS</string>
+    <string name="feat_sms_back">Back</string>
+    <string name="feat_sms_header_title">Unrecognized Bank Messages</string>
+    <string name="feat_sms_header_desc">These messages from potential banks couldn\'t be automatically parsed. Help improve غوازي by reporting them so we can add support for more banks.</string>
+    <string name="feat_sms_show_reported">Show Reported</string>
+    <string name="feat_sms_new_count">%1$d new</string>
+    <string name="feat_sms_reported_count">%1$d reported</string>
+    <string name="feat_sms_empty_title">All messages recognized</string>
+    <string name="feat_sms_empty_desc">No unrecognized bank messages found</string>
+    <string name="feat_sms_delete_title">Delete Message</string>
+    <string name="feat_sms_delete_text">Are you sure you want to delete this unrecognized message? This action cannot be undone.</string>
+    <string name="feat_sms_delete">Delete</string>
+    <string name="feat_sms_cancel">Cancel</string>
+    <string name="feat_sms_reported">Reported</string>
+    <string name="feat_sms_report">Report</string>
+    <string name="feat_sms_report_cd">Report</string>
+    <string name="feat_sms_delete_cd">Delete</string>
+</resources>

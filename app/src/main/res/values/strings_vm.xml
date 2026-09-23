@@ -1,0 +1,156 @@
+<resources>
+    <!-- ViewModel messages: AddViewModel -->
+    <string name="vm_transfer_select_both_accounts">Select both a From and To account</string>
+    <string name="vm_transfer_accounts_must_differ">From and To accounts must be different</string>
+    <string name="vm_transfer_same_currency">Both accounts must use the same currency</string>
+    <string name="vm_failed_save_transaction">Failed to save transaction</string>
+    <string name="vm_failed_save_transfer">Failed to save transfer</string>
+    <string name="vm_service_name_required">Service name is required</string>
+    <string name="vm_failed_save_subscription">Failed to save subscription</string>
+    <string name="vm_amount_required">Amount is required</string>
+    <string name="vm_amount_invalid">Invalid amount</string>
+    <string name="vm_amount_must_be_greater_than_zero">Amount must be greater than 0</string>
+    <string name="vm_merchant_required">Merchant/Description is required</string>
+    <string name="vm_too_short">Too short</string>
+    <string name="vm_category_required">Category is required</string>
+
+    <!-- ViewModel messages: TransactionsViewModel -->
+    <string name="vm_bulk_updated_to">%1$d updated to \"%2$s\"</string>
+    <string name="vm_transfer_select_exactly_two">Select exactly 2 transactions to mark as a transfer</string>
+    <string name="vm_transfer_pick_one_each">Pick one outgoing (expense) and one incoming (income) transaction</string>
+    <string name="vm_marked_as_transfer">Marked as transfer</string>
+    <string name="vm_bulk_deleted">%1$d deleted</string>
+    <string name="vm_bulk_added_to_group">%1$d added to \"%2$s\"</string>
+
+    <!-- ViewModel messages: TransactionDetailViewModel -->
+    <string name="vm_adjustment_failed">Couldn\'t add the adjustment: %1$s</string>
+    <string name="vm_amount_must_be_positive_number">Amount must be a positive number</string>
+    <string name="vm_category_exists_as_type">A category named \"%1$s\" already exists as %2$s</string>
+    <string name="vm_type_income">income</string>
+    <string name="vm_type_expense">expense</string>
+    <string name="vm_category_create_failed">Couldn\'t create category: %1$s</string>
+    <string name="vm_splits_expenses_only">Splits are only available for expenses and card purchases</string>
+    <string name="vm_splits_min_two">At least 2 splits are required</string>
+    <string name="vm_splits_amounts_positive">All split amounts must be positive</string>
+    <string name="vm_splits_must_equal_total">Split amounts must equal the transaction total</string>
+    <string name="vm_merchant_name_required">Merchant name is required</string>
+    <string name="vm_amount_must_be_positive">Amount must be positive</string>
+    <string name="vm_transfer_source_dest_differ">Source and destination accounts must be different</string>
+    <string name="vm_tag_rule_create_failed">Saved, but couldn\'t create the tag rule: %1$s</string>
+    <string name="vm_failed_save_changes">Failed to save changes: %1$s</string>
+    <string name="vm_failed_delete_transaction">Failed to delete transaction</string>
+    <string name="vm_failed_create_loan">Failed to create loan: %1$s</string>
+    <string name="vm_failed_unlink_loan">Failed to unlink loan: %1$s</string>
+
+    <!-- ViewModel messages: SubscriptionsViewModel -->
+    <string name="vm_sub_fallback_name">Subscription</string>
+    <string name="vm_sub_marked_paid">%1$s marked paid · next cycle on %2$s</string>
+    <string name="vm_sub_linked">%1$s linked · next cycle on %2$s</string>
+    <string name="vm_sub_already_marked">%1$s already marked this cycle · advanced to %2$s</string>
+    <string name="vm_sub_set_next_payment">Set a next-payment date on %1$s first</string>
+    <string name="vm_sub_not_found">Couldn\'t find that subscription</string>
+    <string name="vm_sub_linked_existing">%1$s linked to existing payment · next cycle on %2$s</string>
+    <string name="vm_sub_linked_short">Linked</string>
+
+    <!-- ViewModel messages: ExchangeRatesViewModel -->
+    <string name="vm_rates_load_failed">Failed to load rates</string>
+    <string name="vm_rates_refresh_failed">Failed to refresh rates</string>
+    <string name="vm_rate_set_failed">Failed to set custom rate</string>
+    <string name="vm_rate_clear_failed">Failed to clear custom rate</string>
+    <string name="vm_rates_clear_all_failed">Failed to clear custom rates</string>
+
+    <!-- ViewModel messages: ManageAccountsViewModel -->
+    <string name="vm_account_already_exists">Account already exists</string>
+    <string name="vm_card_linked_balance">Card linked successfully. Balance updated to %1$s</string>
+    <string name="vm_card_linked_balance_failed">Card linked successfully (balance update failed)</string>
+    <string name="vm_card_linked">Card linked successfully</string>
+    <string name="vm_card_link_failed">Failed to link card: %1$s</string>
+    <string name="vm_card_deleted">Card deleted successfully</string>
+    <string name="vm_card_delete_failed">Failed to delete card: %1$s</string>
+    <string name="vm_card_missing">Card no longer exists — it may have been deleted.</string>
+    <string name="vm_card_updated">Card updated</string>
+    <string name="vm_card_update_failed">Failed to update card: %1$s</string>
+    <string name="vm_account_deleted">Account deleted successfully (%1$d balance records removed)</string>
+    <string name="vm_account_delete_failed">Failed to delete account: %1$s</string>
+    <string name="vm_merge_same_account">Source and target are the same account</string>
+    <string name="vm_merge_currency_mismatch">Currencies don\'t match (%1$s vs %2$s)</string>
+    <string name="vm_merge_credit_mismatch">Can\'t merge a credit card with a regular account</string>
+    <string name="vm_merge_success">Merged %1$d transactions into %2$s</string>
+    <string name="vm_merge_failed">Merge failed: %1$s</string>
+    <string name="vm_account_profile_failed">Failed to update account profile: %1$s</string>
+    <string name="vm_account_rename_failed">Failed to rename account: %1$s</string>
+    <string name="vm_account_alert_failed">Failed to set alert: %1$s</string>
+    <string name="vm_move_transactions_failed">Failed to move transactions: %1$s</string>
+    <string name="vm_account_updated">Account updated successfully</string>
+    <string name="vm_account_update_failed">Failed to update account: %1$s</string>
+
+    <!-- ViewModel messages: UpgradeViewModel -->
+    <string name="vm_plans_loading">Plans are still loading. Try again in a moment.</string>
+    <string name="vm_purchase_failed">Purchase failed. Please try again.</string>
+    <string name="vm_play_store_unavailable">Play Store unavailable. Check your connection and try again.</string>
+    <string name="vm_purchases_unavailable">Purchases aren\'t available in this build.</string>
+    <string name="vm_play_store_unreachable">Couldn\'t reach Play Store. Try again later.</string>
+
+    <!-- ViewModel messages: AppLockViewModel -->
+    <string name="vm_auth_failed">Authentication failed. Please try again.</string>
+
+    <!-- ViewModel messages: RulesViewModel -->
+    <string name="vm_rules_nothing_to_export">You don\'t have any custom rules to export yet.</string>
+    <string name="vm_rules_file_too_large">That file is too large to be a rules file.</string>
+    <string name="vm_rules_open_failed">Couldn\'t open the file.</string>
+    <string name="vm_rules_open_write_failed">Couldn\'t open the file for writing.</string>
+    <string name="vm_rules_exported_one">Exported 1 rule.</string>
+    <string name="vm_rules_exported_count">Exported %1$d rules.</string>
+    <string name="vm_rules_export_failed">Export failed: %1$s</string>
+    <string name="vm_rules_imported_one">Imported 1 rule.</string>
+    <string name="vm_rules_imported_count">Imported %1$d rules.</string>
+    <string name="vm_rules_duplicates_existed">%1$d already existed.</string>
+    <string name="vm_rules_one_repeated_collapsed">1 repeated name in the file was collapsed.</string>
+    <string name="vm_rules_repeated_collapsed">%1$d repeated names in the file were collapsed.</string>
+    <string name="vm_rules_blocked_pro">%1$d more need Pro — you\'re at the free limit of %2$d.</string>
+    <string name="vm_rules_import_failed">Import failed.</string>
+    <string name="vm_error_prefix">Error: %1$s</string>
+
+    <!-- ViewModel messages: CategoriesViewModel -->
+    <string name="vm_category_system_edit">System categories cannot be edited</string>
+    <string name="vm_category_updated">Category updated successfully</string>
+    <string name="vm_category_exists">Category \'%1$s\' already exists</string>
+    <string name="vm_category_created">Category created successfully</string>
+    <string name="vm_category_save_error">Error saving category: %1$s</string>
+    <string name="vm_category_system_delete">System categories cannot be deleted</string>
+    <string name="vm_category_deleted">Category deleted successfully</string>
+    <string name="vm_category_cannot_delete">Cannot delete this category</string>
+    <string name="vm_category_delete_error">Error deleting category: %1$s</string>
+    <string name="vm_category_hidden">%1$s hidden</string>
+    <string name="vm_category_shown">%1$s shown</string>
+    <string name="vm_category_update_error">Error updating category: %1$s</string>
+
+    <!-- ViewModel messages: SettingsViewModel -->
+    <string name="vm_delete_none">There were no transactions to delete.</string>
+    <string name="vm_delete_one">1 transaction deleted.</string>
+    <string name="vm_delete_count">%1$d transactions deleted.</string>
+    <string name="vm_arrived_one">1 new transaction arrived while it ran.</string>
+    <string name="vm_arrived_count">%1$d new transactions arrived while it ran.</string>
+    <string name="vm_delete_count_changed">New transactions arrived while you were confirming, so nothing was deleted. There are now %1$d. Check the number and try again.</string>
+    <string name="vm_delete_failed">Couldn\'t delete transactions: %1$s</string>
+    <string name="vm_backup_created">Backup created successfully! Choose where to save it.</string>
+    <string name="vm_export_failed">Export failed: %1$s</string>
+    <string name="vm_export_error">Export error: %1$s</string>
+    <string name="vm_backup_saved">Backup saved successfully!</string>
+    <string name="vm_backup_save_failed">Failed to save backup: %1$s</string>
+    <string name="vm_importing_backup">Importing backup...</string>
+    <string name="vm_import_success">Import successful! Imported %1$d transactions, %2$d categories. Skipped %3$d duplicates.</string>
+    <string name="vm_import_rows_skipped">%1$d rows could not be imported.</string>
+    <string name="vm_import_failed">Import failed: %1$s</string>
+    <string name="vm_import_error">Import error: %1$s</string>
+    <string name="vm_importing_transactions">Importing transactions...</string>
+    <string name="vm_csv_import_success">Imported %1$d transactions, skipped %2$d duplicates</string>
+    <string name="vm_csv_rows_failed">%1$d rows could not be parsed</string>
+    <string name="vm_folder_backup_disabled">Automatic folder backup disabled</string>
+    <string name="vm_folder_access_failed">Could not access the selected folder: %1$s</string>
+    <string name="vm_select_folder_first">Select a backup folder first</string>
+    <string name="vm_folder_cannot_write">Cannot write to the selected backup folder</string>
+    <string name="vm_backup_saved_folder">Backup saved to folder</string>
+    <string name="vm_folder_backup_enabled">Automatic folder backup enabled. Backups run daily at 2:00 AM.</string>
+    <string name="vm_share_backup_title">Share Backup</string>
+</resources>

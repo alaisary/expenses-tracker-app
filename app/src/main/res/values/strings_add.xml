@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Strings for the "Add transaction" feature (AddScreen + tab contents).
+  Kept in its own file (Android merges every res/values/*.xml) so screen-level
+  extraction stays reviewable.
+-->
+<resources>
+    <!-- Screen chrome -->
+    <string name="add_title">Add New</string>
+    <string name="add_back">Back</string>
+    <string name="add_tab_transaction">Transaction</string>
+    <string name="add_tab_subscription">Subscription</string>
+
+    <!-- Shared actions -->
+    <string name="add_save">Save</string>
+    <string name="add_ok">OK</string>
+    <string name="add_cancel">Cancel</string>
+    <string name="add_clear">Clear</string>
+    <string name="add_selected">Selected</string>
+
+    <!-- Transaction tab -->
+    <string name="add_amount_label">Amount *</string>
+    <string name="add_merchant_label">Merchant</string>
+    <string name="add_notes_optional">Notes (Optional)</string>
+    <string name="add_am">AM</string>
+    <string name="add_pm">PM</string>
+    <string name="add_from_account">From account</string>
+    <string name="add_to_account">To account</string>
+    <string name="add_select_account">Select Account</string>
+    <string name="add_category_label">Category</string>
+    <string name="add_no_account_manual">No account (Manual Entry)</string>
+    <string name="add_no_account_manual_subtitle">Won\'t affect account balance</string>
+    <string name="add_select_time">Select Time</string>
+    <string name="add_receipt_optional">Receipt (Optional)</string>
+    <string name="add_receipt">Receipt</string>
+    <string name="add_remove_receipt">Remove receipt</string>
+    <string name="add_gallery">Gallery</string>
+    <string name="add_camera">Camera</string>
+
+    <!-- Budget impact -->
+    <string name="add_budget_impact">Budget impact</string>
+    <string name="add_budget_none">None</string>
+    <string name="add_budget_refund">Refund</string>
+    <string name="add_budget_extra">Extra budget</string>
+    <string name="add_select_category">Select category</string>
+    <string name="add_budget_category_label">Budget category</string>
+    <string name="add_no_budget_categories">No budget categories found</string>
+
+    <!-- Subscription tab -->
+    <string name="add_direction_expense">Expense</string>
+    <string name="add_direction_income">Income</string>
+    <string name="add_sub_info_income">Track recurring income (wallet top-ups, allowance). A transaction is auto-created on each scheduled date.</string>
+    <string name="add_sub_info_expense">Track recurring expenses. You\'ll need to add transactions manually each month.</string>
+    <string name="add_billing_cycle_label">Billing Cycle</string>
+    <string name="add_service_name_label">Service Name *</string>
+    <string name="add_paid_from_optional">Paid from (optional)</string>
+    <string name="add_no_account">No account</string>
+    <string name="add_no_balance_impact">Won\'t affect any balance</string>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Navigation + in-app language picker strings. Kept in its own file (Android
+  merges every res/values/*.xml) so screen-level extraction stays reviewable.
+-->
+<resources>
+    <!-- Bottom navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_transactions">Transactions</string>
+    <string name="nav_analytics">Analytics</string>
+
+    <!-- Language picker -->
+    <string name="settings_language_title">Language</string>
+    <string name="settings_language_subtitle">Choose the app\'s display language</string>
+    <string name="language_dialog_title">App language</string>
+    <string name="language_system">System default</string>
+    <string name="language_english">English</string>
+    <string name="language_arabic">العربية</string>
+</resources>

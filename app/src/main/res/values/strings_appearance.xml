@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Appearance screen: title -->
+    <string name="appr_appearance_title">Appearance</string>
+
+    <!-- Appearance screen: AMOLED / blur toggles -->
+    <string name="appr_amoled_black">AMOLED Black</string>
+    <string name="appr_amoled_black_subtitle">Use pure black background for deeper contrast</string>
+    <string name="appr_blur_effects">Blur Effects</string>
+    <string name="appr_blur_effects_subtitle">Enable glassmorphism blur effects in UI components</string>
+
+    <!-- Appearance screen: section headers -->
+    <string name="appr_section_navigation">Navigation</string>
+    <string name="appr_section_cover_style">Cover Style</string>
+    <string name="appr_section_fonts">Fonts</string>
+
+    <!-- Shared content descriptions -->
+    <string name="appr_back">Back</string>
+    <string name="appr_selected">Selected</string>
+
+    <!-- Theme mode selector -->
+    <string name="appr_theme_mode_system">System</string>
+    <string name="appr_theme_mode_light">Light</string>
+    <string name="appr_theme_mode_dark">Dark</string>
+
+    <!-- Theme style selector -->
+    <string name="appr_theme_style_dynamic">Dynamic</string>
+    <string name="appr_theme_style_dynamic_desc">Wallpaper Colors</string>
+    <string name="appr_theme_style_default">Default</string>
+    <string name="appr_theme_style_default_desc">Rose Pine Colors</string>
+
+    <!-- Accent color preview sample -->
+    <string name="appr_color_sample">Abc</string>
+
+    <!-- Navigation bar style selector -->
+    <string name="appr_nav_floating">Floating</string>
+    <string name="appr_nav_floating_desc">Modern &amp; Sleek</string>
+    <string name="appr_nav_normal">Normal</string>
+    <string name="appr_nav_normal_desc">Standard M3</string>
+
+    <!-- Cover style selector -->
+    <string name="appr_cover_none">None</string>
+
+    <!-- Font selector -->
+    <string name="appr_font_default">Default</string>
+    <string name="appr_font_system">System</string>
+    <string name="appr_font_sn_pro">SN Pro</string>
+    <string name="appr_font_sn_pro_desc">Modern Mono</string>
+
+    <!-- FAQ screen: title -->
+    <string name="appr_faq_title">FAQ</string>
+
+    <!-- FAQ: Transaction Types -->
+    <string name="appr_faq_cat_transaction_types">Transaction Types</string>
+    <string name="appr_faq_q_wallet_credit">Why are wallet transactions marked as Credit?</string>
+    <string name="appr_faq_a_wallet_credit">Wallet transactions (Amazon Pay, Paytm, etc.) are marked as Credit because they\'re charged to your bank account or credit card first, not direct bank debits. This helps track the actual payment method used.</string>
+    <string name="appr_faq_q_transaction_types">What\'s the difference between the 5 transaction types?</string>
+    <string name="appr_faq_a_transaction_types">• Expense: Money going out of your account (debits, purchases, bill payments)\n• Income: Money coming into your account (salary, refunds, cashback)\n• Investment: Mutual funds, stocks, SIPs, trading accounts\n• Credit: Credit card transactions and wallet payments (money you\'ll pay later)\n• Transfer: Money moved between your own accounts (self-transfers)</string>
+    <string name="appr_faq_q_transfer_vs_expense">When should I use Transfer vs Expense?</string>
+    <string name="appr_faq_a_transfer_vs_expense">Use Transfer when moving money between your own accounts (e.g., savings to checking). These don\'t affect your net worth. Use Expense for actual spending.</string>
+
+    <!-- FAQ: SMS Parsing -->
+    <string name="appr_faq_cat_sms_parsing">SMS Parsing</string>
+    <string name="appr_faq_q_sms_not_detected">Why aren\'t my bank SMS being detected?</string>
+    <string name="appr_faq_a_sms_not_detected">Check if your bank is supported in our list. If not, report it via GitHub. Ensure SMS permissions are granted and the sender format matches standard bank SMS patterns.</string>
+    <string name="appr_faq_q_unrecognized_sms">What happens to unrecognized SMS?</string>
+    <string name="appr_faq_a_unrecognized_sms">They\'re saved in \'Unrecognized Messages\' where you can manually review them or report them to help us improve parsing.</string>
+    <string name="appr_faq_q_duplicates">Why are some transactions duplicated?</string>
+    <string name="appr_faq_a_duplicates">Some banks send multiple SMS for the same transaction. The app tries to detect duplicates, but you can manually delete any that slip through.</string>
+
+    <!-- FAQ: Privacy & Data -->
+    <string name="appr_faq_cat_privacy_data">Privacy &amp; Data</string>
+    <string name="appr_faq_q_secure">Is my financial data secure?</string>
+    <string name="appr_faq_a_secure">Yes! All data stays on your device. We don\'t have servers or cloud storage.</string>
+    <string name="appr_faq_q_backup">Can I backup my data?</string>
+    <string name="appr_faq_a_backup">Currently, data is stored locally only. Export/backup features are planned for future updates.</string>
+    <string name="appr_faq_q_data_access">What data does the app access?</string>
+    <string name="appr_faq_a_data_access">Only SMS messages from known bank senders. We don\'t read personal messages or access other app data.</string>
+
+    <!-- FAQ: Account Management -->
+    <string name="appr_faq_cat_account_management">Account Management</string>
+    <string name="appr_faq_q_manual_accounts">What are manual accounts?</string>
+    <string name="appr_faq_a_manual_accounts">Manual accounts let you track cash, investments, or accounts from unsupported banks. You update balances manually.</string>
+    <string name="appr_faq_q_multiple_accounts">How do I track multiple accounts from the same bank?</string>
+    <string name="appr_faq_a_multiple_accounts">The app automatically detects different accounts based on the last 4 digits shown in SMS.</string>
+
+    <!-- FAQ: expand/collapse + help section -->
+    <string name="appr_collapse">Collapse</string>
+    <string name="appr_expand">Expand</string>
+    <string name="appr_still_need_help">Still Need Help?</string>
+    <string name="appr_report_issue">Report an Issue</string>
+    <string name="appr_report_issue_desc">Submit bug reports, bank requests, or feature improvements on GitHub</string>
+</resources>

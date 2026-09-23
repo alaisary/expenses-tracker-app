@@ -1,0 +1,647 @@
+package com.pennywiseai.tracker.ui.screens.settings
+
+import android.content.Context
+import android.net.Uri
+import android.util.Log
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import com.pennywiseai.tracker.R
+import com.pennywiseai.tracker.billing.EntitlementGate
+import com.pennywiseai.tracker.core.Constants.Links
+import com.pennywiseai.tracker.data.repository.UnrecognizedSmsRepository
+import com.pennywiseai.tracker.data.preferences.NumberFormatStyle
+import com.pennywiseai.tracker.data.preferences.UserPreferencesRepository
+import com.pennywiseai.tracker.data.manager.SmsScanParamsCalculator
+import com.pennywiseai.tracker.data.backup.BackupExporter
+import com.pennywiseai.tracker.data.backup.BackupImporter
+import com.pennywiseai.tracker.data.backup.ExportBytesResult
+import com.pennywiseai.tracker.data.backup.ExportResult
+import com.pennywiseai.tracker.data.backup.ImportResult
+import com.pennywiseai.tracker.data.backup.ImportStrategy
+import com.pennywiseai.tracker.backup.folder.FolderBackupWriter
+import com.pennywiseai.tracker.backup.folder.ScheduledFolderBackupScheduler
+import com.pennywiseai.tracker.data.repository.AccountBalanceRepository
+import com.pennywiseai.tracker.data.repository.TransactionRepository
+import com.pennywiseai.tracker.domain.usecase.DeleteAllTransactionsUseCase
+import com.pennywiseai.tracker.data.database.entity.AccountBalanceEntity
+import com.pennywiseai.tracker.utils.CurrencyFormatter
+import com.pennywiseai.tracker.utils.CurrencyUtils
+import com.pennywiseai.tracker.utils.SmsReportUrlBuilder
+import android.content.Intent
+import androidx.core.content.FileProvider
+import com.pennywiseai.tracker.core.Constants
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.first
+import java.net.URLEncoder
+import java.io.File
+import javax.inject.Inject
+
+@OptIn(ExperimentalCoroutinesApi::class)
+@HiltViewModel
+class SettingsViewModel @Inject constructor(
+    @param:ApplicationContext private val context: Context,
+    private val userPreferencesRepository: UserPreferencesRepository,
+    private val unrecognizedSmsRepository: UnrecognizedSmsRepository,
+    private val transactionRepository: TransactionRepository,
+    private val deleteAllTransactionsUseCase: DeleteAllTransactionsUseCase,
+    private val accountBalanceRepository: AccountBalanceRepository,
+    private val backupExporter: BackupExporter,
+    private val backupImporter: BackupImporter,
+    private val importCsvUseCase: com.pennywiseai.tracker.data.csv.ImportCsvUseCase,
+    private val folderBackupWriter: FolderBackupWriter,
+    private val scheduledFolderBackupScheduler: ScheduledFolderBackupScheduler,
+    private val contactsResolver: com.pennywiseai.tracker.data.contacts.ContactsResolver,
+    entitlementGate: EntitlementGate,
+) : ViewModel() {
+
+    /** Drives the Settings → Pro row: shows "Active" when true, "Upgrade" when false. */
+    val isProEntitled: StateFlow<Boolean> = entitlementGate.isProEntitled
+    
+    // Import/Export state
+    private val _importExportMessage = MutableStateFlow<String?>(null)
+    val importExportMessage: StateFlow<String?> = _importExportMessage.asStateFlow()
+    
+    private val _exportedBackupFile = MutableStateFlow<File?>(null)
+    val exportedBackupFile: StateFlow<File?> = _exportedBackupFile.asStateFlow()
+
+    // "Delete all transactions": null while the confirmation isn't open, else the
+    // number of rows the delete would remove — observed, not snapshotted, so the
+    // figure the user is consenting to stays the one the delete will act on even
+    // if a background scan writes a row while the dialog is up.
+    private val _deleteAllTransactionsRequested = MutableStateFlow(false)
+    val deleteAllTransactionsCount: StateFlow<Int?> = _deleteAllTransactionsRequested
+        .flatMapLatest { requested ->
+            if (requested) transactionRepository.observeAllTransactionCount().map { it as Int? }
+            else flowOf(null)
+        }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
+
+    private val _isDeletingAllTransactions = MutableStateFlow(false)
+    val isDeletingAllTransactions: StateFlow<Boolean> = _isDeletingAllTransactions.asStateFlow()
+
+    // Kept separate from [importExportMessage] so the outcome isn't reported
+    // under that flow's "Backup Status" dialog.
+    private val _deleteAllTransactionsResult = MutableStateFlow<String?>(null)
+    val deleteAllTransactionsResult: StateFlow<String?> = _deleteAllTransactionsResult.asStateFlow()
+
+    fun clearDeleteAllTransactionsResult() {
+        _deleteAllTransactionsResult.value = null
+    }
+
+    val scheduledFolderBackupEnabled = userPreferencesRepository.scheduledFolderBackupEnabled
+    val scheduledFolderBackupLastTimestamp = userPreferencesRepository.scheduledFolderBackupLastTimestamp
+
+    private val _requestFolderPicker = MutableStateFlow(false)
+    val requestFolderPicker: StateFlow<Boolean> = _requestFolderPicker.asStateFlow()
+
+    private var currentFolderPickerAction: FolderPickerAction = FolderPickerAction.ENABLE
+
+    // Developer mode state
+    val isDeveloperModeEnabled = userPreferencesRepository.isDeveloperModeEnabled
+    
+    // SMS scan period state
+    val smsScanMonths = userPreferencesRepository.smsScanMonths
+    val smsScanAllTime = userPreferencesRepository.smsScanAllTime
+    val smsScanUseCustomDate = userPreferencesRepository.smsScanUseCustomDate
+    val smsScanCustomDate = userPreferencesRepository.smsScanCustomDate
+
+    // Unified Currency Mode
+    val unifiedCurrencyMode = userPreferencesRepository.unifiedCurrencyMode
+    val displayCurrency = userPreferencesRepository.displayCurrency
+
+    // Count credit-card spend toward the "Spent this month" total (#705)
+    val countCreditCardAsExpense = userPreferencesRepository.countCreditCardAsExpense
+
+    // Replace UPI VPAs with contact names (gated by READ_CONTACTS).
+    val useContactsForVpa = userPreferencesRepository.useContactsForVpa
+
+    // Derive the selectable set from the user's ACTUAL data (transaction + account
+    // currencies) on top of the common seed list. This way any currency the user
+    // really holds — e.g. MZN held only in an account — is always selectable, instead
+    // of silently missing because it wasn't in the hand-maintained supported list.
+    val availableCurrencies: StateFlow<List<String>> = combine(
+        transactionRepository.getAllCurrencies(),
+        accountBalanceRepository.getAllLatestBalances()
+    ) { transactionCurrencies, accounts ->
+        val accountCurrencies = accounts.map { it.currency }
+        val supportedCurrencies = CurrencyUtils.getAllSupportedCurrencies()
+        val allCurrencies = (transactionCurrencies + accountCurrencies + supportedCurrencies).distinct()
+        CurrencyUtils.sortCurrencies(allCurrencies)
+    }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = CurrencyUtils.getAllSupportedCurrencies()
+        )
+    
+    // Base currency state
+    val baseCurrency = userPreferencesRepository.baseCurrency
+
+    // Number format style (digit grouping: Auto / Indian / International)
+    val numberFormatStyle = userPreferencesRepository.numberFormatStyle
+
+    // Budget cycle start day (1..31). Drives Home/Budgets/Analytics so a user
+    // whose salary doesn't land on the 1st can define their own pay cycle.
+    val budgetCycleStartDay = userPreferencesRepository.budgetCycleStartDay
+
+    // Main account selection (drives the default currency unless overridden above).
+    val accounts: StateFlow<List<AccountBalanceEntity>> =
+        accountBalanceRepository.getAllLatestBalances()
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000),
+                initialValue = emptyList()
+            )
+
+    val mainAccountKey: StateFlow<String?> = userPreferencesRepository.userPreferences
+        .map { it.mainAccountKey }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = null
+        )
+    
+    // Unrecognized SMS state
+    val unreportedSmsCount = unrecognizedSmsRepository.getUnreportedCount()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = 0
+        )
+    
+    fun setUnifiedCurrencyMode(enabled: Boolean) {
+        viewModelScope.launch {
+            userPreferencesRepository.setUnifiedCurrencyMode(enabled)
+            com.pennywiseai.tracker.widget.WidgetRefresher.refreshTransactionWidgets(context)
+        }
+    }
+
+    /**
+     * Opens the "delete all transactions" confirmation, loading the row count
+     * it will report. Transactions only: accounts, budgets, loans, categories
+     * and rules are left alone, and the cascading foreign keys clear the
+     * splits / tags / rule-applications that hang off the deleted rows.
+     */
+    fun requestDeleteAllTransactions() {
+        _deleteAllTransactionsRequested.value = true
+    }
+
+    fun cancelDeleteAllTransactions() {
+        _deleteAllTransactionsRequested.value = false
+    }
+
+    /**
+     * Clears the transaction history. The delete and the balance settlement that
+     * follows it are one database transaction inside
+     * [DeleteAllTransactionsUseCase] — see there for what happens to each kind of
+     * account's balance and why.
+     */
+    private suspend fun onDeleteAllSucceeded(deleted: Int) {
+        com.pennywiseai.tracker.widget.WidgetRefresher.refreshTransactionWidgets(context)
+        com.pennywiseai.tracker.widget.RecentTransactionsWidgetDataStore.clear(context)
+
+        // SMS ingestion runs independently and can commit a row straight after
+        // the delete's transaction commits. That isn't the delete failing — the
+        // authorised history did go — but reporting a clean sweep while rows
+        // exist would be a lie, so say what actually happened.
+        val arrived = transactionRepository.observeAllTransactionCount().first()
+        _deleteAllTransactionsResult.value = buildString {
+            append(
+                when (deleted) {
+                    0 -> context.getString(R.string.vm_delete_none)
+                    1 -> context.getString(R.string.vm_delete_one)
+                    else -> context.getString(R.string.vm_delete_count, deleted)
+                }
+            )
+            if (arrived > 0) {
+                append(
+                    " " + if (arrived == 1) context.getString(R.string.vm_arrived_one)
+                    else context.getString(R.string.vm_arrived_count, arrived)
+                )
+            }
+        }
+    }
+
+    fun deleteAllTransactions(expectedCount: Int) {
+        viewModelScope.launch {
+            _isDeletingAllTransactions.value = true
+            try {
+                when (val result = deleteAllTransactionsUseCase(expectedCount)) {
+                    is DeleteAllTransactionsUseCase.Result.CountChanged -> {
+                        // Nothing was removed; the dialog stays open showing the
+                        // new (observed) figure so the user re-authorises it.
+                        _deleteAllTransactionsResult.value =
+                            context.getString(R.string.vm_delete_count_changed, result.actual)
+                        return@launch
+                    }
+                    is DeleteAllTransactionsUseCase.Result.Deleted -> {
+                        onDeleteAllSucceeded(result.deleted)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("SettingsViewModel", "Delete all transactions failed", e)
+                _deleteAllTransactionsResult.value = context.getString(R.string.vm_delete_failed, e.message)
+            } finally {
+                _isDeletingAllTransactions.value = false
+                _deleteAllTransactionsRequested.value = false
+            }
+        }
+    }
+
+    fun setCountCreditCardAsExpense(enabled: Boolean) {
+        viewModelScope.launch {
+            userPreferencesRepository.setCountCreditCardAsExpense(enabled)
+            com.pennywiseai.tracker.widget.WidgetRefresher.refreshTransactionWidgets(context)
+        }
+    }
+
+    fun setDisplayCurrency(currency: String) {
+        viewModelScope.launch {
+            userPreferencesRepository.setDisplayCurrency(currency)
+            com.pennywiseai.tracker.widget.WidgetRefresher.refreshTransactionWidgets(context)
+            com.pennywiseai.tracker.widget.RecentTransactionsWidgetDataStore.clear(context)
+        }
+    }
+
+    fun toggleDeveloperMode(enabled: Boolean) {
+        viewModelScope.launch {
+            userPreferencesRepository.setDeveloperModeEnabled(enabled)
+        }
+    }
+
+    /**
+     * Flip the UPI-contact-resolution preference. The screen is responsible
+     * for ensuring READ_CONTACTS is granted before passing `true` — this
+     * just persists. Toggling either direction wipes the resolver cache so
+     * stale results don't leak across the flag flip (and so a re-enable
+     * after permission grant picks up the user's contacts immediately).
+     */
+    fun setUseContactsForVpa(enabled: Boolean) {
+        viewModelScope.launch {
+            userPreferencesRepository.setUseContactsForVpa(enabled)
+            contactsResolver.clearCache()
+        }
+    }
+    
+    fun updateSmsScanMonths(months: Int) {
+        viewModelScope.launch {
+            val currentMonths = userPreferencesRepository.getSmsScanMonths()
+
+            // If increasing scan period, reset scan timestamp to force full scan
+            if (months > currentMonths) {
+                userPreferencesRepository.setLastScanTimestamp(0L)
+                Log.d("SettingsViewModel", "Scan period increased from $currentMonths to $months months - will perform full scan")
+            }
+
+            userPreferencesRepository.updateSmsScanUseCustomDate(false)
+            userPreferencesRepository.updateSmsScanMonths(months)
+        }
+    }
+
+    fun updateSmsScanAllTime(allTime: Boolean) {
+        viewModelScope.launch {
+            // If enabling all time scanning, reset scan timestamp to force full scan
+            if (allTime) {
+                userPreferencesRepository.setLastScanTimestamp(0L)
+                Log.d("SettingsViewModel", "All time scanning enabled - will perform full scan")
+            }
+
+            userPreferencesRepository.updateSmsScanUseCustomDate(false)
+            userPreferencesRepository.updateSmsScanAllTime(allTime)
+        }
+    }
+
+    fun updateSmsScanCustomDate(selectedDateMillis: Long) {
+        viewModelScope.launch {
+            val normalizedDate = SmsScanParamsCalculator.normalizePickerDateToLocalStartOfDay(selectedDateMillis)
+            val currentDate = userPreferencesRepository.getSmsScanCustomDate()
+            val wasUsingCustomDate = userPreferencesRepository.getSmsScanUseCustomDate()
+
+            if (!wasUsingCustomDate || currentDate == null || normalizedDate < currentDate) {
+                userPreferencesRepository.setLastScanTimestamp(0L)
+                Log.d("SettingsViewModel", "Custom SMS scan date updated - will perform full scan")
+            }
+
+            userPreferencesRepository.updateSmsScanAllTime(false)
+            userPreferencesRepository.updateSmsScanUseCustomDate(true)
+            userPreferencesRepository.updateSmsScanCustomDate(normalizedDate)
+        }
+    }
+    
+    fun openUnrecognizedSmsReport(context: Context) {
+        viewModelScope.launch {
+            try {
+                val firstUnreported = unrecognizedSmsRepository.getFirstUnreported()
+                
+                if (firstUnreported != null) {
+                    val url = SmsReportUrlBuilder.buildUrl(context, firstUnreported.smsBody, firstUnreported.sender)
+                    Log.d("SettingsViewModel", "Full URL length: ${url.length}")
+                    
+                    // Open in browser
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    context.startActivity(intent)
+                    
+                    // Mark as reported
+                    unrecognizedSmsRepository.markAsReported(listOf(firstUnreported.id))
+                    
+                    Log.d("SettingsViewModel", "Opened report for unrecognized SMS from: ${firstUnreported.sender}")
+                } else {
+                    Log.d("SettingsViewModel", "No unreported SMS messages found")
+                }
+            } catch (e: Exception) {
+                Log.e("SettingsViewModel", "Error opening unrecognized SMS report", e)
+            }
+        }
+    }
+    
+    fun exportBackup() {
+        viewModelScope.launch {
+            try {
+                val result = backupExporter.exportBackup()
+                when (result) {
+                    is ExportResult.Success -> {
+                        // Store the file for later saving
+                        _exportedBackupFile.value = result.file
+                        _importExportMessage.value = context.getString(R.string.vm_backup_created)
+                    }
+                    is ExportResult.Error -> {
+                        _importExportMessage.value = context.getString(R.string.vm_export_failed, result.message)
+                        Log.e("SettingsViewModel", "Export failed: ${result.message}")
+                    }
+                    else -> {}
+                }
+            } catch (e: Exception) {
+                _importExportMessage.value = context.getString(R.string.vm_export_error, e.message)
+                Log.e("SettingsViewModel", "Export error", e)
+            }
+        }
+    }
+    
+    fun saveBackupToFile(uri: android.net.Uri) {
+        viewModelScope.launch {
+            try {
+                _exportedBackupFile.value?.let { file ->
+                    context.contentResolver.openOutputStream(uri)?.use { outputStream ->
+                        file.inputStream().use { inputStream ->
+                            inputStream.copyTo(outputStream)
+                        }
+                    }
+                    _importExportMessage.value = context.getString(R.string.vm_backup_saved)
+                    _exportedBackupFile.value = null
+                }
+            } catch (e: Exception) {
+                _importExportMessage.value = context.getString(R.string.vm_backup_save_failed, e.message)
+                Log.e("SettingsViewModel", "Error saving backup", e)
+            }
+        }
+    }
+    
+    fun shareBackup() {
+        _exportedBackupFile.value?.let { file ->
+            shareBackupFile(file)
+        }
+    }
+    
+    private fun shareBackupFile(file: File) {
+        try {
+            val uri = FileProvider.getUriForFile(
+                context,
+                "${context.packageName}.fileprovider",
+                file
+            )
+            
+            val intent = Intent(Intent.ACTION_SEND).apply {
+                type = "application/octet-stream"
+                putExtra(Intent.EXTRA_STREAM, uri)
+                putExtra(Intent.EXTRA_SUBJECT, "غوازي Backup")
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            
+            context.startActivity(Intent.createChooser(intent, context.getString(R.string.vm_share_backup_title)).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            })
+        } catch (e: Exception) {
+            Log.e("SettingsViewModel", "Error sharing backup file", e)
+        }
+    }
+    
+    fun importBackup(uri: android.net.Uri) {
+        viewModelScope.launch {
+            try {
+                _importExportMessage.value = context.getString(R.string.vm_importing_backup)
+                val result = backupImporter.importBackup(uri, ImportStrategy.MERGE)
+                when (result) {
+                    is ImportResult.Success -> {
+                        val skipped = if (result.skippedRows > 0) " " + context.getString(R.string.vm_import_rows_skipped, result.skippedRows) else ""
+                        _importExportMessage.value = context.getString(R.string.vm_import_success, result.importedTransactions, result.importedCategories, result.skippedDuplicates) + skipped
+                    }
+                    is ImportResult.Error -> {
+                        _importExportMessage.value = context.getString(R.string.vm_import_failed, result.message)
+                        Log.e("SettingsViewModel", "Import failed: ${result.message}")
+                    }
+                }
+            } catch (e: Exception) {
+                _importExportMessage.value = context.getString(R.string.vm_import_error, e.message)
+                Log.e("SettingsViewModel", "Import error", e)
+            }
+        }
+    }
+    
+    /**
+     * Imports historical transactions from a CSV in PennyWise's own export format.
+     * Free feature (onboarding/migration) — not gated behind Pro.
+     */
+    fun importCsv(uri: android.net.Uri) {
+        viewModelScope.launch {
+            try {
+                _importExportMessage.value = context.getString(R.string.vm_importing_transactions)
+                when (val result = importCsvUseCase.execute(uri)) {
+                    is com.pennywiseai.tracker.data.csv.ImportCsvUseCase.Result.Success -> {
+                        val failedSuffix = if (result.failed > 0) {
+                            ", " + context.getString(R.string.vm_csv_rows_failed, result.failed)
+                        } else ""
+                        _importExportMessage.value =
+                            context.getString(R.string.vm_csv_import_success, result.imported, result.skippedDuplicate) + failedSuffix
+                    }
+                    is com.pennywiseai.tracker.data.csv.ImportCsvUseCase.Result.Error -> {
+                        _importExportMessage.value = result.message
+                        Log.e("SettingsViewModel", "CSV import failed: ${result.message}")
+                    }
+                }
+            } catch (e: Exception) {
+                _importExportMessage.value = context.getString(R.string.vm_import_error, e.message)
+                Log.e("SettingsViewModel", "CSV import error", e)
+            }
+        }
+    }
+
+    fun clearImportExportMessage() {
+        _importExportMessage.value = null
+    }
+
+    fun setScheduledFolderBackupEnabled(enabled: Boolean) {
+        viewModelScope.launch {
+            if (enabled) {
+                val treeUri = userPreferencesRepository.getScheduledFolderBackupTreeUri()
+                if (treeUri.isNullOrBlank()) {
+                    currentFolderPickerAction = FolderPickerAction.ENABLE
+                    _requestFolderPicker.value = true
+                    return@launch
+                }
+                enableScheduledFolderBackup(treeUri)
+            } else {
+                userPreferencesRepository.setScheduledFolderBackupEnabled(false)
+                scheduledFolderBackupScheduler.cancel()
+                _importExportMessage.value = context.getString(R.string.vm_folder_backup_disabled)
+            }
+        }
+    }
+
+    fun requestChangeBackupFolder() {
+        currentFolderPickerAction = FolderPickerAction.CHANGE
+        _requestFolderPicker.value = true
+    }
+
+    fun onFolderPickerLaunched() {
+        _requestFolderPicker.value = false
+    }
+
+    fun onBackupFolderSelected(uri: Uri) {
+        viewModelScope.launch {
+            try {
+                val flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                context.contentResolver.takePersistableUriPermission(uri, flags)
+
+                val treeUri = uri.toString()
+                userPreferencesRepository.setScheduledFolderBackupTreeUri(treeUri)
+
+                when (currentFolderPickerAction) {
+                    FolderPickerAction.ENABLE -> enableScheduledFolderBackup(treeUri)
+                    FolderPickerAction.CHANGE -> {
+                        if (userPreferencesRepository.isScheduledFolderBackupEnabled()) {
+                            scheduledFolderBackupScheduler.schedule()
+                        }
+                        backupToFolderNow(showSuccessMessage = true)
+                    }
+                }
+            } catch (e: Exception) {
+                _importExportMessage.value = context.getString(R.string.vm_folder_access_failed, e.message)
+                Log.e("SettingsViewModel", "Failed to persist backup folder", e)
+            }
+        }
+    }
+
+    fun backupToFolderNow(showSuccessMessage: Boolean = true) {
+        viewModelScope.launch {
+            performFolderBackup(showSuccessMessage)
+        }
+    }
+
+    private suspend fun performFolderBackup(showSuccessMessage: Boolean): Boolean {
+        val treeUri = userPreferencesRepository.getScheduledFolderBackupTreeUri()
+        if (treeUri.isNullOrBlank()) {
+            _importExportMessage.value = context.getString(R.string.vm_select_folder_first)
+            return false
+        }
+
+        if (!folderBackupWriter.canWriteToFolder(treeUri)) {
+            _importExportMessage.value = context.getString(R.string.vm_folder_cannot_write)
+            return false
+        }
+
+        return when (val exportResult = backupExporter.exportBackupBytes()) {
+            is ExportBytesResult.Success -> {
+                when (val writeResult = folderBackupWriter.writeBackup(treeUri, exportResult.bytes)) {
+                    is FolderBackupWriter.Result.Success -> {
+                        userPreferencesRepository.setScheduledFolderBackupLastTimestamp(
+                            System.currentTimeMillis()
+                        )
+                        if (showSuccessMessage) {
+                            _importExportMessage.value = context.getString(R.string.vm_backup_saved_folder)
+                        }
+                        true
+                    }
+                    is FolderBackupWriter.Result.Failure -> {
+                        _importExportMessage.value = writeResult.message
+                        false
+                    }
+                }
+            }
+            is ExportBytesResult.Error -> {
+                _importExportMessage.value = exportResult.message
+                false
+            }
+        }
+    }
+
+    private suspend fun enableScheduledFolderBackup(treeUri: String) {
+        if (!folderBackupWriter.canWriteToFolder(treeUri)) {
+            _importExportMessage.value = context.getString(R.string.vm_folder_cannot_write)
+            return
+        }
+
+        userPreferencesRepository.setScheduledFolderBackupEnabled(true)
+        scheduledFolderBackupScheduler.schedule()
+        // Only claim success if the immediate backup actually wrote. On failure,
+        // performFolderBackup has already surfaced the reason — don't clobber it.
+        if (performFolderBackup(showSuccessMessage = false)) {
+            _importExportMessage.value =
+                context.getString(R.string.vm_folder_backup_enabled)
+        }
+    }
+    
+    fun updateBaseCurrency(currency: String) {
+        viewModelScope.launch {
+            userPreferencesRepository.updateBaseCurrency(currency)
+        }
+    }
+
+    fun updateNumberFormatStyle(style: NumberFormatStyle) {
+        viewModelScope.launch {
+            userPreferencesRepository.updateNumberFormatStyle(style)
+        }
+    }
+
+    fun updateBudgetCycleStartDay(day: Int) {
+        viewModelScope.launch {
+            userPreferencesRepository.updateBudgetCycleStartDay(day)
+        }
+    }
+
+    /**
+     * Sets the main account and derives the default currency from it — unless the user
+     * has already picked a currency explicitly, in which case that choice is kept.
+     */
+    fun setMainAccount(account: AccountBalanceEntity) {
+        viewModelScope.launch {
+            userPreferencesRepository.updateMainAccountKey(
+                "${account.bankName}_${account.accountLast4}"
+            )
+            val currency = CurrencyFormatter.resolveAccountCurrency(
+                sourceType = account.sourceType,
+                storedCurrency = account.currency,
+                bankName = account.bankName
+            )
+            userPreferencesRepository.applyMainAccountCurrency(currency)
+        }
+    }
+}
+
+private enum class FolderPickerAction {
+    ENABLE,
+    CHANGE
+}

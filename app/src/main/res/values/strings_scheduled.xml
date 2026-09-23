@@ -1,0 +1,165 @@
+<resources>
+    <!-- Subscriptions -->
+    <string name="sched_title_subscriptions">Subscriptions</string>
+    <string name="sched_subscription_hidden">%1$s hidden</string>
+    <string name="sched_subscription_ended">%1$s ended</string>
+    <string name="sched_add_subscription">Add Subscription</string>
+    <string name="sched_active_subscriptions">Active Subscriptions</string>
+    <string name="sched_empty_subscriptions_headline">No subscriptions detected yet</string>
+    <string name="sched_empty_subscriptions_description">Sync your SMS to detect subscriptions</string>
+    <string name="sched_cancelled_count">Cancelled (%1$d)</string>
+    <string name="sched_collapse">Collapse</string>
+    <string name="sched_expand">Expand</string>
+    <string name="sched_reactivate">Reactivate</string>
+    <string name="sched_delete_subscription_title">Delete subscription?</string>
+    <string name="sched_delete_subscription_message">Permanently delete \'%1$s\'? This cannot be undone.</string>
+    <string name="sched_no_active_subscriptions">No active subscriptions</string>
+    <string name="sched_active_subscription_count">Active subscriptions: %1$d</string>
+    <string name="sched_all_paid_this_cycle">All %1$d paid this cycle</string>
+    <string name="sched_paid_of_total_this_cycle">%1$d of %2$d paid this cycle</string>
+    <string name="sched_monthly_subscriptions">Monthly Subscriptions</string>
+    <string name="sched_hide">Hide</string>
+    <string name="sched_sms_available">SMS available</string>
+    <string name="sched_no_date_set">No date set</string>
+    <string name="sched_due_today">Due today</string>
+    <string name="sched_due_tomorrow">Due tomorrow</string>
+    <string name="sched_due_in_days">Due in %1$d days</string>
+    <string name="sched_paid_date">Paid %1$s</string>
+    <string name="sched_mark_as_paid">Mark as paid</string>
+    <string name="sched_view_source">View source</string>
+    <string name="sched_end_subscription">End subscription</string>
+    <string name="sched_notes">Notes</string>
+    <string name="sched_original_sms">Original SMS</string>
+    <string name="sched_remove_subscription_message">\"%1$s\" will be permanently removed. This cannot be undone.</string>
+    <string name="sched_edit_subscription">Edit subscription</string>
+    <string name="sched_amount_with_currency">Amount (%1$s)</string>
+    <string name="sched_tap_to_set">Tap to set</string>
+    <string name="sched_next_payment_date">Next payment date</string>
+    <string name="sched_category_optional">Category (optional)</string>
+    <string name="sched_no_account">No account</string>
+    <string name="sched_paid_from">Paid from</string>
+    <string name="sched_pick_account">Pick account</string>
+    <string name="sched_selected">Selected</string>
+
+    <!-- Mark as paid sheet -->
+    <string name="sched_eyebrow_mark_received">MARK AS RECEIVED</string>
+    <string name="sched_eyebrow_mark_paid">MARK AS PAID</string>
+    <string name="sched_mark_received">Mark received</string>
+    <string name="sched_mark_paid">Mark paid</string>
+    <string name="sched_already_marked_paid_on">Already marked paid on %1$s</string>
+    <string name="sched_matching_payments">Matching payments: %1$d</string>
+    <string name="sched_when">When?</string>
+    <string name="sched_cta_with_amount">%1$s · %2$s</string>
+    <string name="sched_income_roll_schedule">We\'ll log a %1$s income and roll the schedule to the next cycle.</string>
+    <string name="sched_expense_roll_schedule">We\'ll log the expense and roll the schedule to the next cycle.</string>
+    <string name="sched_link_this_payment">Link this payment</string>
+    <string name="sched_or_mark_today">or mark today</string>
+    <string name="sched_today">Today</string>
+    <string name="sched_yesterday">Yesterday</string>
+
+    <!-- Recurring transactions -->
+    <string name="sched_recurring">Recurring</string>
+    <string name="sched_add_recurring_transaction">Add recurring transaction</string>
+    <string name="sched_empty_recurring_headline">No recurring transactions</string>
+    <string name="sched_empty_recurring_description">Schedule cash or manual spend to be added automatically — rent, an allowance, a weekly cleaner.</string>
+    <string name="sched_active">Active</string>
+    <string name="sched_paused">Paused</string>
+    <string name="sched_untitled">Untitled</string>
+    <string name="sched_frequency_next">%1$s · Next %2$s</string>
+    <string name="sched_pause">Pause</string>
+    <string name="sched_resume">Resume</string>
+    <string name="sched_delete_recurring_title">Delete recurring transaction?</string>
+    <string name="sched_delete_recurring_message">\"%1$s\" will stop being added automatically. This cannot be undone.</string>
+    <string name="sched_new_recurring">New recurring</string>
+    <string name="sched_edit_recurring">Edit recurring</string>
+    <string name="sched_amount">Amount</string>
+    <string name="sched_currency">Currency</string>
+    <string name="sched_expense">Expense</string>
+    <string name="sched_income">Income</string>
+    <string name="sched_category">Category</string>
+    <string name="sched_frequency">Frequency</string>
+    <string name="sched_day_of_month">Day of month (1-31)</string>
+    <string name="sched_any">Any</string>
+    <string name="sched_day_of_week">Day of week</string>
+    <string name="sched_note_optional">Note (optional)</string>
+    <string name="sched_day_mon">Mon</string>
+    <string name="sched_day_tue">Tue</string>
+    <string name="sched_day_wed">Wed</string>
+    <string name="sched_day_thu">Thu</string>
+    <string name="sched_day_fri">Fri</string>
+    <string name="sched_day_sat">Sat</string>
+    <string name="sched_day_sun">Sun</string>
+
+    <!-- Loans -->
+    <string name="sched_loans">Loans</string>
+    <string name="sched_empty_loans_headline">No loans yet</string>
+    <string name="sched_empty_loans_description">Mark a transaction as \"Lent\" or \"Borrowed\" to start tracking</string>
+    <string name="sched_settled_count">Settled (%1$d)</string>
+    <string name="sched_owed_to_you">Owed to you</string>
+    <string name="sched_you_owe">You owe</string>
+    <string name="sched_lent">Lent</string>
+    <string name="sched_borrowed">Borrowed</string>
+    <string name="sched_settled">Settled</string>
+    <string name="sched_of_amount">of %1$s</string>
+
+    <!-- Loan detail -->
+    <string name="sched_loan">Loan</string>
+    <string name="sched_set_expected_return">Set expected return</string>
+    <string name="sched_settle">Settle</string>
+    <string name="sched_reopen">Reopen</string>
+    <string name="sched_record_payment">Record Payment</string>
+    <string name="sched_remaining_of">remaining of %1$s</string>
+    <string name="sched_percent_repaid">%1$d%% repaid</string>
+    <string name="sched_history">History</string>
+    <string name="sched_settle_loan_title">Settle Loan</string>
+    <string name="sched_settle_loan_message">Mark this loan as settled? Any remaining balance will be forgiven.</string>
+    <string name="sched_expected_return">Expected Return</string>
+    <string name="sched_amount_expected_back">Amount expected back</string>
+    <string name="sched_delete_loan_title">Delete Loan</string>
+    <string name="sched_delete_loan_message">Delete this loan? Linked transactions will be unlinked but not deleted.</string>
+    <string name="sched_original">Original</string>
+    <string name="sched_record_payment_from">Record payment from %1$s</string>
+    <string name="sched_amount_remaining">%1$s remaining</string>
+    <string name="sched_link_existing_transaction">Link existing transaction</string>
+    <string name="sched_or_enter_manually">Or enter manually</string>
+    <string name="sched_enter_amount">Enter amount</string>
+
+    <!-- Transaction groups -->
+    <string name="sched_transaction_groups">Transaction Groups</string>
+    <string name="sched_create_group">Create Group</string>
+    <string name="sched_empty_groups_headline">No groups yet</string>
+    <string name="sched_empty_groups_description">Create a group to organise related transactions</string>
+    <string name="sched_transaction_count">Transactions: %1$d</string>
+    <string name="sched_new_group">New Group</string>
+    <string name="sched_group_name">Group name</string>
+    <string name="sched_group">Group</string>
+    <string name="sched_export_csv">Export CSV</string>
+    <string name="sched_add_transaction">Add transaction</string>
+    <string name="sched_transactions">Transactions</string>
+    <string name="sched_expenses">Expenses</string>
+    <string name="sched_no_transactions_yet">No transactions yet</string>
+    <string name="sched_tap_plus_add_transactions">Tap + to add transactions to this group</string>
+    <string name="sched_delete_group_title">Delete Group</string>
+    <string name="sched_delete_group_message">Delete this group? Linked transactions will be ungrouped but not deleted.</string>
+    <string name="sched_remove_from_group">Remove from group</string>
+    <string name="sched_add_transactions">Add Transactions</string>
+    <string name="sched_search_transactions">Search transactions…</string>
+    <string name="sched_no_ungrouped_transactions">No ungrouped transactions</string>
+    <string name="sched_no_results">No results</string>
+    <string name="sched_edit_group">Edit Group</string>
+
+    <!-- Shared -->
+    <string name="sched_back">Back</string>
+    <string name="sched_undo">Undo</string>
+    <string name="sched_delete">Delete</string>
+    <string name="sched_cancel">Cancel</string>
+    <string name="sched_save">Save</string>
+    <string name="sched_ok">OK</string>
+    <string name="sched_edit">Edit</string>
+    <string name="sched_more">More</string>
+    <string name="sched_more_options">More options</string>
+    <string name="sched_name">Name</string>
+    <string name="sched_pick_date">Pick date</string>
+    <string name="sched_add">Add</string>
+    <string name="sched_create">Create</string>
+</resources>

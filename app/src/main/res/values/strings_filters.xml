@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Time periods -->
+    <string name="filter_time_this_month">This Month</string>
+    <string name="filter_time_last_month">Last Month</string>
+    <string name="filter_time_current_fy">Current FY</string>
+    <string name="filter_time_all_time">All Time</string>
+    <string name="filter_time_custom_range">Custom Range</string>
+
+    <!-- Transaction type filter -->
+    <string name="filter_type_all">All</string>
+    <string name="filter_type_income">Income</string>
+    <string name="filter_type_expense">Expense</string>
+    <string name="filter_type_credit">Credit</string>
+    <string name="filter_type_transfer">Transfer</string>
+    <string name="filter_type_investment">Investment</string>
+
+    <!-- Short chip labels -->
+    <string name="filter_type_short_invest">Invest</string>
+
+    <!-- Transaction date grouping -->
+    <string name="filter_date_today">Today</string>
+    <string name="filter_date_yesterday">Yesterday</string>
+    <string name="filter_date_this_week">This Week</string>
+    <string name="filter_date_earlier">Earlier</string>
+
+    <!-- Sort options -->
+    <string name="filter_sort_newest">Newest First</string>
+    <string name="filter_sort_oldest">Oldest First</string>
+    <string name="filter_sort_amount_highest">Highest Amount</string>
+    <string name="filter_sort_amount_lowest">Lowest Amount</string>
+    <string name="filter_sort_merchant_az">Merchant (A-Z)</string>
+    <string name="filter_sort_merchant_za">Merchant (Z-A)</string>
+
+    <!-- Account detail date ranges -->
+    <string name="filter_range_last_7_days">Last 7 Days</string>
+    <string name="filter_range_last_30_days">Last 30 Days</string>
+    <string name="filter_range_last_3_months">Last 3 Months</string>
+    <string name="filter_range_last_6_months">Last 6 Months</string>
+    <string name="filter_range_last_year">Last Year</string>
+
+    <!-- Recurring frequency -->
+    <string name="filter_frequency_daily">Daily</string>
+    <string name="filter_frequency_weekly">Weekly</string>
+    <string name="filter_frequency_monthly">Monthly</string>
+
+    <!-- Rule condition operators -->
+    <string name="filter_condition_less_than">&lt;</string>
+    <string name="filter_condition_greater_than">&gt;</string>
+    <string name="filter_condition_equals">=</string>
+    <string name="filter_condition_before">before</string>
+    <string name="filter_condition_after">after</string>
+    <string name="filter_condition_at_or_after">at or after</string>
+    <string name="filter_condition_at_or_before">at or before</string>
+    <string name="filter_condition_exactly_at">exactly at</string>
+    <string name="filter_condition_is_any_of">is any of</string>
+    <string name="filter_condition_is">is</string>
+    <string name="filter_condition_is_not">is not</string>
+    <string name="filter_condition_equals_word">equals</string>
+    <string name="filter_condition_starts_with">starts with</string>
+    <string name="filter_condition_contains">contains</string>
+
+    <!-- Account types -->
+    <string name="filter_account_savings">Savings</string>
+    <string name="filter_account_current">Current</string>
+    <string name="filter_account_credit_card">Credit Card</string>
+    <string name="filter_account_cash">Cash</string>
+
+    <!-- Home sections -->
+    <string name="filter_home_budgets">Budgets</string>
+    <string name="filter_home_loans">Loans</string>
+    <string name="filter_home_groups">Groups</string>
+    <string name="filter_home_recent_transactions">Recent Transactions</string>
+    <string name="filter_home_accounts">Bank Accounts</string>
+    <string name="filter_home_subscriptions">Upcoming Subscriptions</string>
+    <string name="filter_home_activity">Activity</string>
+
+    <!-- More-filters chip -->
+    <string name="filter_more_filters_count">2 Filters</string>
+    <string name="filter_more_category">Category</string>
+    <string name="filter_more_filters">Filters</string>
+</resources>
