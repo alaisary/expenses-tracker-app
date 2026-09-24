@@ -33,6 +33,16 @@ abstract class BankParser {
      * Returns null if the message cannot be parsed.
      */
     open fun parse(smsBody: String, sender: String, timestamp: Long): ParsedTransaction? {
+        // Marketing broadcasts are never transactions. Network gateways append a
+        // "-P" suffix to promotional sender IDs while alerts arrive on the
+        // transactional route ("-T"), so e.g. "BANKMUSCAT-P" campaigns — whose
+        // bodies can quote a figure like "Minimum spend OMR 5.000" — must not be
+        // booked as a spend. Checked before the body heuristics, which a campaign
+        // can otherwise satisfy by accident.
+        if (isPromotionalSender(sender)) {
+            return null
+        }
+
         // Skip non-transaction messages
         if (!isTransactionMessage(smsBody)) {
             return null
@@ -84,6 +94,15 @@ abstract class BankParser {
      * balance instead of requiring an accountLast4. Defaults to false.
      */
     open fun isMobileWallet(): Boolean = false
+
+    /**
+     * Whether [sender] is a promotional route. Network SMS gateways append "-P"
+     * to marketing sender IDs while transactional alerts use "-T" (e.g.
+     * "AX-CRED-T"), so a trailing "-P" marks a campaign broadcast, never an
+     * account alert. Overridable for networks that use a different convention.
+     */
+    protected open fun isPromotionalSender(sender: String): Boolean =
+        sender.trim().endsWith("-P", ignoreCase = true)
 
     /**
      * Checks if the message is a transaction message (not OTP, promotional, etc.)
