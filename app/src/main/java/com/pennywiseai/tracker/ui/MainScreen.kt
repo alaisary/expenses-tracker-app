@@ -25,15 +25,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.pennywiseai.tracker.data.contacts.LocalMerchantDisplay
-import com.pennywiseai.tracker.data.contacts.displayMerchantName
+import com.pennywiseai.tracker.data.merchant.LocalMerchantDisplay
 import com.pennywiseai.tracker.navigation.safePopBackStack
 import com.pennywiseai.tracker.presentation.accounts.AddAccountScreen
 import com.pennywiseai.tracker.presentation.accounts.ManageAccountsScreen
 import com.pennywiseai.tracker.presentation.accounts.ManageAccountsViewModel
 import com.pennywiseai.tracker.presentation.home.HomeScreen
-import com.pennywiseai.tracker.presentation.statement.ImportStatementScreen
-import com.pennywiseai.tracker.presentation.statement.ImportStatementViewModel
 import com.pennywiseai.tracker.presentation.subscriptions.SubscriptionsScreen
 import com.pennywiseai.tracker.presentation.transactions.TransactionsScreen
 import com.pennywiseai.tracker.ui.components.PennyWiseBottomNavigation
@@ -72,17 +69,14 @@ fun MainScreen(
     // What's New dialog state
     val whatsNewVersion by mainViewModel.whatsNewVersion.collectAsState()
 
-    // UPI VPA → contact name. Read the toggle as state; the lambda closes
-    // over the current value + the singleton resolver, and is provided
-    // through a CompositionLocal so every transaction-rendering composable
-    // (TransactionItem, TransactionDetailScreen header, etc.) can apply the
-    // same rule without prop-drilling the resolver everywhere.
-    val useContactsForVpa by mainViewModel.useContactsForVpa.collectAsState()
+    // Merchant display: provided through a CompositionLocal so every
+    // transaction-rendering composable (TransactionItem, TransactionDetailScreen
+    // header, analytics merchant list) applies the user's alias without
+    // prop-drilling the alias map everywhere.
     val merchantAliases by mainViewModel.merchantAliases.collectAsState()
-    val merchantDisplay = remember(useContactsForVpa, merchantAliases) {
-        { raw: String? ->
-            displayMerchantName(raw, useContactsForVpa, mainViewModel.contactsResolver, merchantAliases)
-        }
+    // Raw merchant name → user alias (#583), falling back to the raw name.
+    val merchantDisplay = remember(merchantAliases) {
+        { raw: String? -> raw?.let { merchantAliases[it] ?: it } }
     }
 
     // Haze state for blur effects
@@ -465,11 +459,6 @@ fun MainScreen(
                                     launchSingleTop = true
                                 }
                             },
-                            onNavigateToImportStatement = {
-                                navController.navigate("import_statement") {
-                                    launchSingleTop = true
-                                }
-                            },
                             onNavigateToTransactionGroups = {
                                 rootNavController?.navigate(
                                     com.pennywiseai.tracker.navigation.TransactionGroups
@@ -562,19 +551,6 @@ fun MainScreen(
                     ),
                     content = { _: NavBackStackEntry ->
                         com.pennywiseai.tracker.presentation.accounts.BalanceHistoryScreen(
-                            onNavigateBack = {
-                                navController.safePopBackStack()
-                            }
-                        )
-                    }
-                )
-
-                composable(
-                    route = "import_statement",
-                    content = { _: NavBackStackEntry ->
-                        val viewModel: ImportStatementViewModel = hiltViewModel()
-                        ImportStatementScreen(
-                            viewModel = viewModel,
                             onNavigateBack = {
                                 navController.safePopBackStack()
                             }

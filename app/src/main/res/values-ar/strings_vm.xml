@@ -88,7 +88,6 @@
     <string name="vm_plans_loading">لا تزال الخطط قيد التحميل. حاول مرة أخرى بعد لحظات.</string>
     <string name="vm_purchase_failed">فشلت عملية الشراء. حاول مرة أخرى.</string>
     <string name="vm_play_store_unavailable">متجر Play غير متاح. تحقق من اتصالك وحاول مرة أخرى.</string>
-    <string name="vm_purchases_unavailable">عمليات الشراء غير متاحة في هذا الإصدار.</string>
     <string name="vm_play_store_unreachable">تعذّر الوصول إلى متجر Play. حاول لاحقًا.</string>
 
     <!-- ViewModel messages: AppLockViewModel -->
@@ -133,7 +132,6 @@
     <string name="vm_arrived_count">وصلت %1$d معاملات جديدة أثناء تنفيذه.</string>
     <string name="vm_delete_count_changed">وصلت معاملات جديدة أثناء تأكيدك، لذا لم يُحذف شيء. يوجد الآن %1$d. تحقق من الرقم وحاول مرة أخرى.</string>
     <string name="vm_delete_failed">تعذّر حذف المعاملات: %1$s</string>
-    <string name="vm_backup_created">تم إنشاء النسخة الاحتياطية بنجاح! اختر مكان حفظها.</string>
     <string name="vm_export_failed">فشل التصدير: %1$s</string>
     <string name="vm_export_error">خطأ في التصدير: %1$s</string>
     <string name="vm_backup_saved">تم حفظ النسخة الاحتياطية بنجاح!</string>

@@ -920,7 +920,8 @@ class OptimizedSmsReaderWorker @AssistedInject constructor(
             currency      = parsed.currency,
             profileId     = existing?.profileId ?: ProfileEntity.PERSONAL_ID,
             alias         = existing?.alias,
-            lowBalanceThreshold = existing?.lowBalanceThreshold
+            lowBalanceThreshold = existing?.lowBalanceThreshold,
+            accountType   = BalanceCalculator.preservedAccountType(existing)
         )
 
         accountBalanceRepository.insertBalance(balanceEntity)
@@ -962,7 +963,8 @@ class OptimizedSmsReaderWorker @AssistedInject constructor(
             currency      = parsed.currency,
             profileId     = existing?.profileId ?: ProfileEntity.PERSONAL_ID,
             alias         = existing?.alias,
-            lowBalanceThreshold = existing?.lowBalanceThreshold
+            lowBalanceThreshold = existing?.lowBalanceThreshold,
+            accountType   = BalanceCalculator.preservedAccountType(existing)
         )
         accountBalanceRepository.insertBalance(balanceEntity)
         Log.i(TAG, "Saved wallet balance for ${parsed.bankName}")

@@ -126,7 +126,7 @@ app/
 │   ├── widget/                  # Home-screen widgets
 │   ├── billing/                 # Play Billing + FreeTierLimits
 │   ├── backup/ core/ initializer/ utils/
-└── build.gradle.kts             # Flavors: standard, fdroid
+└── build.gradle.kts             # App module build config
 parser-core/                     # Bank SMS parsers (Kotlin Multiplatform)
 shared/                          # KMP code shared with iOS
 iosApp/                          # Swift iOS app

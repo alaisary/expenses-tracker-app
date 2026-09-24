@@ -210,20 +210,21 @@ private fun SplitRow(
         mutableStateOf(if (split.amount == BigDecimal.ZERO) "" else split.amount.stripTrailingZeros().toPlainString())
     }
 
-    Row(
+    Column(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
             .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
             .padding(Spacing.sm),
-        horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
-        verticalAlignment = Alignment.CenterVertically
+        verticalArrangement = Arrangement.spacedBy(Spacing.sm)
     ) {
-        // Category dropdown
+        // Category dropdown, on its own full-width line: sharing the row with the
+        // amount left it about a third of the width, so any long category name —
+        // and Arabic names run long — was clipped mid-word once selected.
         ExposedDropdownMenuBox(
             expanded = expanded,
             onExpandedChange = { expanded = it },
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.fillMaxWidth()
         ) {
             TextField(
                 value = localizedCategoryName(split.category),
@@ -266,52 +267,58 @@ private fun SplitRow(
             }
         }
 
-        // Amount field
-        TextField(
-            value = amountText,
-            onValueChange = { newValue ->
-                val filtered = newValue.filter { it.isDigit() || it == '.' }
-                if (filtered.count { it == '.' } <= 1) {
-                    amountText = filtered
-                    val parsedAmount = filtered.toBigDecimalOrNull() ?: BigDecimal.ZERO
-                    onAmountChanged(parsedAmount)
-                }
-            },
-            singleLine = true,
-            modifier = Modifier.width(120.dp),
-            textStyle = MaterialTheme.typography.bodyMedium,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-            prefix = {
-                CurrencyText(
-                    text = CurrencyFormatter.getCurrencySymbol(currency),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            },
-            shape = RoundedCornerShape(12.dp),
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
-                unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
-            )
-        )
-
-        // Remove button
-        IconButton(
-            onClick = onRemove,
-            enabled = canRemove,
-            modifier = Modifier.size(Dimensions.Component.minTouchTarget)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                Icons.Default.Close,
-                contentDescription = stringResource(R.string.comp_remove_split),
-                tint = if (canRemove) {
-                    MaterialTheme.colorScheme.error
-                } else {
-                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+            // Amount field
+            TextField(
+                value = amountText,
+                onValueChange = { newValue ->
+                    val filtered = newValue.filter { it.isDigit() || it == '.' }
+                    if (filtered.count { it == '.' } <= 1) {
+                        amountText = filtered
+                        val parsedAmount = filtered.toBigDecimalOrNull() ?: BigDecimal.ZERO
+                        onAmountChanged(parsedAmount)
+                    }
                 },
-                modifier = Modifier.size(Dimensions.Icon.medium)
+                singleLine = true,
+                modifier = Modifier.weight(1f),
+                textStyle = MaterialTheme.typography.bodyMedium,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                prefix = {
+                    CurrencyText(
+                        text = CurrencyFormatter.getCurrencySymbol(currency),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                },
+                shape = RoundedCornerShape(12.dp),
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent
+                )
             )
+
+            // Remove button
+            IconButton(
+                onClick = onRemove,
+                enabled = canRemove,
+                modifier = Modifier.size(Dimensions.Component.minTouchTarget)
+            ) {
+                Icon(
+                    Icons.Default.Close,
+                    contentDescription = stringResource(R.string.comp_remove_split),
+                    tint = if (canRemove) {
+                        MaterialTheme.colorScheme.error
+                    } else {
+                        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+                    },
+                    modifier = Modifier.size(Dimensions.Icon.medium)
+                )
+            }
         }
     }
 }

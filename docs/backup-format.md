@@ -126,7 +126,7 @@ Always give it a default. `BackupSchemaGuardTest` fails the build otherwise.
 
 Run them:
 ```bash
-./gradlew :app:testStandardDebugUnitTest --tests "com.pennywiseai.tracker.data.backup.*"
+./gradlew :app:testDebugUnitTest --tests "com.pennywiseai.tracker.data.backup.*"
 ```
 
 When you touch the backup format, **add a regression test that decodes an

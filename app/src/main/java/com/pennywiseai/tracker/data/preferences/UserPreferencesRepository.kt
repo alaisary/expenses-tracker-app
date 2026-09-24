@@ -17,7 +17,6 @@ import com.pennywiseai.tracker.data.preferences.HomeSectionLayout
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import java.time.LocalDate
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -60,11 +59,8 @@ open class UserPreferencesRepository @Inject constructor(
         val THEME_STYLE = stringPreferencesKey("theme_style")
         val ACCENT_COLOR = stringPreferencesKey("accent_color")
         val IS_AMOLED_MODE = booleanPreferencesKey("is_amoled_mode")
-        val APP_FONT = stringPreferencesKey("app_font")
         val HAS_SKIPPED_SMS_PERMISSION = booleanPreferencesKey("has_skipped_sms_permission")
-        val DEVELOPER_MODE_ENABLED = booleanPreferencesKey("developer_mode_enabled")
         val COUNT_CREDIT_AS_EXPENSE = booleanPreferencesKey("count_credit_as_expense")
-        val SYSTEM_PROMPT = stringPreferencesKey("system_prompt")
         val HAS_SHOWN_SCAN_TUTORIAL = booleanPreferencesKey("has_shown_scan_tutorial")
         val ACTIVE_DOWNLOAD_ID = longPreferencesKey("active_download_id")
         val SMS_SCAN_MONTHS = intPreferencesKey("sms_scan_months")
@@ -100,10 +96,6 @@ open class UserPreferencesRepository @Inject constructor(
         // while the BillingClient connects.
         val PRO_CACHED_IS_PRO = booleanPreferencesKey("pro_cached_is_pro")
 
-        // F-Droid support nudge — epoch-day of the last contextual "Support
-        // development" prompt, so it stays frequency-capped.
-        val SUPPORT_NUDGE_LAST_SHOWN_DAY = longPreferencesKey("support_nudge_last_shown_epoch_day")
-
         // Pro tier — statement-import monthly quota tracking.
         val LAST_STATEMENT_IMPORT_AT = longPreferencesKey("last_statement_import_at")
 
@@ -135,9 +127,6 @@ open class UserPreferencesRepository @Inject constructor(
         // Navigation Bar Style
         val NAV_BAR_STYLE = stringPreferencesKey("nav_bar_style")
 
-        // Number Format Style (digit grouping: Auto / Indian / International)
-        val NUMBER_FORMAT_STYLE = stringPreferencesKey("number_format_style")
-
         // Analytics Chart Type
         val ANALYTICS_CHART_TYPE = stringPreferencesKey("analytics_chart_type")
 
@@ -157,18 +146,10 @@ open class UserPreferencesRepository @Inject constructor(
         // While true, the main-account-derived currency must not override their choice.
         val BASE_CURRENCY_USER_SET = booleanPreferencesKey("base_currency_user_set")
 
-        // UPI VPA → contact name lookup (opt-in; gated by READ_CONTACTS).
-        val USE_CONTACTS_FOR_VPA = booleanPreferencesKey("use_contacts_for_vpa")
-
-        // Scheduled folder backup (SAF tree URI; shared by standard and F-Droid).
+        // Scheduled folder backup (SAF tree URI).
         val SCHEDULED_FOLDER_BACKUP_ENABLED = booleanPreferencesKey("scheduled_folder_backup_enabled")
         val SCHEDULED_FOLDER_BACKUP_TREE_URI = stringPreferencesKey("scheduled_folder_backup_tree_uri")
         val SCHEDULED_FOLDER_BACKUP_LAST_TIMESTAMP = longPreferencesKey("scheduled_folder_backup_last_timestamp")
-    }
-
-    private companion object {
-        // F-Droid support nudge: at most one contextual prompt per this many days.
-        const val SUPPORT_NUDGE_COOLDOWN_DAYS = 30L
     }
 
     val userPreferences: Flow<UserPreferences> = context.dataStore.data
@@ -183,11 +164,7 @@ open class UserPreferencesRepository @Inject constructor(
                     try { AccentColor.valueOf(it) } catch (_: Exception) { AccentColor.PINE }
                 } ?: AccentColor.PINE,
                 isAmoledMode = preferences[PreferencesKeys.IS_AMOLED_MODE] ?: false,
-                appFont = preferences[PreferencesKeys.APP_FONT]?.let {
-                    try { AppFont.valueOf(it) } catch (_: Exception) { AppFont.SYSTEM }
-                } ?: AppFont.SYSTEM,
                 hasSkippedSmsPermission = preferences[PreferencesKeys.HAS_SKIPPED_SMS_PERMISSION] ?: false,
-                isDeveloperModeEnabled = preferences[PreferencesKeys.DEVELOPER_MODE_ENABLED] ?: false,
                 hasShownScanTutorial = preferences[PreferencesKeys.HAS_SHOWN_SCAN_TUTORIAL] ?: false,
                 smsScanMonths = preferences[PreferencesKeys.SMS_SCAN_MONTHS] ?: 3,
                 smsScanAllTime = preferences[PreferencesKeys.SMS_SCAN_ALL_TIME] ?: true,
@@ -227,11 +204,6 @@ open class UserPreferencesRepository @Inject constructor(
                 ?: preferences[PreferencesKeys.BASE_CURRENCY] ?: "OMR"
         }
 
-    val isDeveloperModeEnabled: Flow<Boolean> = context.dataStore.data
-        .map { preferences ->
-            preferences[PreferencesKeys.DEVELOPER_MODE_ENABLED] ?: false
-        }
-
     /**
      * When true, credit-card spend (TransactionType.CREDIT) is folded into the
      * fixed "expenses / spent" totals (Home card) instead
@@ -242,17 +214,6 @@ open class UserPreferencesRepository @Inject constructor(
     val countCreditCardAsExpense: Flow<Boolean> = context.dataStore.data
         .map { preferences ->
             preferences[PreferencesKeys.COUNT_CREDIT_AS_EXPENSE] ?: false
-        }
-
-    val numberFormatStyle: Flow<NumberFormatStyle> = context.dataStore.data
-        .map { preferences ->
-            preferences[PreferencesKeys.NUMBER_FORMAT_STYLE]?.let {
-                try {
-                    NumberFormatStyle.valueOf(it)
-                } catch (_: Exception) {
-                    NumberFormatStyle.AUTO
-                }
-            } ?: NumberFormatStyle.AUTO
         }
 
     suspend fun updateDarkThemeEnabled(enabled: Boolean?) {
@@ -289,40 +250,17 @@ open class UserPreferencesRepository @Inject constructor(
         }
     }
 
-    suspend fun updateAppFont(appFont: AppFont) {
-        context.dataStore.edit { preferences ->
-            preferences[PreferencesKeys.APP_FONT] = appFont.name
-        }
-    }
-
     suspend fun updateSkippedSmsPermission(skipped: Boolean) {
         context.dataStore.edit { preferences ->
             preferences[PreferencesKeys.HAS_SKIPPED_SMS_PERMISSION] = skipped
         }
     }
     
-    suspend fun setDeveloperModeEnabled(enabled: Boolean) {
-        context.dataStore.edit { preferences ->
-            preferences[PreferencesKeys.DEVELOPER_MODE_ENABLED] = enabled
-        }
-    }
-
     suspend fun setCountCreditCardAsExpense(enabled: Boolean) {
         context.dataStore.edit { preferences ->
             preferences[PreferencesKeys.COUNT_CREDIT_AS_EXPENSE] = enabled
         }
     }
-    
-    suspend fun updateSystemPrompt(prompt: String) {
-        context.dataStore.edit { preferences ->
-            preferences[PreferencesKeys.SYSTEM_PROMPT] = prompt
-        }
-    }
-    
-    fun getSystemPrompt(): Flow<String?> = context.dataStore.data
-        .map { preferences ->
-            preferences[PreferencesKeys.SYSTEM_PROMPT]
-        }
     
     suspend fun markScanTutorialShown() {
         context.dataStore.edit { preferences ->
@@ -449,10 +387,8 @@ open class UserPreferencesRepository @Inject constructor(
     /**
      * Records [month] as handled so the Home banner doesn't come back until the next one.
      *
-     * Deliberately not the claim-on-decide shape used by [claimSupportNudge]: that nudge
-     * is contextual and fires once at a moment, whereas this banner should persist across
-     * launches until the user actually engages with it. Marking on dismissal rather than
-     * on display means an app kill doesn't silently burn the month's only prompt.
+     * Marking on dismissal rather than on display means an app kill doesn't silently
+     * burn the month's only prompt.
      */
     suspend fun markSharePromptHandled(month: String) {
         context.dataStore.edit { preferences ->
@@ -513,10 +449,6 @@ open class UserPreferencesRepository @Inject constructor(
     
     suspend fun updateHasSkippedSmsPermission(skipped: Boolean) {
         updateSkippedSmsPermission(skipped)
-    }
-    
-    suspend fun updateDeveloperMode(enabled: Boolean) {
-        setDeveloperModeEnabled(enabled)
     }
     
     suspend fun updateLastScanTimestamp(timestamp: Long) {
@@ -643,33 +575,6 @@ open class UserPreferencesRepository @Inject constructor(
         }
     }
 
-    /** Epoch-day the contextual F-Droid support nudge was last shown (0 = never). */
-    val supportNudgeLastShownDay: Flow<Long> = context.dataStore.data
-        .map { it[PreferencesKeys.SUPPORT_NUDGE_LAST_SHOWN_DAY] ?: 0L }
-
-    /**
-     * Atomically decides whether to show the contextual F-Droid "Support
-     * development" nudge and, if so, records it as shown before returning — so
-     * back-to-back power-feature moments can't show it twice. Returns true at
-     * most once per [SUPPORT_NUDGE_COOLDOWN_DAYS] days, across every trigger
-     * site (a single global timestamp). Callers gate on the F-Droid flavor.
-     */
-    suspend fun claimSupportNudge(): Boolean {
-        val today = LocalDate.now().toEpochDay()
-        // Check-and-set inside a single edit{} so the read and write are one
-        // atomic transaction — DataStore serializes edit blocks, so two
-        // concurrent claims can't both observe the stale timestamp and win.
-        var claimed = false
-        context.dataStore.edit { prefs ->
-            val last = prefs[PreferencesKeys.SUPPORT_NUDGE_LAST_SHOWN_DAY] ?: 0L
-            if (today - last >= SUPPORT_NUDGE_COOLDOWN_DAYS) {
-                prefs[PreferencesKeys.SUPPORT_NUDGE_LAST_SHOWN_DAY] = today
-                claimed = true
-            }
-        }
-        return claimed
-    }
-
     /**
      * Epoch-millis of the last successful PDF statement import, or null if
      * the user has never imported. Consumed by the statement-import gate —
@@ -769,12 +674,6 @@ open class UserPreferencesRepository @Inject constructor(
         }
     }
 
-    suspend fun updateNumberFormatStyle(style: NumberFormatStyle) {
-        context.dataStore.edit { preferences ->
-            preferences[PreferencesKeys.NUMBER_FORMAT_STYLE] = style.name
-        }
-    }
-
     /**
      * Sets the base currency derived from the user's main account, but only if the
      * user hasn't explicitly chosen one via the Settings currency selector. The
@@ -797,19 +696,6 @@ open class UserPreferencesRepository @Inject constructor(
     suspend fun setBalanceHidden(hidden: Boolean) {
         context.dataStore.edit { preferences ->
             preferences[PreferencesKeys.BALANCE_HIDDEN] = hidden
-        }
-    }
-
-    // Replace UPI VPAs with matching contact names at display time.
-    // Off by default — turning on prompts for READ_CONTACTS.
-    val useContactsForVpa: Flow<Boolean> = context.dataStore.data
-        .map { preferences ->
-            preferences[PreferencesKeys.USE_CONTACTS_FOR_VPA] ?: false
-        }
-
-    suspend fun setUseContactsForVpa(enabled: Boolean) {
-        context.dataStore.edit { preferences ->
-            preferences[PreferencesKeys.USE_CONTACTS_FOR_VPA] = enabled
         }
     }
 
@@ -964,9 +850,7 @@ data class UserPreferences(
     val themeStyle: ThemeStyle = ThemeStyle.BRANDED,
     val accentColor: AccentColor = AccentColor.PINE,
     val isAmoledMode: Boolean = false,
-    val appFont: AppFont = AppFont.SYSTEM,
     val hasSkippedSmsPermission: Boolean = false,
-    val isDeveloperModeEnabled: Boolean = false,
     val hasShownScanTutorial: Boolean = false,
     val smsScanMonths: Int = 3,
     val smsScanAllTime: Boolean = true,

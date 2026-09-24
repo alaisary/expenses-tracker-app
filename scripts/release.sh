@@ -104,7 +104,7 @@ LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
 # Generate release notes via the Claude Agent SDK with schema-enforced
 # structured output. Runs on the local Claude subscription (same auth as the
 # `claude` CLI — no API key). One call returns {summary, highlights[]}; both the
-# GitHub notes and the F-Droid/Play changelog are formatted from it below, so
+# GitHub notes and the Play Store changelog are formatted from it below, so
 # there is never any stray preamble or markdown fence to strip. Needs node + jq;
 # falls back to the commit-list format otherwise (or with --no-claude).
 NOTES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/release-notes"
@@ -250,10 +250,10 @@ echo -e "${GREEN}✅ Version updated: $NEXT_VERSION (code: $NEXT_CODE)${NC}"
 # 5a. Update fastlane changelog
 CHANGELOG_FILE="$CHANGELOG_DIR/${NEXT_CODE}.txt"
 
-# Build the F-Droid / Play changelog from the same structured notes.
+# Build the Play Store changelog from the same structured notes.
 if [ "$USE_CLAUDE" = true ] && [ -n "$NOTES_JSON" ]; then
     echo -e "${YELLOW}🤖 Writing store changelog...${NC}"
-    # Bullets only — no header (F-Droid and Play prepend their own "New in
+    # Bullets only — no header (Play prepends its own "New in
     # version X"), no preamble, no fences. Keep whole bullet lines up to 500
     # characters (the Play Store changelog limit).
     printf '%s' "$NOTES_JSON" \
@@ -338,55 +338,39 @@ if ! ./gradlew :parser-core:build; then
 fi
 echo -e "${GREEN}✅ Parser-core module built${NC}"
 
-if ! ./gradlew assembleStandardRelease; then
-    revert_changes
-fi
-
-if ! ./gradlew assembleFdroidRelease; then
+if ! ./gradlew assembleRelease; then
     revert_changes
 fi
 
 echo -e "${GREEN}✅ APKs built${NC}"
 
 # 7. Rename APKs (matching GitHub Actions)
-STANDARD_PATH="app/build/outputs/apk/standard/release"
-FDROID_PATH="app/build/outputs/apk/fdroid/release"
+APK_PATH="app/build/outputs/apk/release"
 
 # Rename universal APK
-if [ -f "$STANDARD_PATH/app-standard-universal-release.apk" ]; then
-    mv "$STANDARD_PATH/app-standard-universal-release.apk" \
-       "$STANDARD_PATH/Ghawazi-v${NEXT_VERSION}-universal.apk"
+if [ -f "$APK_PATH/app-universal-release.apk" ]; then
+    mv "$APK_PATH/app-universal-release.apk" \
+       "$APK_PATH/Ghawazi-v${NEXT_VERSION}-universal.apk"
 fi
 
 # Rename architecture-specific APKs
 for arch in armeabi-v7a arm64-v8a x86 x86_64; do
-    if [ -f "$STANDARD_PATH/app-standard-${arch}-release.apk" ]; then
-        mv "$STANDARD_PATH/app-standard-${arch}-release.apk" \
-           "$STANDARD_PATH/Ghawazi-v${NEXT_VERSION}-${arch}.apk"
+    if [ -f "$APK_PATH/app-${arch}-release.apk" ]; then
+        mv "$APK_PATH/app-${arch}-release.apk" \
+           "$APK_PATH/Ghawazi-v${NEXT_VERSION}-${arch}.apk"
     fi
 done
-
-# Rename F-Droid APK
-if [ -f "$FDROID_PATH/app-fdroid-release-unsigned.apk" ]; then
-    mv "$FDROID_PATH/app-fdroid-release-unsigned.apk" \
-       "$FDROID_PATH/Ghawazi-fdroid-v${NEXT_VERSION}.apk"
-fi
 
 echo -e "${GREEN}✅ APKs renamed${NC}"
 
 # 8. Calculate SHA256
 ORIGINAL_DIR="$PWD"
-cd "$STANDARD_PATH"
+cd "$APK_PATH"
 for apk in Ghawazi-v${NEXT_VERSION}*.apk; do
     if [ -f "$apk" ]; then
         sha256sum "$apk" > "${apk}.sha256"
     fi
 done
-
-cd "$ORIGINAL_DIR/$FDROID_PATH"
-if [ -f "Ghawazi-fdroid-v${NEXT_VERSION}.apk" ]; then
-    sha256sum "Ghawazi-fdroid-v${NEXT_VERSION}.apk" > "Ghawazi-fdroid-v${NEXT_VERSION}.apk.sha256"
-fi
 cd "$ORIGINAL_DIR"
 
 echo -e "${GREEN}✅ SHA256 calculated${NC}"
@@ -432,14 +416,12 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
             --repo alaisary/expenses-tracker-app \
             --title "Release v$NEXT_VERSION" \
             --notes-file RELEASE_NOTES.md \
-            "$STANDARD_PATH/Ghawazi-v${NEXT_VERSION}-universal.apk" \
-            "$STANDARD_PATH/Ghawazi-v${NEXT_VERSION}-universal.apk.sha256" \
-            "$STANDARD_PATH/Ghawazi-v${NEXT_VERSION}-arm64-v8a.apk" \
-            "$STANDARD_PATH/Ghawazi-v${NEXT_VERSION}-arm64-v8a.apk.sha256" \
-            "$STANDARD_PATH/Ghawazi-v${NEXT_VERSION}-armeabi-v7a.apk" \
-            "$STANDARD_PATH/Ghawazi-v${NEXT_VERSION}-armeabi-v7a.apk.sha256" \
-            "$FDROID_PATH/Ghawazi-fdroid-v${NEXT_VERSION}.apk" \
-            "$FDROID_PATH/Ghawazi-fdroid-v${NEXT_VERSION}.apk.sha256"
+            "$APK_PATH/Ghawazi-v${NEXT_VERSION}-universal.apk" \
+            "$APK_PATH/Ghawazi-v${NEXT_VERSION}-universal.apk.sha256" \
+            "$APK_PATH/Ghawazi-v${NEXT_VERSION}-arm64-v8a.apk" \
+            "$APK_PATH/Ghawazi-v${NEXT_VERSION}-arm64-v8a.apk.sha256" \
+            "$APK_PATH/Ghawazi-v${NEXT_VERSION}-armeabi-v7a.apk" \
+            "$APK_PATH/Ghawazi-v${NEXT_VERSION}-armeabi-v7a.apk.sha256"
         echo -e "${GREEN}✅ GitHub release created${NC}"
     else
         echo -e "${YELLOW}gh CLI not found. Create release manually at:${NC}"
@@ -458,12 +440,12 @@ else
 fi
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo -e "${YELLOW}🔨 Building App Bundle for Play Store...${NC}"
-    ./gradlew bundleStandardRelease
+    ./gradlew bundleRelease
     
     # Rename AAB file
-    AAB_PATH="app/build/outputs/bundle/standardRelease"
-    if [ -f "$AAB_PATH/app-standard-release.aab" ]; then
-        mv "$AAB_PATH/app-standard-release.aab" \
+    AAB_PATH="app/build/outputs/bundle/release"
+    if [ -f "$AAB_PATH/app-release.aab" ]; then
+        mv "$AAB_PATH/app-release.aab" \
            "$AAB_PATH/Ghawazi-v${NEXT_VERSION}.aab"
         echo -e "${GREEN}✅ App Bundle created: $AAB_PATH/Ghawazi-v${NEXT_VERSION}.aab${NC}"
         

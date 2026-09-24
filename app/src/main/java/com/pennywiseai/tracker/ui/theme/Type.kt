@@ -4,29 +4,9 @@ import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.pennywiseai.tracker.R
-
-val SNProFontFamily = FontFamily(
-    Font(R.font.sn_pro_regular, FontWeight.Normal),
-    Font(R.font.sn_pro_italic, FontWeight.Normal, FontStyle.Italic),
-    Font(R.font.sn_pro_medium, FontWeight.Medium),
-    Font(R.font.sn_pro_medium_italic, FontWeight.Medium, FontStyle.Italic),
-    Font(R.font.sn_pro_semibold, FontWeight.SemiBold),
-    Font(R.font.sn_pro_semibold_italic, FontWeight.SemiBold, FontStyle.Italic),
-    Font(R.font.sn_pro_bold, FontWeight.Bold),
-    Font(R.font.sn_pro_bold_italic, FontWeight.Bold, FontStyle.Italic),
-    Font(R.font.sn_pro_extrabold, FontWeight.ExtraBold),
-    Font(R.font.sn_pro_extrabold_italic, FontWeight.ExtraBold, FontStyle.Italic),
-    Font(R.font.sn_pro_black, FontWeight.Black),
-    Font(R.font.sn_pro_black_italic, FontWeight.Black, FontStyle.Italic),
-    Font(R.font.sn_pro_light, FontWeight.Light),
-    Font(R.font.sn_pro_light_italic, FontWeight.Light, FontStyle.Italic),
-    Font(R.font.sn_pro_extralight, FontWeight.ExtraLight),
-    Font(R.font.sn_pro_extralight_italic, FontWeight.ExtraLight, FontStyle.Italic),
-)
 
 /**
  * Thmanyah Arabic typeface, split by intended use:
@@ -36,8 +16,9 @@ val SNProFontFamily = FontFamily(
  *  - [ThmanyahSerifDisplayFontFamily] — large display/headline roles (hero
  *    figures, screen headlines), where the serif's personality reads.
  *
- * These are used only when the UI language is Arabic; Latin locales keep the
- * existing SN Pro / system faces.
+ * Both are applied by `PennyWiseTheme` for the Arabic UI only — Thmanyah is an
+ * Arabic typeface, so a Latin UI keeps the platform face. There is no font
+ * setting; the app language is the switch.
  */
 val ThmanyahSansFontFamily = FontFamily(
     Font(R.font.thmanyahsans_light, FontWeight.Light),

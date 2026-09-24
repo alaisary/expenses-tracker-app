@@ -1,7 +1,6 @@
 package com.pennywiseai.tracker.utils
 
 import com.pennywiseai.parser.core.bank.BankParserFactory
-import com.pennywiseai.tracker.data.preferences.NumberFormatStyle
 import java.math.BigDecimal
 import java.text.NumberFormat
 import java.util.Currency
@@ -17,39 +16,24 @@ object CurrencyFormatter {
     /** Western/international digit grouping (1,000,000). */
     private val INTERNATIONAL_LOCALE = Locale.US
 
-    /** Currencies that use Indian lakh/crore grouping under [NumberFormatStyle.AUTO]. */
+    /** Currencies that use Indian lakh/crore grouping. */
     private val INDIAN_NOTATION_CURRENCIES = setOf("INR", "NPR", "PKR")
 
     /**
-     * The user's chosen number-format style. A stateless object can't read DataStore,
-     * so this @Volatile field is pushed from [com.pennywiseai.tracker.PennyWiseApplication]
-     * which collects the preference Flow at startup. Defaults to AUTO (currency-driven).
+     * The locale that drives digit grouping for [currencyCode]. Grouping follows
+     * the currency itself — Indian for INR/NPR/PKR, international elsewhere — with
+     * no user override, so OMR and every other currency here group western.
      */
-    @Volatile
-    var numberFormatStyle: NumberFormatStyle = NumberFormatStyle.AUTO
-
-    /**
-     * The locale that drives digit grouping for [currencyCode], honouring the
-     * user's [numberFormatStyle]. AUTO keeps each currency's native grouping
-     * (Indian for INR/NPR/PKR, international elsewhere).
-     */
-    private fun groupingLocale(currencyCode: String?): Locale = when (numberFormatStyle) {
-        NumberFormatStyle.INDIAN -> INDIAN_LOCALE
-        NumberFormatStyle.INTERNATIONAL -> INTERNATIONAL_LOCALE
-        NumberFormatStyle.AUTO ->
-            if (currencyCode != null && currencyCode in INDIAN_NOTATION_CURRENCIES) {
-                INDIAN_LOCALE
-            } else {
-                CURRENCY_LOCALES[currencyCode] ?: INTERNATIONAL_LOCALE
-            }
-    }
+    private fun groupingLocale(currencyCode: String?): Locale =
+        if (currencyCode != null && currencyCode in INDIAN_NOTATION_CURRENCIES) {
+            INDIAN_LOCALE
+        } else {
+            CURRENCY_LOCALES[currencyCode] ?: INTERNATIONAL_LOCALE
+        }
 
     /** Whether to abbreviate large values with Indian L/Cr (vs western K/M). */
-    private fun useIndianAbbreviation(currencyCode: String): Boolean = when (numberFormatStyle) {
-        NumberFormatStyle.INDIAN -> true
-        NumberFormatStyle.INTERNATIONAL -> false
-        NumberFormatStyle.AUTO -> currencyCode in INDIAN_NOTATION_CURRENCIES
-    }
+    private fun useIndianAbbreviation(currencyCode: String): Boolean =
+        currencyCode in INDIAN_NOTATION_CURRENCIES
 
     /**
      * Currencies whose ISO 4217 minor unit is 3 (three decimal places),
@@ -306,8 +290,8 @@ object CurrencyFormatter {
 
     /**
      * Formats large currency values in abbreviated form for chart axes.
-     * Uses Indian notation (L/Cr) or Western notation (K/M) per the user's
-     * [numberFormatStyle] (AUTO = L/Cr for INR/NPR/PKR, K/M otherwise).
+     * Uses Indian notation (L/Cr) for INR/NPR/PKR and Western notation (K/M)
+     * for every other currency — grouping follows the currency, not a setting.
      */
     fun formatAbbreviated(value: Double, currencyCode: String): String {
         // Chart axes are drawn outside Compose text, so the official OMR vector

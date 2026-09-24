@@ -2,10 +2,8 @@ package com.pennywiseai.tracker.billing
 
 /**
  * UI-facing model for a single purchasable "plan." Translated from Play's
- * `ProductDetails` so the paywall layer doesn't import billing-library
- * types directly — keeps the UI portable across flavors (F-Droid build
- * never sees `ProductDetails` at compile time because its source set
- * doesn't link to billing-ktx).
+ * `ProductDetails` so the paywall layer doesn't import billing-library types
+ * directly — the UI depends on this model, never on the library's own types.
  *
  * One [ProProduct] corresponds to one purchasable thing on the paywall:
  *   - A managed-product `pro_lifetime` becomes one [ProProduct]. When a

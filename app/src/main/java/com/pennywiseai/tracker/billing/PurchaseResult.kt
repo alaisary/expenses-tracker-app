@@ -2,9 +2,7 @@ package com.pennywiseai.tracker.billing
 
 /**
  * Outcome of a [PurchaseLauncher.refresh] or [PurchaseLauncher.launchPurchase]
- * call. Sealed so callers handle every case explicitly — including the
- * F-Droid build's [Unsupported], which lets that flavor honor the interface
- * (Liskov) without throwing.
+ * call. Sealed so callers handle every case explicitly.
  */
 sealed class PurchaseResult {
 
@@ -26,11 +24,4 @@ sealed class PurchaseResult {
 
     /** Generic billing failure (developer error, item unavailable, etc). */
     data class Failed(val code: Int, val debugMessage: String?) : PurchaseResult()
-
-    /**
-     * Billing isn't available in this build — i.e. the F-Droid flavor.
-     * Callers can no-op or surface a "Pro is auto-unlocked in this build"
-     * message.
-     */
-    data object Unsupported : PurchaseResult()
 }

@@ -242,18 +242,23 @@ fun BalanceCard(
                 } else {
                     // ── Expanded View ──
                     Column(modifier = Modifier.fillMaxWidth()) {
-                        SpendingAmountHeader(
-                            amountText = if (isBalanceHidden) "••••••" else CurrencyFormatter.formatCurrency(currentMonthExpenses, currency),
-                            amountStyle = PennyWiseText.heroAmount,
-                            isBalanceHidden = isBalanceHidden,
-                            onToggleBalanceVisibility = {
-                                view.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK)
-                                onToggleBalanceVisibility()
-                            },
-                            supportingText = if (isBalanceHidden) stringResource(R.string.cards_last_month_masked) else stringResource(R.string.cards_last_month_value, CurrencyFormatter.formatCurrency(lastMonthSpending, currency))
-                        )
+                        // Same guard as the collapsed view: on Home the hero card
+                        // already leads with "spent this month", so expanding must
+                        // not print the same figure a second time.
+                        if (showSpendHeader) {
+                            SpendingAmountHeader(
+                                amountText = if (isBalanceHidden) "••••••" else CurrencyFormatter.formatCurrency(currentMonthExpenses, currency),
+                                amountStyle = PennyWiseText.heroAmount,
+                                isBalanceHidden = isBalanceHidden,
+                                onToggleBalanceVisibility = {
+                                    view.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK)
+                                    onToggleBalanceVisibility()
+                                },
+                                supportingText = if (isBalanceHidden) stringResource(R.string.cards_last_month_masked) else stringResource(R.string.cards_last_month_value, CurrencyFormatter.formatCurrency(lastMonthSpending, currency))
+                            )
 
-                        Spacer(modifier = Modifier.height(Spacing.sm))
+                            Spacer(modifier = Modifier.height(Spacing.sm))
+                        }
 
                         SpendingMetaRow(
                             currency = currency,

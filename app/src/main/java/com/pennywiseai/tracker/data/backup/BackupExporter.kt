@@ -74,7 +74,6 @@ class BackupExporter @Inject constructor(
         val budgets = database.budgetDao().getAllBudgets().first()
         val budgetCategories = database.budgetDao().getAllBudgetCategories().first()
         val transactionSplits = database.transactionSplitDao().getAllSplits().first()
-        val bankNotifications = database.bankNotificationDao().getAllNotifications().first()
         val loans = database.loanDao().getAllLoans().first()
         val transactionGroups = database.transactionGroupDao().getAllGroups().first()
         val profiles = database.profileDao().getAllProfiles()
@@ -86,7 +85,6 @@ class BackupExporter @Inject constructor(
         
         // Get preferences from repository
         val prefs = userPreferencesRepository.userPreferences.first()
-        val systemPrompt = userPreferencesRepository.getSystemPrompt().first()
         val firstLaunchTime = userPreferencesRepository.getFirstLaunchTime().first()
         val hasShownReviewPrompt = userPreferencesRepository.getHasShownReviewPrompt().first()
         val lastReviewPromptTime = userPreferencesRepository.getLastReviewPromptTime().first()
@@ -126,7 +124,6 @@ class BackupExporter @Inject constructor(
         val exportedBudgets = if (privacy == ExportPrivacy.FULL) budgets else emptyList()
         val exportedBudgetCategories = if (privacy == ExportPrivacy.FULL) budgetCategories else emptyList()
         val exportedTransactionSplits = if (privacy == ExportPrivacy.FULL) transactionSplits else emptyList()
-        val exportedBankNotifications = if (privacy == ExportPrivacy.FULL) bankNotifications else emptyList()
         val exportedRuleApplications = if (privacy == ExportPrivacy.FULL) ruleApplications else emptyList()
         // Loans / groups / profiles / budget snapshots: kept on FULL only, like
         // every other relational table; in MASKED/ANONYMOUS the transaction
@@ -166,7 +163,6 @@ class BackupExporter @Inject constructor(
                     totalBudgets = exportedBudgets.size,
                     totalBudgetCategories = exportedBudgetCategories.size,
                     totalTransactionSplits = exportedTransactionSplits.size,
-                    totalBankNotifications = exportedBankNotifications.size,
                     totalLoans = exportedLoans.size,
                     totalTransactionGroups = exportedTransactionGroups.size,
                     totalProfiles = exportedProfiles.size,
@@ -192,7 +188,6 @@ class BackupExporter @Inject constructor(
                 budgets = exportedBudgets,
                 budgetCategories = exportedBudgetCategories,
                 transactionSplits = exportedTransactionSplits,
-                bankNotifications = exportedBankNotifications,
                 loans = exportedLoans,
                 transactionGroups = exportedTransactionGroups,
                 profiles = exportedProfiles,
@@ -214,10 +209,6 @@ class BackupExporter @Inject constructor(
                     lastScanPeriod = lastScanPeriod,
                     smsScanUseCustomDate = smsScanUseCustomDate,
                     smsScanCustomDate = smsScanCustomDate
-                ),
-                developer = DeveloperPreferences(
-                    isDeveloperModeEnabled = prefs.isDeveloperModeEnabled,
-                    systemPrompt = systemPrompt
                 ),
                 app = AppPreferences(
                     hasShownScanTutorial = prefs.hasShownScanTutorial,

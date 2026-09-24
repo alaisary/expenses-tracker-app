@@ -44,8 +44,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.pennywiseai.tracker.R
-import com.pennywiseai.tracker.data.contacts.LocalMerchantDisplay
 import com.pennywiseai.tracker.data.database.entity.ProfileEntity
+import com.pennywiseai.tracker.data.merchant.LocalMerchantDisplay
 import com.pennywiseai.tracker.presentation.common.TimePeriod
 import com.pennywiseai.tracker.presentation.common.chipLabel
 import com.pennywiseai.tracker.presentation.common.TransactionTypeFilter
@@ -1112,8 +1112,6 @@ private fun MerchantListItem(
         ""
     }
     val subtitle = countLabel + subscriptionSuffix
-
-    // Brand icon stays keyed on the raw merchant; only the label uses the alias (#583).
     val merchantDisplay = LocalMerchantDisplay.current
 
     ListItemCardV2(

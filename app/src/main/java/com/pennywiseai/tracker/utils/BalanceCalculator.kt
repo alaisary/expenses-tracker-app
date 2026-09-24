@@ -1,5 +1,6 @@
 package com.pennywiseai.tracker.utils
 
+import com.pennywiseai.tracker.data.database.entity.AccountBalanceEntity
 import com.pennywiseai.tracker.data.database.entity.TransactionType
 import java.math.BigDecimal
 
@@ -89,4 +90,12 @@ object BalanceCalculator {
         val debitEffect = if (incoming) amount else amount.negate()
         return if (isCreditCard) debitEffect.negate() else debitEffect
     }
+
+    /**
+     * Carries an account's type over when its balance row is rebuilt from a new
+     * SMS or transaction. The one implementation every rebuild site shares, so a
+     * type can't survive on one path while silently resetting to null on another
+     * — and a null type renders a CURRENT/CASH account as a plain one.
+     */
+    fun preservedAccountType(existing: AccountBalanceEntity?): String? = existing?.accountType
 }

@@ -172,13 +172,6 @@ class UpgradeViewModel @Inject constructor(
                     errorMessage = context.getString(R.string.vm_play_store_unavailable),
                 )
             }
-
-            is PurchaseResult.Unsupported -> _state.update {
-                it.copy(
-                    isPurchasing = false,
-                    errorMessage = context.getString(R.string.vm_purchases_unavailable),
-                )
-            }
         }
     }
 

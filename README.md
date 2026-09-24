@@ -120,8 +120,8 @@ cd expenses-tracker-app
 ./init.sh
 
 # Build a signed release APK (needs release signing configured in local.properties)
-./gradlew assembleStandardRelease
-# → app/build/outputs/apk/standard/release/
+./gradlew assembleRelease
+# → app/build/outputs/apk/release/
 ```
 
 Requirements: Android 8.0+ (API 26), Android Studio and JDK 21.

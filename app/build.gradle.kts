@@ -40,59 +40,35 @@ android {
     }
 
     signingConfigs {
-        // Only create signing config for non-F-Droid builds
-        if (!gradle.startParameter.taskNames.any { it.contains("fdroid", ignoreCase = true) }) {
-            val localPropertiesFile = rootProject.file("local.properties")
-            if (localPropertiesFile.exists()) {
-                create("release") {
-                    val localProperties = Properties()
-                    localProperties.load(localPropertiesFile.inputStream())
-                    
-                    val keystorePath = localProperties.getProperty("RELEASE_STORE_FILE", "")
-                    if (keystorePath.isNotEmpty()) {
-                        storeFile = file(keystorePath)
-                        storePassword = localProperties.getProperty("RELEASE_STORE_PASSWORD", "")
-                        keyAlias = localProperties.getProperty("RELEASE_KEY_ALIAS", "")
-                        keyPassword = localProperties.getProperty("RELEASE_KEY_PASSWORD", "")
-                    }
+        // Release signing comes from local.properties. CI instead passes
+        // -Pandroid.injected.signing.*, which AGP applies without this block.
+        val localPropertiesFile = rootProject.file("local.properties")
+        if (localPropertiesFile.exists()) {
+            create("release") {
+                val localProperties = Properties()
+                localProperties.load(localPropertiesFile.inputStream())
+
+                val keystorePath = localProperties.getProperty("RELEASE_STORE_FILE", "")
+                if (keystorePath.isNotEmpty()) {
+                    storeFile = file(keystorePath)
+                    storePassword = localProperties.getProperty("RELEASE_STORE_PASSWORD", "")
+                    keyAlias = localProperties.getProperty("RELEASE_KEY_ALIAS", "")
+                    keyPassword = localProperties.getProperty("RELEASE_KEY_PASSWORD", "")
                 }
             }
         }
     }
     
-    flavorDimensions += "version"
-    productFlavors {
-        create("fdroid") {
-            dimension = "version"
-            // F-Droid builds will use their own signing
-            // Only include ARM architectures for F-Droid (no x86 emulator support)
-            ndk {
-                abiFilters += setOf("arm64-v8a", "armeabi-v7a")
-            }
-            // Type-safe flavor check for code that adapts to F-Droid (everything
-            // unlocked, tip-jar instead of Pro). Beats matching BuildConfig.FLAVOR
-            // against the "fdroid" string literal, which a typo would silently break.
-            buildConfigField("boolean", "IS_FDROID_BUILD", "true")
-        }
-        create("standard") {
-            dimension = "version"
-            isDefault = true
-            // Standard flavor includes all architectures (including x86 for emulators)
-            buildConfigField("boolean", "IS_FDROID_BUILD", "false")
-        }
-    }
-
     splits {
         abi {
-            // Disable splits for F-Droid builds and bundle builds
+            // Play delivers per-ABI splits itself for App Bundle builds, so the
+            // APK split config is skipped for them.
             //noinspection WrongGradleMethod
             val runTasks = gradle.startParameter.taskNames.map { it.lowercase() }
             //noinspection WrongGradleMethod
             val isBundleBuild = runTasks.any { it.contains("bundle") }   // e.g., :app:bundleRelease
-            //noinspection WrongGradleMethod
-            val isFdroidBuild = runTasks.any { it.contains("fdroid") }
 
-            isEnable = !(isBundleBuild || isFdroidBuild)
+            isEnable = !isBundleBuild
 
             reset()
             include("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
@@ -114,16 +90,10 @@ android {
                 "proguard-rules.pro"
             )
             
-            // Only apply signing config to standard flavor
-            for (flavor in productFlavors) {
-                if (flavor.name == "standard") {
-                    // Check if release signing config exists
-                    val releaseSigningConfig = signingConfigs.findByName("release")
-                    // Only use release signing if keystore is configured
-                    if (releaseSigningConfig != null && releaseSigningConfig.storeFile != null) {
-                        signingConfig = releaseSigningConfig
-                    }
-                }
+            // Sign the release only when a keystore is actually configured.
+            val releaseSigningConfig = signingConfigs.findByName("release")
+            if (releaseSigningConfig != null && releaseSigningConfig.storeFile != null) {
+                signingConfig = releaseSigningConfig
             }
             
             // Include debug symbols for native crashes
@@ -273,13 +243,13 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0")
     
-    // Google Play In-App Updates (only for standard flavor)
-    "standardImplementation"(libs.app.update)
-    "standardImplementation"(libs.app.update.ktx)
+    // Google Play In-App Updates
+    implementation(libs.app.update)
+    implementation(libs.app.update.ktx)
     
-    // Google Play In-App Reviews (only for standard flavor)
-    "standardImplementation"(libs.review)
-    "standardImplementation"(libs.review.ktx)
+    // Google Play In-App Reviews
+    implementation(libs.review)
+    implementation(libs.review.ktx)
     
     testImplementation(libs.junit)
     testImplementation(libs.androidx.room.testing)
@@ -307,13 +277,11 @@ dependencies {
     // OpenCSV for CSV export
     implementation(libs.opencsv)
 
-    // PDFBox Android for PDF statement parsing
-    implementation(libs.pdfbox.android)
+    // PDF text extraction (pdfbox) is only used by the :shared module; the app
+    // module no longer has a PDF import path.
 
-    // Google Play Billing — STANDARD FLAVOR ONLY. F-Droid forbids the
-    // proprietary library; its build keeps Pro features unlocked via the
-    // FdroidBillingGateway stub and does not need the dep.
-    "standardImplementation"(libs.billing.ktx)
+    // Google Play Billing — backs the Pro tier's purchases.
+    implementation(libs.billing.ktx)
 
     testImplementation(kotlin("test"))
 }

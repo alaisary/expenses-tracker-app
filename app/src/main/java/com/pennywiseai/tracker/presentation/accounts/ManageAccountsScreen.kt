@@ -30,8 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.pennywiseai.tracker.R
 import com.pennywiseai.tracker.utils.CurrencyFormatter
-import com.pennywiseai.tracker.ui.components.SupportDevelopmentDialog
-import com.pennywiseai.tracker.ui.components.SupportNudgeCard
 import com.pennywiseai.tracker.ui.components.CustomTitleTopAppBar
 import com.pennywiseai.tracker.ui.components.SegmentedPillRow
 import com.pennywiseai.tracker.ui.components.PennyWiseEmptyState
@@ -67,7 +65,6 @@ fun ManageAccountsScreen(
     var showMergeSheet by remember { mutableStateOf(false) }
     val isProEntitled by viewModel.isProEntitled.collectAsState()
     var showUpgradeSheet by remember { mutableStateOf(false) }
-    var showSupportDialog by remember { mutableStateOf(false) }
     val pendingProfileReassign by viewModel.pendingProfileReassign.collectAsState()
 
     val scrollBehaviorSmall = TopAppBarDefaults.pinnedScrollBehavior()
@@ -173,17 +170,6 @@ fun ManageAccountsScreen(
                                 )
                             }
                         }
-                    }
-                }
-
-                // F-Droid tip nudge after a merge — persists past the transient
-                // success banner; tapping opens the tip jar and dismisses it.
-                if (uiState.showSupportNudge) {
-                    item {
-                        SupportNudgeCard(onClick = {
-                            showSupportDialog = true
-                            viewModel.dismissSupportNudge()
-                        })
                     }
                 }
 
@@ -569,10 +555,6 @@ fun ManageAccountsScreen(
         com.pennywiseai.tracker.presentation.paywall.UpgradeSheet(
             onDismiss = { showUpgradeSheet = false },
         )
-    }
-
-    if (showSupportDialog) {
-        SupportDevelopmentDialog(onDismiss = { showSupportDialog = false })
     }
 
     // Offer to move existing transactions that carry an explicit, mismatched

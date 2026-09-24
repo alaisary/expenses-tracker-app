@@ -18,9 +18,10 @@
     <!-- Biometric permission for app lock feature -->
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
-    <!-- Read contacts to replace UPI VPAs with contact names at display time.
-         Opt-in via Settings; the app degrades gracefully if denied. -->
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- Play Console gates in-app product / subscription creation on this
+         permission being present in the manifest. Billing Library 9 no longer
+         needs it at runtime, but the upload scanner still requires it. -->
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <!-- Explicitly remove AD_ID permission to ensure privacy -->
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove" />
@@ -128,16 +129,6 @@
                 <action android:name="com.pennywiseai.tracker.ACTION_CONFIRM_TRANSACTION" />
             </intent-filter>
         </receiver>
-
-        <!-- Notification listener for bank app notifications -->
-        <service
-            android:name=".receiver.BankNotificationListenerService"
-            android:exported="false"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
-            <intent-filter>
-                <action android:name="android.service.notification.NotificationListenerService" />
-            </intent-filter>
-        </service>
 
         <!-- Budget Widget -->
         <receiver

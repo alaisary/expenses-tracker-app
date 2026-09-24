@@ -54,7 +54,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -63,7 +62,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.pennywiseai.tracker.R
 import com.pennywiseai.tracker.data.preferences.AccentColor
-import com.pennywiseai.tracker.data.preferences.AppFont
 import com.pennywiseai.tracker.data.preferences.CoverStyle
 import com.pennywiseai.tracker.data.preferences.NavBarStyle
 import com.pennywiseai.tracker.data.preferences.ThemeStyle
@@ -149,7 +147,6 @@ import com.pennywiseai.tracker.ui.theme.RosePine_Surface_tertiary
 import com.pennywiseai.tracker.ui.theme.RosePine_Text
 import com.pennywiseai.tracker.ui.theme.RosePine_Text_secondary
 import com.pennywiseai.tracker.ui.theme.RosePine_Text_tertiary
-import com.pennywiseai.tracker.ui.theme.SNProFontFamily
 import com.pennywiseai.tracker.ui.theme.Spacing
 import com.pennywiseai.tracker.ui.viewmodel.ThemeViewModel
 import dev.chrisbanes.haze.HazeState
@@ -303,16 +300,6 @@ fun AppearanceScreen(
                     currentStyle = themeUiState.coverStyle,
                     isDark = themeUiState.isDarkTheme ?: isSystemInDarkTheme(),
                     onStyleSelected = { themeViewModel.updateCoverStyle(it) }
-                )
-
-                // Font Selection Section
-                SectionHeaderV2(
-                    title = stringResource(R.string.appr_section_fonts),
-                    modifier = Modifier.padding(start = Dimensions.Padding.content)
-                )
-                FontSelector(
-                    currentFont = themeUiState.appFont,
-                    onFontSelected = { themeViewModel.updateAppFont(it) }
                 )
 
                 Spacer(modifier = Modifier.height(Spacing.xl))
@@ -741,104 +728,6 @@ private fun CoverStyleSelector(
                         contentDescription = stringResource(R.string.appr_selected),
                         tint = Color.White,
                         modifier = Modifier.size(Dimensions.Icon.medium)
-                    )
-                }
-            }
-        }
-    }
-}
-
-// --- Font Selector ---
-
-@Composable
-private fun FontSelector(
-    currentFont: AppFont,
-    onFontSelected: (AppFont) -> Unit
-) {
-    Column(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing.md),
-        verticalArrangement = Arrangement.spacedBy(Spacing.sm)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(Spacing.xs)
-        ) {
-            // System Default Option
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .height(80.dp)
-                    .clip(
-                        RoundedCornerShape(
-                            topStart = 16.dp, topEnd = 4.dp,
-                            bottomStart = 16.dp, bottomEnd = 4.dp
-                        )
-                    )
-                    .background(
-                        color = if (currentFont == AppFont.SYSTEM)
-                            MaterialTheme.colorScheme.primaryContainer
-                        else MaterialTheme.colorScheme.surfaceContainerLow
-                    )
-                    .clickable { onFontSelected(AppFont.SYSTEM) },
-                contentAlignment = Alignment.Center
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(
-                        text = stringResource(R.string.appr_font_default),
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Default,
-                        color = if (currentFont == AppFont.SYSTEM)
-                            MaterialTheme.colorScheme.onPrimaryContainer
-                        else MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Text(
-                        text = stringResource(R.string.appr_font_system),
-                        style = MaterialTheme.typography.labelSmall,
-                        fontFamily = FontFamily.Default,
-                        color = if (currentFont == AppFont.SYSTEM)
-                            MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
-                        else MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-            }
-
-            // SN Pro Option
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .height(80.dp)
-                    .clip(
-                        RoundedCornerShape(
-                            topStart = 4.dp, topEnd = 16.dp,
-                            bottomStart = 4.dp, bottomEnd = 16.dp
-                        )
-                    )
-                    .background(
-                        color = if (currentFont == AppFont.SN_PRO)
-                            MaterialTheme.colorScheme.tertiaryContainer
-                        else MaterialTheme.colorScheme.surfaceContainerLow
-                    )
-                    .clickable { onFontSelected(AppFont.SN_PRO) },
-                contentAlignment = Alignment.Center
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(
-                        text = stringResource(R.string.appr_font_sn_pro),
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = SNProFontFamily,
-                        color = if (currentFont == AppFont.SN_PRO)
-                            MaterialTheme.colorScheme.onTertiaryContainer
-                        else MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Text(
-                        text = stringResource(R.string.appr_font_sn_pro_desc),
-                        style = MaterialTheme.typography.labelSmall,
-                        fontFamily = SNProFontFamily,
-                        color = if (currentFont == AppFont.SN_PRO)
-                            MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.7f)
-                        else MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }

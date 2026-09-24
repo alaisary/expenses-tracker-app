@@ -136,7 +136,6 @@ fun PennyWiseApp(
         themeStyle = themeUiState.themeStyle,
         accentColor = themeUiState.accentColor,
         isAmoledMode = themeUiState.isAmoledMode,
-        appFont = themeUiState.appFont,
         blurEffects = themeUiState.blurEffectsEnabled
     ) {
         PennyWiseNavHost(

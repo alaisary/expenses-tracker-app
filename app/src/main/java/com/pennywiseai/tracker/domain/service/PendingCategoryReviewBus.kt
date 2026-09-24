@@ -12,8 +12,8 @@ import kotlinx.coroutines.flow.receiveAsFlow
  * claimed them (bank SMS never names a category — the merchant alone is often
  * ambiguous).
  *
- * The real-time ingest paths ([com.pennywiseai.tracker.data.manager.SmsTransactionProcessor.processAndSaveTransaction]
- * — the SMS receiver and the bank-notification listener) enqueue here; the
+ * The real-time ingest path ([com.pennywiseai.tracker.data.manager.SmsTransactionProcessor.processAndSaveTransaction]
+ * — reached from the SMS receiver) enqueues here; the
  * foreground UI (PennyWiseApp, via PendingCategoryReviewViewModel) pops the
  * shared QuickCategoryPickerSheet over whatever screen is open so the user can
  * pick a category in one tap.

@@ -88,7 +88,6 @@
     <string name="vm_plans_loading">Plans are still loading. Try again in a moment.</string>
     <string name="vm_purchase_failed">Purchase failed. Please try again.</string>
     <string name="vm_play_store_unavailable">Play Store unavailable. Check your connection and try again.</string>
-    <string name="vm_purchases_unavailable">Purchases aren\'t available in this build.</string>
     <string name="vm_play_store_unreachable">Couldn\'t reach Play Store. Try again later.</string>
 
     <!-- ViewModel messages: AppLockViewModel -->
@@ -133,7 +132,6 @@
     <string name="vm_arrived_count">%1$d new transactions arrived while it ran.</string>
     <string name="vm_delete_count_changed">New transactions arrived while you were confirming, so nothing was deleted. There are now %1$d. Check the number and try again.</string>
     <string name="vm_delete_failed">Couldn\'t delete transactions: %1$s</string>
-    <string name="vm_backup_created">Backup created successfully! Choose where to save it.</string>
     <string name="vm_export_failed">Export failed: %1$s</string>
     <string name="vm_export_error">Export error: %1$s</string>
     <string name="vm_backup_saved">Backup saved successfully!</string>

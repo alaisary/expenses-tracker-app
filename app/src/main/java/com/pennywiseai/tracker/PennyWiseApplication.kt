@@ -52,6 +52,20 @@ class PennyWiseApplication : Application(), Configuration.Provider {
             .setWorkerFactory(workerFactory)
             .build()
 
+    private var lastLocales: android.os.LocaleList? = null
+
+    // Widgets bake translated text into their stored snapshots, so rebuild them
+    // when the device or per-app language changes — otherwise they keep the
+    // language they were last refreshed in until some other event refreshes them.
+    override fun onConfigurationChanged(newConfig: android.content.res.Configuration) {
+        super.onConfigurationChanged(newConfig)
+        val locales = newConfig.locales
+        if (lastLocales != null && locales != lastLocales) {
+            com.pennywiseai.tracker.widget.WidgetRefresher.refreshTransactionWidgets(this)
+        }
+        lastLocales = locales
+    }
+
     override fun onCreate() {
         super.onCreate()
         // Apply the app language (Arabic by default) to the platform before any
@@ -72,16 +86,6 @@ class PennyWiseApplication : Application(), Configuration.Provider {
         // off still creates anything that came due while it was down.
         com.pennywiseai.tracker.worker.RecurringTransactionWorker.enqueuePeriodic(this)
         com.pennywiseai.tracker.worker.RecurringTransactionWorker.enqueueOneShotCatchUp(this)
-
-        // Keep CurrencyFormatter's number-format style in sync with the user's
-        // preference. CurrencyFormatter is a stateless object used from non-Compose
-        // contexts (widgets, workers) too, so we push the value into its @Volatile
-        // field rather than relying on a Compose-collected state.
-        applicationScope.launch {
-            userPreferencesRepository.numberFormatStyle.collectLatest { style ->
-                CurrencyFormatter.numberFormatStyle = style
-            }
-        }
 
         // Backfill built-in categories added since the user's install (idempotent;
         // never overwrites or renames existing rows).

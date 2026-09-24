@@ -88,9 +88,6 @@ object TransactionGroups
 data class TransactionGroupDetail(val groupId: Long)
 
 @Serializable
-object ImportStatement
-
-@Serializable
 data class TransactionsWithFilter(
     val category: String,
     val period: String? = null,

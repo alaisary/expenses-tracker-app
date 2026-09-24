@@ -39,7 +39,6 @@ class BackupSchemaGuardTest {
         serializer<PreferencesSnapshot>().descriptor,
         serializer<ThemePreferences>().descriptor,
         serializer<SmsPreferences>().descriptor,
-        serializer<DeveloperPreferences>().descriptor,
         serializer<AppPreferences>().descriptor,
     )
 
@@ -62,7 +61,6 @@ class BackupSchemaGuardTest {
         serializer<BudgetEntity>().descriptor,
         serializer<BudgetCategoryEntity>().descriptor,
         serializer<TransactionSplitEntity>().descriptor,
-        serializer<BankNotificationEntity>().descriptor,
         serializer<LoanEntity>().descriptor,
         serializer<TransactionGroupEntity>().descriptor,
         serializer<ProfileEntity>().descriptor,
@@ -131,11 +129,6 @@ class BackupSchemaGuardTest {
             "AccountBalanceEntity.balance",
             "AccountBalanceEntity.bankName",
             "AccountBalanceEntity.timestamp",
-            "BankNotificationEntity.messageBody",
-            "BankNotificationEntity.messageHash",
-            "BankNotificationEntity.packageName",
-            "BankNotificationEntity.postedAt",
-            "BankNotificationEntity.senderAlias",
             "BudgetCategoryEntity.budgetId",
             "BudgetCategoryEntity.categoryName",
             "BudgetCategoryMonthSnapshotEntity.budgetAmount",

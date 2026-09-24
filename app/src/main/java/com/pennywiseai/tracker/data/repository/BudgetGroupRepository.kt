@@ -1133,6 +1133,10 @@ suspend fun aggregateBudgetCategorySpending(
     for (txWithSplits in transactions) {
         val type = txWithSplits.transaction.transactionType
         if (type == TransactionType.INCOME || type == TransactionType.TRANSFER) continue
+        // Loan-linked rows are not spending: a loan disbursement/payment is
+        // tracked by the loan itself, so counting it here inflates the category
+        // and type buckets. Matches [sumExpensesForWindow]'s exclusion.
+        if (txWithSplits.transaction.loanId != null) continue
         val fromCurrency = txWithSplits.transaction.currency
         if (type in BudgetGroupRepository.BUDGET_TYPE_BUCKETS) {
             // Route the whole amount to its type bucket, ignoring category —

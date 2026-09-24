@@ -59,7 +59,7 @@ fi
 # Stage metadata: copy every repo locale, and mirror en-US -> en-GB if the repo
 # has no dedicated en-GB folder. Play's DEFAULT listing locale for this app is
 # en-GB, so without this only the (secondary) en-US listing would update and the
-# default would drift stale. Repo keeps just en-US (also what F-Droid reads).
+# default would drift stale. Repo keeps just en-US.
 STAGE="$(mktemp -d)"
 trap 'rm -rf "$STAGE"' EXIT
 cp -R "$META_PATH"/. "$STAGE"/
@@ -71,8 +71,8 @@ fi
 case "$MODE" in
   release)
     VERSION=$(grep 'versionName = ' app/build.gradle.kts | sed 's/.*"\(.*\)".*/\1/')
-    AAB="app/build/outputs/bundle/standardRelease/PennyWise-v${VERSION}.aab"
-    [ -f "$AAB" ] || AAB=$(ls app/build/outputs/bundle/standardRelease/*.aab 2>/dev/null | head -1)
+    AAB="app/build/outputs/bundle/release/PennyWise-v${VERSION}.aab"
+    [ -f "$AAB" ] || AAB=$(ls app/build/outputs/bundle/release/*.aab 2>/dev/null | head -1)
     if [ -z "$AAB" ] || [ ! -f "$AAB" ]; then
       echo -e "${RED}❌ No .aab found. Build it first (release.sh -> 'Build Play Store Bundle').${NC}"; exit 1
     fi

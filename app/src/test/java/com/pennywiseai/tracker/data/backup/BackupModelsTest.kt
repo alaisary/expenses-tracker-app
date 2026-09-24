@@ -36,7 +36,6 @@ class BackupModelsTest {
                     totalBudgets = 1,
                     totalBudgetCategories = 1,
                     totalTransactionSplits = 1,
-                    totalBankNotifications = 1,
                     dateRange = DateRange(earliest = "2024-01-01T00:00:00", latest = "2024-01-02T00:00:00")
                 )
             ),
@@ -156,19 +155,6 @@ class BackupModelsTest {
                         createdAt = LocalDateTime.now()
                     )
                 ),
-                bankNotifications = listOf(
-                    BankNotificationEntity(
-                        id = 1,
-                        packageName = "com.test.bank",
-                        senderAlias = "Test Bank",
-                        messageBody = "Test notification",
-                        messageHash = "hash456",
-                        postedAt = LocalDateTime.now(),
-                        processed = false,
-                        transactionId = null,
-                        createdAt = LocalDateTime.now()
-                    )
-                )
             ),
             preferences = PreferencesSnapshot(
                 theme = ThemePreferences(
@@ -180,10 +166,6 @@ class BackupModelsTest {
                     smsScanMonths = 6,
                     lastScanTimestamp = null,
                     lastScanPeriod = null
-                ),
-                developer = DeveloperPreferences(
-                    isDeveloperModeEnabled = false,
-                    systemPrompt = null
                 ),
                 app = AppPreferences(
                     hasShownScanTutorial = true,
@@ -206,7 +188,6 @@ class BackupModelsTest {
         assertEquals(backup.metadata.statistics.totalBudgets, deserialized.metadata.statistics.totalBudgets)
         assertEquals(backup.metadata.statistics.totalBudgetCategories, deserialized.metadata.statistics.totalBudgetCategories)
         assertEquals(backup.metadata.statistics.totalTransactionSplits, deserialized.metadata.statistics.totalTransactionSplits)
-        assertEquals(backup.metadata.statistics.totalBankNotifications, deserialized.metadata.statistics.totalBankNotifications)
 
         assertEquals(1, deserialized.database.rules.size)
         assertEquals(1, deserialized.database.ruleApplications.size)
@@ -214,7 +195,6 @@ class BackupModelsTest {
         assertEquals(1, deserialized.database.budgets.size)
         assertEquals(1, deserialized.database.budgetCategories.size)
         assertEquals(1, deserialized.database.transactionSplits.size)
-        assertEquals(1, deserialized.database.bankNotifications.size)
 
         val rule = deserialized.database.rules[0]
         assertEquals("Test Rule", rule.name)
@@ -316,7 +296,6 @@ class BackupModelsTest {
             preferences = PreferencesSnapshot(
                 theme = ThemePreferences(isDarkThemeEnabled = null, isDynamicColorEnabled = false),
                 sms = SmsPreferences(hasSkippedSmsPermission = false, smsScanMonths = 6, lastScanTimestamp = null, lastScanPeriod = null),
-                developer = DeveloperPreferences(isDeveloperModeEnabled = false, systemPrompt = null),
                 app = AppPreferences(hasShownScanTutorial = false, firstLaunchTime = null, hasShownReviewPrompt = false, lastReviewPromptTime = null)
             )
         )
@@ -384,7 +363,6 @@ class BackupModelsTest {
                     totalBudgets = 0,
                     totalBudgetCategories = 0,
                     totalTransactionSplits = 0,
-                    totalBankNotifications = 0,
                     dateRange = null
                 )
             ),
@@ -401,13 +379,11 @@ class BackupModelsTest {
                 exchangeRates = emptyList(),
                 budgets = emptyList(),
                 budgetCategories = emptyList(),
-                transactionSplits = emptyList(),
-                bankNotifications = emptyList()
+                transactionSplits = emptyList()
             ),
             preferences = PreferencesSnapshot(
                 theme = ThemePreferences(isDarkThemeEnabled = null, isDynamicColorEnabled = false),
                 sms = SmsPreferences(hasSkippedSmsPermission = false, smsScanMonths = 6, lastScanTimestamp = null, lastScanPeriod = null),
-                developer = DeveloperPreferences(isDeveloperModeEnabled = false, systemPrompt = null),
                 app = AppPreferences(hasShownScanTutorial = false, firstLaunchTime = null, hasShownReviewPrompt = false, lastReviewPromptTime = null)
             )
         )
@@ -762,6 +738,55 @@ class BackupModelsTest {
     }
 
     /**
+     * The bank-notification capture channel is gone (v64 dropped the table),
+     * but backups written before that still carry `database.bank_notifications`
+     * and `metadata.statistics.total_bank_notifications`. Both are unknown keys
+     * now and must be ignored so the rest of such a backup still restores.
+     */
+    @Test
+    fun backupFromBeforeNotificationChannelRemoval_stillRestores() {
+        val json = """
+        {
+          "metadata": {
+            "export_id": "pre-64",
+            "device": "Old Phone",
+            "statistics": { "total_transactions": 1, "total_bank_notifications": 2 }
+          },
+          "database": {
+            "transactions": [
+              {
+                "id": 1,
+                "amount": "10.00",
+                "merchantName": "Legacy",
+                "category": "X",
+                "transactionType": "EXPENSE",
+                "dateTime": "2025-01-01T00:00:00",
+                "transactionHash": "h1"
+              }
+            ],
+            "bank_notifications": [
+              {
+                "id": 1,
+                "packageName": "com.old.bank",
+                "senderAlias": "Old Bank",
+                "messageBody": "body",
+                "messageHash": "hash",
+                "postedAt": "2025-01-01T00:00:00",
+                "processed": 0
+              }
+            ]
+          }
+        }
+        """.trimIndent()
+
+        val backup = backupJson.decodeFromString<PennyWiseBackup>(json)
+
+        assertEquals(1, backup.metadata.statistics.totalTransactions)
+        assertEquals("Old Phone", backup.metadata.device)
+        assertEquals("Legacy", backup.database.transactions.single().merchantName)
+    }
+
+    /**
      * A backup that omits the entire `preferences` block (or a section of it)
      * still imports — each section defaults.
      */
@@ -770,7 +795,6 @@ class BackupModelsTest {
         val json = """{ "database": { "transactions": [] } }"""
         val backup = backupJson.decodeFromString<PennyWiseBackup>(json)
 
-        assertEquals(false, backup.preferences.developer.isDeveloperModeEnabled)
         assertEquals(6, backup.preferences.sms.smsScanMonths)
         assertFalse(backup.preferences.sms.smsScanUseCustomDate)
         assertNull(backup.preferences.sms.smsScanCustomDate)
@@ -837,7 +861,6 @@ class BackupModelsTest {
                     smsScanUseCustomDate = true,
                     smsScanCustomDate = customDateMillis,
                 ),
-                developer = DeveloperPreferences(isDeveloperModeEnabled = false, systemPrompt = null),
                 app = AppPreferences(
                     hasShownScanTutorial = false,
                     firstLaunchTime = null,

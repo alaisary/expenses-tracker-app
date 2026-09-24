@@ -131,7 +131,6 @@ class BackupImporter @Inject constructor(
                 database.ruleApplicationDao().deleteAllApplications()
                 database.budgetDao().deleteAllBudgets()
                 database.exchangeRateDao().deleteAllRates()
-                database.bankNotificationDao().deleteAllNotifications()
                 database.loanDao().deleteAllLoans()
                 database.transactionGroupDao().deleteAllGroups()
                 database.budgetSnapshotDao().deleteAllGroupSnapshots()
@@ -250,10 +249,6 @@ class BackupImporter @Inject constructor(
                 backup.database.transactionSplits.insertEachCounting({ skippedRows++ }) { split ->
                     database.transactionSplitDao().insertSplit(split)
                 }
-                backup.database.bankNotifications.insertEachCounting({ skippedRows++ }) { notification ->
-                    database.bankNotificationDao().insertOrReplace(notification)
-                }
-
                 // Tags + cross-refs: ids are preserved in REPLACE_ALL (so are
                 // transaction ids), so insert tags first then the links. Insert
                 // tags before cross-refs to satisfy the foreign keys.
@@ -485,10 +480,6 @@ class BackupImporter @Inject constructor(
                         database.transactionSplitDao().insertSplit(updatedSplit)
                     }
                 }
-                backup.database.bankNotifications.insertEachCounting({ skippedRows++ }) { notification ->
-                    database.bankNotificationDao().insertOrReplace(notification)
-                }
-
                 // Tags: dedup by name (case-insensitive) like categories, then
                 // remap the cross-refs' tag_id and transaction_id to their new
                 // local ids. A ref is skipped if its transaction wasn't imported
@@ -816,12 +807,6 @@ class BackupImporter @Inject constructor(
         }
         preferences.sms.lastScanPeriod?.let {
             userPreferencesRepository.updateLastScanPeriod(it)
-        }
-        
-        // Developer preferences
-        userPreferencesRepository.updateDeveloperMode(preferences.developer.isDeveloperModeEnabled)
-        preferences.developer.systemPrompt?.let {
-            userPreferencesRepository.updateSystemPrompt(it)
         }
         
         // App preferences

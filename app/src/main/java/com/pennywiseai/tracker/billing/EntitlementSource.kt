@@ -7,11 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
  * the full [PurchaseGateway] — so they're not coupled to launch / refresh
  * machinery they don't use (Interface Segregation).
  *
- * Both implementations expose the same shape:
- *  - `PlayBillingGateway` (standard flavor) tracks the Google account's
- *    Play purchases.
- *  - `FdroidBillingGateway` (fdroid flavor) emits `isPro = true` and an
- *    empty product catalog (F-Droid users have no paywall by design).
+ * Implemented by `PlayBillingGateway`, backed by Google Play Billing.
  */
 interface EntitlementSource {
 

@@ -264,7 +264,15 @@ fun HomeScreen(
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehaviorLarge.nestedScrollConnection),
         containerColor = Color.Transparent,
-        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+        // The bottom nav bar is overlaid on top of this Scaffold by MainScreen,
+        // so pad the host clear of it — otherwise snackbars (notably the
+        // "restart to apply update" prompt) render behind the nav bar.
+        snackbarHost = {
+            SnackbarHost(
+                hostState = snackbarHostState,
+                modifier = Modifier.padding(bottom = Dimensions.Component.bottomBarHeight)
+            )
+        },
         topBar = {
             CustomTitleTopAppBar(
                 scrollBehaviorSmall = scrollBehaviorSmall,
@@ -422,6 +430,7 @@ fun HomeScreen(
                             progress = budgetProgress,
                             subtitle = pluralStringResource(R.plurals.home_days_left, daysLeft, daysLeft),
                             isBalanceHidden = uiState.isBalanceHidden,
+                            onToggleBalanceVisibility = { viewModel.toggleBalanceVisibility() },
                         )
                         if (uiState.weekSpend.isNotEmpty()) {
                             WeekStrip(

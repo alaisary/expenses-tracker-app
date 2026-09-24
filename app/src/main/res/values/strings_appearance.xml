@@ -12,7 +12,6 @@
     <!-- Appearance screen: section headers -->
     <string name="appr_section_navigation">Navigation</string>
     <string name="appr_section_cover_style">Cover Style</string>
-    <string name="appr_section_fonts">Fonts</string>
 
     <!-- Shared content descriptions -->
     <string name="appr_back">Back</string>
@@ -40,12 +39,6 @@
 
     <!-- Cover style selector -->
     <string name="appr_cover_none">None</string>
-
-    <!-- Font selector -->
-    <string name="appr_font_default">Default</string>
-    <string name="appr_font_system">System</string>
-    <string name="appr_font_sn_pro">SN Pro</string>
-    <string name="appr_font_sn_pro_desc">Modern Mono</string>
 
     <!-- FAQ screen: title -->
     <string name="appr_faq_title">FAQ</string>

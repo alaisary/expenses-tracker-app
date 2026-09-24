@@ -4,7 +4,6 @@ import android.content.Intent
 import com.pennywiseai.tracker.ui.components.CurrencyText
 import android.net.Uri
 import com.pennywiseai.tracker.R
-import com.pennywiseai.tracker.data.contacts.LocalMerchantDisplay
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -614,15 +613,12 @@ private fun TransactionReceipt(
 
                 Spacer(modifier = Modifier.height(Spacing.sm))
 
-                // Prefer the user's saved alias (#583); else the contact-resolved
-                // name when that toggle is on. The raw merchant is still what the
-                // Edit field below renders so users can correct mis-detections.
-                val merchantDisplay = LocalMerchantDisplay.current
+                // Prefer the user's saved alias (#583); else the raw merchant.
+                // The raw merchant is still what the Edit field below renders
+                // so users can correct mis-detections.
                 val currentAlias by viewModel.currentMerchantAlias.collectAsStateWithLifecycle()
                 Text(
-                    text = currentAlias
-                        ?: merchantDisplay(transaction.merchantName)
-                        ?: transaction.merchantName,
+                    text = currentAlias ?: transaction.merchantName,
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Center

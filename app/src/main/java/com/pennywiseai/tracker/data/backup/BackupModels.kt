@@ -114,9 +114,6 @@ data class BackupStatistics(
     @SerialName("total_transaction_splits")
     val totalTransactionSplits: Int = 0,
 
-    @SerialName("total_bank_notifications")
-    val totalBankNotifications: Int = 0,
-
     @SerialName("total_loans")
     val totalLoans: Int = 0,
 
@@ -205,9 +202,6 @@ data class DatabaseSnapshot(
     @SerialName("transaction_splits")
     val transactionSplits: List<TransactionSplitEntity> = emptyList(),
 
-    @SerialName("bank_notifications")
-    val bankNotifications: List<BankNotificationEntity> = emptyList(),
-
     @SerialName("loans")
     val loans: List<LoanEntity> = emptyList(),
 
@@ -245,9 +239,6 @@ data class PreferencesSnapshot(
     @SerialName("sms")
     val sms: SmsPreferences = SmsPreferences(),
 
-    @SerialName("developer")
-    val developer: DeveloperPreferences = DeveloperPreferences(),
-
     @SerialName("app")
     val app: AppPreferences = AppPreferences()
 )
@@ -280,15 +271,6 @@ data class SmsPreferences(
 
     @SerialName("sms_scan_custom_date")
     val smsScanCustomDate: Long? = null
-)
-
-@Serializable
-data class DeveloperPreferences(
-    @SerialName("is_developer_mode_enabled")
-    val isDeveloperModeEnabled: Boolean = false,
-
-    @SerialName("system_prompt")
-    val systemPrompt: String? = null
 )
 
 @Serializable

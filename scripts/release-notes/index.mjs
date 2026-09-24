@@ -8,7 +8,7 @@
 // It uses the Claude Agent SDK with schema-enforced structured output
 // (`outputFormat: json_schema`), so the model can only return JSON matching the
 // schema — no conversational preamble, no markdown code fences. release.sh
-// formats both the GitHub notes and the F-Droid/Play changelog from this object.
+// formats both the GitHub notes and the Play changelog from this object.
 //
 // Auth: runs on the machine's Claude subscription (the same login the `claude`
 // CLI uses) — no ANTHROPIC_API_KEY needed. Tools are disabled, so this is a

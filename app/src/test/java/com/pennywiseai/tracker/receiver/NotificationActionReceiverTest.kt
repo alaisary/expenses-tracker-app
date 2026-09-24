@@ -77,7 +77,6 @@ class NotificationActionReceiverTest {
         override fun budgetDao(): BudgetDao = error("unused")
         override fun budgetSnapshotDao(): BudgetSnapshotDao = error("unused")
         override fun transactionSplitDao(): TransactionSplitDao = error("unused")
-        override fun bankNotificationDao(): BankNotificationDao = error("unused")
         override fun loanDao(): LoanDao = error("unused")
         override fun transactionGroupDao(): TransactionGroupDao = error("unused")
         override fun profileDao(): ProfileDao = error("unused")

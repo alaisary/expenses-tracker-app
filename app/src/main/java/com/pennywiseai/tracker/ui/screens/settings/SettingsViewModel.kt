@@ -18,7 +18,6 @@ import com.pennywiseai.tracker.R
 import com.pennywiseai.tracker.billing.EntitlementGate
 import com.pennywiseai.tracker.core.Constants.Links
 import com.pennywiseai.tracker.data.repository.UnrecognizedSmsRepository
-import com.pennywiseai.tracker.data.preferences.NumberFormatStyle
 import com.pennywiseai.tracker.data.preferences.UserPreferencesRepository
 import com.pennywiseai.tracker.data.manager.SmsScanParamsCalculator
 import com.pennywiseai.tracker.data.backup.BackupExporter
@@ -62,7 +61,6 @@ class SettingsViewModel @Inject constructor(
     private val importCsvUseCase: com.pennywiseai.tracker.data.csv.ImportCsvUseCase,
     private val folderBackupWriter: FolderBackupWriter,
     private val scheduledFolderBackupScheduler: ScheduledFolderBackupScheduler,
-    private val contactsResolver: com.pennywiseai.tracker.data.contacts.ContactsResolver,
     entitlementGate: EntitlementGate,
 ) : ViewModel() {
 
@@ -75,6 +73,19 @@ class SettingsViewModel @Inject constructor(
     
     private val _exportedBackupFile = MutableStateFlow<File?>(null)
     val exportedBackupFile: StateFlow<File?> = _exportedBackupFile.asStateFlow()
+
+    /**
+     * True while an exported backup is waiting for the user to choose where to
+     * save it. Explicit state rather than sniffing the status message for an
+     * English substring, which silently stopped matching once the message was
+     * translated and left Arabic users with no save/share chooser at all.
+     */
+    private val _exportOptionsPending = MutableStateFlow(false)
+    val exportOptionsPending: StateFlow<Boolean> = _exportOptionsPending.asStateFlow()
+
+    fun dismissExportOptions() {
+        _exportOptionsPending.value = false
+    }
 
     // "Delete all transactions": null while the confirmation isn't open, else the
     // number of rows the delete would remove — observed, not snapshotted, so the
@@ -108,9 +119,6 @@ class SettingsViewModel @Inject constructor(
 
     private var currentFolderPickerAction: FolderPickerAction = FolderPickerAction.ENABLE
 
-    // Developer mode state
-    val isDeveloperModeEnabled = userPreferencesRepository.isDeveloperModeEnabled
-    
     // SMS scan period state
     val smsScanMonths = userPreferencesRepository.smsScanMonths
     val smsScanAllTime = userPreferencesRepository.smsScanAllTime
@@ -123,9 +131,6 @@ class SettingsViewModel @Inject constructor(
 
     // Count credit-card spend toward the "Spent this month" total (#705)
     val countCreditCardAsExpense = userPreferencesRepository.countCreditCardAsExpense
-
-    // Replace UPI VPAs with contact names (gated by READ_CONTACTS).
-    val useContactsForVpa = userPreferencesRepository.useContactsForVpa
 
     // Derive the selectable set from the user's ACTUAL data (transaction + account
     // currencies) on top of the common seed list. This way any currency the user
@@ -148,9 +153,6 @@ class SettingsViewModel @Inject constructor(
     
     // Base currency state
     val baseCurrency = userPreferencesRepository.baseCurrency
-
-    // Number format style (digit grouping: Auto / Indian / International)
-    val numberFormatStyle = userPreferencesRepository.numberFormatStyle
 
     // Budget cycle start day (1..31). Drives Home/Budgets/Analytics so a user
     // whose salary doesn't land on the 1st can define their own pay cycle.
@@ -275,26 +277,6 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun toggleDeveloperMode(enabled: Boolean) {
-        viewModelScope.launch {
-            userPreferencesRepository.setDeveloperModeEnabled(enabled)
-        }
-    }
-
-    /**
-     * Flip the UPI-contact-resolution preference. The screen is responsible
-     * for ensuring READ_CONTACTS is granted before passing `true` — this
-     * just persists. Toggling either direction wipes the resolver cache so
-     * stale results don't leak across the flag flip (and so a re-enable
-     * after permission grant picks up the user's contacts immediately).
-     */
-    fun setUseContactsForVpa(enabled: Boolean) {
-        viewModelScope.launch {
-            userPreferencesRepository.setUseContactsForVpa(enabled)
-            contactsResolver.clearCache()
-        }
-    }
-    
     fun updateSmsScanMonths(months: Int) {
         viewModelScope.launch {
             val currentMonths = userPreferencesRepository.getSmsScanMonths()
@@ -372,9 +354,11 @@ class SettingsViewModel @Inject constructor(
                 val result = backupExporter.exportBackup()
                 when (result) {
                     is ExportResult.Success -> {
-                        // Store the file for later saving
+                        // Store the file and raise the chooser. No status message:
+                        // the chooser dialog carries its own explanatory text, and
+                        // the old message-based signal only worked in English.
                         _exportedBackupFile.value = result.file
-                        _importExportMessage.value = context.getString(R.string.vm_backup_created)
+                        _exportOptionsPending.value = true
                     }
                     is ExportResult.Error -> {
                         _importExportMessage.value = context.getString(R.string.vm_export_failed, result.message)
@@ -390,6 +374,7 @@ class SettingsViewModel @Inject constructor(
     }
     
     fun saveBackupToFile(uri: android.net.Uri) {
+        _exportOptionsPending.value = false
         viewModelScope.launch {
             try {
                 _exportedBackupFile.value?.let { file ->
@@ -409,6 +394,7 @@ class SettingsViewModel @Inject constructor(
     }
     
     fun shareBackup() {
+        _exportOptionsPending.value = false
         _exportedBackupFile.value?.let { file ->
             shareBackupFile(file)
         }
@@ -607,12 +593,6 @@ class SettingsViewModel @Inject constructor(
     fun updateBaseCurrency(currency: String) {
         viewModelScope.launch {
             userPreferencesRepository.updateBaseCurrency(currency)
-        }
-    }
-
-    fun updateNumberFormatStyle(style: NumberFormatStyle) {
-        viewModelScope.launch {
-            userPreferencesRepository.updateNumberFormatStyle(style)
         }
     }
 

@@ -1,7 +1,5 @@
 package com.pennywiseai.tracker.utils
 
-import com.pennywiseai.tracker.data.preferences.NumberFormatStyle
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -62,12 +60,6 @@ class CurrencyFormatterTest {
                 bankName = "Totally Unknown Bank"
             )
         )
-    }
-
-    // numberFormatStyle is a process-wide @Volatile field; reset after each test.
-    @After
-    fun resetNumberFormatStyle() {
-        CurrencyFormatter.numberFormatStyle = NumberFormatStyle.AUTO
     }
 
     // ─── formatByCurrency / sumByCurrency: the multi-currency total guardrail ───
@@ -189,26 +181,10 @@ class CurrencyFormatterTest {
 
     // Note: grouping *values* (1,50,000 vs 150,000) can't be asserted here — the plain
     // JVM test runtime uses COMPAT locale data (western grouping for en-IN), whereas
-    // Android uses CLDR (Indian grouping). The style→branch selection is instead covered
-    // by the abbreviation test below, which shares the same when(style) logic and uses
-    // our own locale-independent L/Cr-vs-K/M strings.
-    @Test
-    fun `abbreviation follows the style`() {
-        CurrencyFormatter.numberFormatStyle = NumberFormatStyle.INTERNATIONAL
-        assertTrue(
-            "INR under INTERNATIONAL abbreviates with M, not Cr",
-            CurrencyFormatter.formatAbbreviated(10_000_000.0, "INR").endsWith("M")
-        )
-        CurrencyFormatter.numberFormatStyle = NumberFormatStyle.INDIAN
-        assertTrue(
-            "TZS under INDIAN abbreviates with Cr",
-            CurrencyFormatter.formatAbbreviated(10_000_000.0, "TZS").endsWith("Cr")
-        )
-    }
-
+    // Android uses CLDR (Indian grouping). Grouping selection is instead covered by the
+    // abbreviation test below, which uses our own locale-independent L/Cr-vs-K/M strings.
     @Test
     fun `AUTO abbreviation is currency-driven (the shipped default)`() {
-        CurrencyFormatter.numberFormatStyle = NumberFormatStyle.AUTO
         // INR/NPR/PKR keep Indian L/Cr; everything else uses western K/M.
         assertTrue(
             "INR under AUTO abbreviates with Cr",
@@ -248,7 +224,6 @@ class CurrencyFormatterTest {
 
     @Test
     fun `formatted peso amounts carry their distinguishing symbol`() {
-        CurrencyFormatter.numberFormatStyle = NumberFormatStyle.AUTO
         val ars = CurrencyFormatter.formatCurrency(BigDecimal("1234.56"), "ARS")
         assertTrue("expected AR$ in: $ars", ars.contains("AR$"))
         val clp = CurrencyFormatter.formatCurrency(BigDecimal("1234"), "CLP")

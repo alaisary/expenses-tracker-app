@@ -105,7 +105,8 @@ open class AccountBalanceRepository @Inject constructor(
                 isCreditCard = isCreditCard,
                 profileId = existing?.profileId ?: ProfileEntity.PERSONAL_ID,
                 alias = existing?.alias,
-                lowBalanceThreshold = existing?.lowBalanceThreshold
+                lowBalanceThreshold = existing?.lowBalanceThreshold,
+                accountType = BalanceCalculator.preservedAccountType(existing)
             )
             insertBalance(balanceEntity)
         }
@@ -136,7 +137,8 @@ open class AccountBalanceRepository @Inject constructor(
             currency = currency,
             profileId = existing?.profileId ?: ProfileEntity.PERSONAL_ID,
             alias = existing?.alias,
-            lowBalanceThreshold = existing?.lowBalanceThreshold
+            lowBalanceThreshold = existing?.lowBalanceThreshold,
+            accountType = BalanceCalculator.preservedAccountType(existing)
         )
         return insertBalance(balanceEntity)
     }

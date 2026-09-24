@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import android.provider.Settings
 import android.util.Log
 import androidx.compose.animation.*
 import androidx.compose.foundation.background
@@ -45,7 +44,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.pennywiseai.tracker.ui.components.CustomTitleTopAppBar
-import com.pennywiseai.tracker.ui.components.SupportDevelopmentDialog
 import com.pennywiseai.tracker.ui.components.cards.GroupedColumn
 import com.pennywiseai.tracker.ui.components.cards.GroupedList
 import com.pennywiseai.tracker.ui.components.cards.GroupedRow
@@ -75,14 +73,10 @@ import com.pennywiseai.tracker.ui.theme.purple_light
 import com.pennywiseai.tracker.ui.theme.purple_dark
 import com.pennywiseai.tracker.ui.theme.cyan_light
 import com.pennywiseai.tracker.ui.theme.cyan_dark
-import com.pennywiseai.tracker.ui.theme.yellow_light
-import com.pennywiseai.tracker.ui.theme.yellow_dark
-import com.pennywiseai.tracker.ui.theme.grey_light
 import com.pennywiseai.tracker.ui.theme.grey_dark
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 import com.pennywiseai.tracker.ui.viewmodel.ThemeViewModel
-import com.pennywiseai.tracker.data.preferences.NumberFormatStyle
 import com.pennywiseai.tracker.utils.AppLocale
 import com.pennywiseai.tracker.utils.CurrencyFormatter
 
@@ -104,23 +98,20 @@ fun SettingsScreen(
     onNavigateToTransactionGroups: () -> Unit = {},
     onNavigateToExchangeRates: () -> Unit = {},
     onNavigateToAppearance: () -> Unit = {},
-    onNavigateToImportStatement: () -> Unit = {},
     settingsViewModel: SettingsViewModel = hiltViewModel(),
-    appLockViewModel: com.pennywiseai.tracker.ui.viewmodel.AppLockViewModel = hiltViewModel(),
-    permissionViewModel: com.pennywiseai.tracker.ui.viewmodel.PermissionViewModel = hiltViewModel()
+    appLockViewModel: com.pennywiseai.tracker.ui.viewmodel.AppLockViewModel = hiltViewModel()
 ) {
     val themeUiState by themeViewModel.themeUiState.collectAsStateWithLifecycle()
     val appLockUiState by appLockViewModel.uiState.collectAsStateWithLifecycle()
-    val isDeveloperModeEnabled by settingsViewModel.isDeveloperModeEnabled.collectAsStateWithLifecycle(initialValue = false)
     val smsScanMonths by settingsViewModel.smsScanMonths.collectAsStateWithLifecycle(initialValue = 3)
     val smsScanAllTime by settingsViewModel.smsScanAllTime.collectAsStateWithLifecycle(initialValue = false)
     val smsScanUseCustomDate by settingsViewModel.smsScanUseCustomDate.collectAsStateWithLifecycle(initialValue = false)
     val smsScanCustomDate by settingsViewModel.smsScanCustomDate.collectAsStateWithLifecycle(initialValue = null)
     val baseCurrency by settingsViewModel.baseCurrency.collectAsStateWithLifecycle(initialValue = "")
-    val numberFormatStyle by settingsViewModel.numberFormatStyle.collectAsStateWithLifecycle(initialValue = NumberFormatStyle.AUTO)
     val budgetCycleStartDay by settingsViewModel.budgetCycleStartDay.collectAsStateWithLifecycle(initialValue = 1)
     val importExportMessage by settingsViewModel.importExportMessage.collectAsStateWithLifecycle()
     val exportedBackupFile by settingsViewModel.exportedBackupFile.collectAsStateWithLifecycle()
+    val exportOptionsPending by settingsViewModel.exportOptionsPending.collectAsStateWithLifecycle()
     val deleteAllTransactionsCount by settingsViewModel.deleteAllTransactionsCount.collectAsStateWithLifecycle()
     val isDeletingAllTransactions by settingsViewModel.isDeletingAllTransactions.collectAsStateWithLifecycle()
     val deleteAllTransactionsResult by settingsViewModel.deleteAllTransactionsResult.collectAsStateWithLifecycle()
@@ -130,33 +121,16 @@ fun SettingsScreen(
     val availableCurrencies by settingsViewModel.availableCurrencies.collectAsStateWithLifecycle()
     val accounts by settingsViewModel.accounts.collectAsStateWithLifecycle()
     val mainAccountKey by settingsViewModel.mainAccountKey.collectAsStateWithLifecycle()
-    val useContactsForVpa by settingsViewModel.useContactsForVpa.collectAsStateWithLifecycle(initialValue = false)
     val scheduledFolderBackupEnabled by settingsViewModel.scheduledFolderBackupEnabled.collectAsStateWithLifecycle(initialValue = false)
     val scheduledFolderBackupLastTimestamp by settingsViewModel.scheduledFolderBackupLastTimestamp.collectAsStateWithLifecycle(initialValue = null)
     val requestFolderPicker by settingsViewModel.requestFolderPicker.collectAsStateWithLifecycle()
-    var showSupportDialog by remember { mutableStateOf(false) }
-    // F-Droid builds have no Play billing, so they show a "Support development"
-    // tip jar.
-    val isFdroidBuild = com.pennywiseai.tracker.BuildConfig.IS_FDROID_BUILD
-    // Launches the runtime permission request. If granted, we flip the
-    // preference on; if denied, leave the switch off so the user can try
-    // again without us silently turning the feature on later.
-    val readContactsLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission()
-    ) { granted ->
-        if (granted) settingsViewModel.setUseContactsForVpa(true)
-    }
     var showSmsScanDialog by remember { mutableStateOf(false) }
     var showSmsScanDatePicker by remember { mutableStateOf(false) }
-    var showExportOptionsDialog by remember { mutableStateOf(false) }
     var showTimeoutDialog by remember { mutableStateOf(false) }
     var showDisplayCurrencyDialog by remember { mutableStateOf(false) }
-    var showNumberFormatDialog by remember { mutableStateOf(false) }
     var showBudgetCycleDialog by remember { mutableStateOf(false) }
     var showCurrencyDropdown by remember { mutableStateOf(false) }
     var showMainAccountDropdown by remember { mutableStateOf(false) }
-    val permissionUiState by permissionViewModel.uiState.collectAsStateWithLifecycle()
-    val hasNotificationAccess = permissionUiState.hasNotificationAccess
     val context = LocalContext.current
 
     // App language. Backed by SharedPreferences (not DataStore) so
@@ -174,12 +148,6 @@ fun SettingsScreen(
         }
         showLanguageDialog = false
     }
-    val notificationAccessLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.StartActivityForResult()
-    ) {
-        permissionViewModel.refreshNotificationAccess()
-    }
-
     // File picker for import
     val importLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent(),
@@ -255,24 +223,6 @@ fun SettingsScreen(
                 .padding(Dimensions.Padding.content),
             verticalArrangement = Arrangement.spacedBy(Spacing.sm)
         ) {
-            // ── Support development (F-Droid builds) ──
-            // F-Droid builds have no Play billing (everything is already
-            // unlocked), so they get a "Support development" tip jar.
-            if (isFdroidBuild) {
-                SectionHeaderV2(title = stringResource(R.string.support_title))
-                SettingsGroup {
-                    SettingsNavItem(
-                        icon = Icons.Default.Favorite,
-                        iconBgColor = yellow_light,
-                        iconTint = yellow_dark,
-                        title = stringResource(R.string.support_title),
-                        subtitle = stringResource(R.string.support_subtitle),
-                        onClick = { showSupportDialog = true },
-                        position = ListItemPosition.Single,
-                    )
-                }
-            }
-
             // ── Personalization ──
             SectionHeaderV2(title = stringResource(R.string.settings_personalization_section))
             SettingsGroup {
@@ -350,7 +300,8 @@ fun SettingsScreen(
                     currentValue = "${CurrencyFormatter.getCurrencySymbol(baseCurrency)} $baseCurrency",
                     expanded = showCurrencyDropdown,
                     onExpandedChange = { showCurrencyDropdown = it },
-                    position = ListItemPosition.Middle
+                    // Last row in the group when there is no main account to show below it.
+                    position = if (accounts.isEmpty()) ListItemPosition.Bottom else ListItemPosition.Middle
                 ) {
                     availableCurrencies.forEach { currency ->
                         DropdownMenuItem(
@@ -391,7 +342,7 @@ fun SettingsScreen(
                         } ?: stringResource(R.string.settings_not_set),
                         expanded = showMainAccountDropdown,
                         onExpandedChange = { showMainAccountDropdown = it },
-                        position = ListItemPosition.Middle
+                        position = ListItemPosition.Bottom
                     ) {
                         accounts.forEach { account ->
                             val name = account.alias?.takeIf { it.isNotBlank() } ?: account.bankName
@@ -416,17 +367,6 @@ fun SettingsScreen(
                         }
                     }
                 }
-
-                SettingsNavItem(
-                    icon = Icons.Default.Numbers,
-                    iconBgColor = green_light,
-                    iconTint = green_dark,
-                    title = stringResource(R.string.settings_number_format_title),
-                    subtitle = stringResource(R.string.settings_number_format_subtitle),
-                    onClick = { showNumberFormatDialog = true },
-                    position = ListItemPosition.Bottom,
-                    trailingText = numberFormatStyleLabel(numberFormatStyle)
-                )
             }
 
             // ── Budget ──
@@ -445,36 +385,6 @@ fun SettingsScreen(
                     onClick = { showBudgetCycleDialog = true },
                     position = ListItemPosition.Single,
                     trailingText = ordinalSuffix(budgetCycleStartDay)
-                )
-            }
-
-            // ── Contacts ──
-            SectionHeaderV2(title = stringResource(R.string.settings_contacts_section))
-            SettingsGroup {
-                SettingsSwitchRow(
-                    icon = Icons.Default.Contacts,
-                    iconBgColor = teal_light,
-                    iconTint = teal_dark,
-                    title = stringResource(R.string.settings_contacts_replace_title),
-                    subtitle = stringResource(R.string.settings_contacts_replace_subtitle),
-                    checked = useContactsForVpa,
-                    onCheckedChange = { wantsOn ->
-                        if (wantsOn) {
-                            val alreadyGranted = androidx.core.content.ContextCompat
-                                .checkSelfPermission(
-                                    context,
-                                    android.Manifest.permission.READ_CONTACTS
-                                ) == android.content.pm.PackageManager.PERMISSION_GRANTED
-                            if (alreadyGranted) {
-                                settingsViewModel.setUseContactsForVpa(true)
-                            } else {
-                                readContactsLauncher.launch(android.Manifest.permission.READ_CONTACTS)
-                            }
-                        } else {
-                            settingsViewModel.setUseContactsForVpa(false)
-                        }
-                    },
-                    position = ListItemPosition.Single
                 )
             }
 
@@ -648,15 +558,6 @@ fun SettingsScreen(
                     position = ListItemPosition.Middle
                 )
                 SettingsNavItem(
-                    icon = Icons.Default.Description,
-                    iconBgColor = indigo_light,
-                    iconTint = indigo_dark,
-                    title = stringResource(R.string.settings_import_statement_title),
-                    subtitle = stringResource(R.string.settings_import_statement_subtitle),
-                    onClick = onNavigateToImportStatement,
-                    position = ListItemPosition.Middle
-                )
-                SettingsNavItem(
                     icon = Icons.Default.Sms,
                     iconBgColor = orange_light,
                     iconTint = orange_dark,
@@ -698,39 +599,6 @@ fun SettingsScreen(
                     subtitle = stringResource(R.string.settings_delete_all_subtitle),
                     onClick = { settingsViewModel.requestDeleteAllTransactions() },
                     position = ListItemPosition.Bottom
-                )
-            }
-
-            // ── Notifications ──
-            SectionHeaderV2(title = stringResource(R.string.settings_notifications_section))
-            SettingsGroup {
-                SettingsNavItem(
-                    icon = Icons.Default.Notifications,
-                    iconBgColor = indigo_light,
-                    iconTint = indigo_dark,
-                    title = stringResource(R.string.settings_bank_notif_title),
-                    subtitle = if (hasNotificationAccess) stringResource(R.string.settings_enabled) else stringResource(R.string.settings_bank_notif_subtitle),
-                    onClick = {
-                        val intent = Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
-                        notificationAccessLauncher.launch(intent)
-                    },
-                    position = ListItemPosition.Single,
-                    trailingText = if (hasNotificationAccess) stringResource(R.string.settings_on) else stringResource(R.string.settings_off)
-                )
-            }
-
-            // ── Developer ──
-            SectionHeaderV2(title = stringResource(R.string.settings_developer_section))
-            SettingsGroup {
-                SettingsSwitchRow(
-                    icon = Icons.Default.Code,
-                    iconBgColor = grey_light,
-                    iconTint = grey_dark,
-                    title = stringResource(R.string.settings_developer_mode_title),
-                    subtitle = stringResource(R.string.settings_developer_mode_subtitle),
-                    checked = isDeveloperModeEnabled,
-                    onCheckedChange = { settingsViewModel.toggleDeveloperMode(it) },
-                    position = ListItemPosition.Single
                 )
             }
 
@@ -830,58 +698,6 @@ fun SettingsScreen(
             },
             confirmButton = {
                 TextButton(onClick = { showDisplayCurrencyDialog = false }) {
-                    Text(stringResource(R.string.settings_cancel))
-                }
-            }
-        )
-    }
-
-    // Number Format Dialog
-    if (showNumberFormatDialog) {
-        AlertDialog(
-            onDismissRequest = { showNumberFormatDialog = false },
-            title = { Text(stringResource(R.string.settings_number_format_title)) },
-            text = {
-                Column {
-                    NumberFormatStyle.entries.forEach { style ->
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .selectable(
-                                    selected = style == numberFormatStyle,
-                                    onClick = {
-                                        settingsViewModel.updateNumberFormatStyle(style)
-                                        showNumberFormatDialog = false
-                                    }
-                                )
-                                .padding(vertical = Spacing.sm),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            RadioButton(
-                                selected = style == numberFormatStyle,
-                                onClick = {
-                                    settingsViewModel.updateNumberFormatStyle(style)
-                                    showNumberFormatDialog = false
-                                }
-                            )
-                            Spacer(modifier = Modifier.width(Spacing.sm))
-                            Column {
-                                Text(
-                                    text = numberFormatStyleLabel(style),
-                                    style = MaterialTheme.typography.bodyLarge
-                                )
-                                Text(
-                                    text = numberFormatStyleExample(style),
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                            }
-                        }
-                    }
-                }
-            },
-            confirmButton = {
-                TextButton(onClick = { showNumberFormatDialog = false }) {
                     Text(stringResource(R.string.settings_cancel))
                 }
             }
@@ -1167,29 +983,25 @@ fun SettingsScreen(
 
     // Show import/export message
     importExportMessage?.let { message ->
-        if (exportedBackupFile != null && message.contains("successfully! Choose")) {
-            showExportOptionsDialog = true
-        } else {
-            LaunchedEffect(message) {
-                kotlinx.coroutines.delay(5000)
-                settingsViewModel.clearImportExportMessage()
-            }
-
-            AlertDialog(
-                onDismissRequest = { settingsViewModel.clearImportExportMessage() },
-                title = { Text(stringResource(R.string.settings_backup_status_title)) },
-                text = { Text(message) },
-                confirmButton = {
-                    TextButton(onClick = { settingsViewModel.clearImportExportMessage() }) {
-                        Text(stringResource(R.string.settings_ok))
-                    }
-                }
-            )
+        LaunchedEffect(message) {
+            kotlinx.coroutines.delay(5000)
+            settingsViewModel.clearImportExportMessage()
         }
+
+        AlertDialog(
+            onDismissRequest = { settingsViewModel.clearImportExportMessage() },
+            title = { Text(stringResource(R.string.settings_backup_status_title)) },
+            text = { Text(message) },
+            confirmButton = {
+                TextButton(onClick = { settingsViewModel.clearImportExportMessage() }) {
+                    Text(stringResource(R.string.settings_ok))
+                }
+            }
+        )
     }
 
     // Export options dialog
-    if (showExportOptionsDialog && exportedBackupFile != null) {
+    if (exportOptionsPending && exportedBackupFile != null) {
         val timestamp = java.time.LocalDateTime.now().format(
             java.time.format.DateTimeFormatter.ofPattern("yyyy_MM_dd_HHmmss")
         )
@@ -1197,7 +1009,7 @@ fun SettingsScreen(
 
         AlertDialog(
             onDismissRequest = {
-                showExportOptionsDialog = false
+                settingsViewModel.dismissExportOptions()
                 settingsViewModel.clearImportExportMessage()
             },
             title = { Text(stringResource(R.string.settings_save_backup_title)) },
@@ -1213,7 +1025,7 @@ fun SettingsScreen(
                     TextButton(
                         onClick = {
                             exportSaveLauncher.launch(fileName)
-                            showExportOptionsDialog = false
+                            settingsViewModel.dismissExportOptions()
                             settingsViewModel.clearImportExportMessage()
                         }
                     ) {
@@ -1225,7 +1037,7 @@ fun SettingsScreen(
                     TextButton(
                         onClick = {
                             settingsViewModel.shareBackup()
-                            showExportOptionsDialog = false
+                            settingsViewModel.dismissExportOptions()
                             settingsViewModel.clearImportExportMessage()
                         }
                     ) {
@@ -1238,7 +1050,7 @@ fun SettingsScreen(
             dismissButton = {
                 TextButton(
                     onClick = {
-                        showExportOptionsDialog = false
+                        settingsViewModel.dismissExportOptions()
                         settingsViewModel.clearImportExportMessage()
                     }
                 ) {
@@ -1305,10 +1117,6 @@ fun SettingsScreen(
         )
     }
 
-    if (showSupportDialog) {
-        SupportDevelopmentDialog(onDismiss = { showSupportDialog = false })
-    }
-
     if (showLanguageDialog) {
         AlertDialog(
             onDismissRequest = { showLanguageDialog = false },
@@ -1336,7 +1144,7 @@ fun SettingsScreen(
             },
             confirmButton = {
                 TextButton(onClick = { showLanguageDialog = false }) {
-                    Text(stringResource(R.string.support_close))
+                    Text(stringResource(R.string.settings_done))
                 }
             }
         )
@@ -1515,20 +1323,6 @@ private fun SettingsNavigationContent(onNavigateBack: () -> Unit) {
             )
         }
     }
-}
-
-@Composable
-private fun numberFormatStyleLabel(style: NumberFormatStyle): String = when (style) {
-    NumberFormatStyle.AUTO -> stringResource(R.string.settings_number_format_auto)
-    NumberFormatStyle.INDIAN -> stringResource(R.string.settings_number_format_indian)
-    NumberFormatStyle.INTERNATIONAL -> stringResource(R.string.settings_number_format_international)
-}
-
-@Composable
-private fun numberFormatStyleExample(style: NumberFormatStyle): String = when (style) {
-    NumberFormatStyle.AUTO -> stringResource(R.string.settings_number_format_example_auto)
-    NumberFormatStyle.INDIAN -> stringResource(R.string.settings_number_format_example_indian)
-    NumberFormatStyle.INTERNATIONAL -> stringResource(R.string.settings_number_format_example_international)
 }
 
 /**

@@ -20,7 +20,6 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.font.FontFamily
 import androidx.core.view.WindowCompat
 import com.pennywiseai.tracker.data.preferences.AccentColor
-import com.pennywiseai.tracker.data.preferences.AppFont
 import com.pennywiseai.tracker.data.preferences.ThemeStyle
 import com.pennywiseai.tracker.ui.effects.LocalBlurEffects
 
@@ -125,7 +124,6 @@ fun PennyWiseTheme(
     themeStyle: ThemeStyle = ThemeStyle.BRANDED,
     accentColor: AccentColor = AccentColor.PINE,
     isAmoledMode: Boolean = false,
-    appFont: AppFont = AppFont.SYSTEM,
     blurEffects: Boolean = true,
     content: @Composable () -> Unit
 ) {
@@ -177,14 +175,12 @@ fun PennyWiseTheme(
         }
     }
 
+    // Thmanyah is an Arabic typeface: it carries the Arabic UI (Sans for text, the
+    // serif Display cut for headlines and hero figures). Latin keeps the platform
+    // face — Thmanyah is not the app's Latin font. Still not user-selectable:
+    // there is no font picker, the language decides.
     val isArabicUi = LocalConfiguration.current.locales[0]?.language == "ar"
-    val fontFamily = when {
-        // Arabic locale: Thmanyah Sans carries the UI text.
-        isArabicUi -> ThmanyahSansFontFamily
-        appFont == AppFont.SN_PRO -> SNProFontFamily
-        else -> FontFamily.Default
-    }
-    // Arabic headlines/hero figures use the serif Display cut; Latin keeps one face.
+    val fontFamily = if (isArabicUi) ThmanyahSansFontFamily else FontFamily.Default
     val displayFontFamily = if (isArabicUi) ThmanyahSerifDisplayFontFamily else fontFamily
 
     CompositionLocalProvider(LocalBlurEffects provides blurEffects) {

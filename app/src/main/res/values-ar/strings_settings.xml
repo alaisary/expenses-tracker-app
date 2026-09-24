@@ -37,14 +37,6 @@
     <string name="settings_main_account_title">الحساب الرئيسي</string>
     <string name="settings_main_account_subtitle">يحدّد عملتك الافتراضية</string>
     <string name="settings_not_set">غير محدَّد</string>
-    <string name="settings_number_format_title">تنسيق الأرقام</string>
-    <string name="settings_number_format_subtitle">كيفية تجميع المبالغ الكبيرة</string>
-    <string name="settings_number_format_auto">تلقائي</string>
-    <string name="settings_number_format_indian">هندي</string>
-    <string name="settings_number_format_international">دولي</string>
-    <string name="settings_number_format_example_auto">يطابق كل عملة (₹1,50,000 · $150,000)</string>
-    <string name="settings_number_format_example_indian">1,50,000 (لاك / كرور)</string>
-    <string name="settings_number_format_example_international">150,000 (ألف / مليون)</string>
 
     <!-- Budget -->
     <string name="settings_budget_section">الميزانية</string>
@@ -53,9 +45,6 @@
     <string name="settings_budget_cycle_dialog_body">اختر اليوم الذي تبدأ فيه كل دورة ميزانية شهرية. مثلًا 25 تعني أن الدورة تمتد من اليوم 25 حتى 24 من الشهر التالي.</string>
 
     <!-- Contacts -->
-    <string name="settings_contacts_section">جهات الاتصال</string>
-    <string name="settings_contacts_replace_title">استبدال عناوين UPI بأسماء جهات الاتصال</string>
-    <string name="settings_contacts_replace_subtitle">اعرض \'John Doe\' بدلًا من \'9876543210@paytm\'. يحتاج إلى إذن جهات الاتصال.</string>
 
     <!-- Security -->
     <string name="settings_security_section">الأمان</string>
@@ -103,8 +92,6 @@
     <string name="settings_import_data_subtitle">استعِد البيانات من نسخة احتياطية</string>
     <string name="settings_import_csv_title">استيراد المعاملات (CSV)</string>
     <string name="settings_import_csv_subtitle">استورِد من ملف CSV مُصدَّر من غوازي</string>
-    <string name="settings_import_statement_title">استيراد كشف حساب</string>
-    <string name="settings_import_statement_subtitle">استورِد من GPay وPhonePe وPaytm</string>
     <string name="settings_unrecognized_sms_title">رسائل SMS غير المعروفة</string>
     <string name="settings_unrecognized_sms_subtitle">اعرض رسائل البنوك غير المدعومة وأبلغ عنها</string>
     <string name="settings_sms_scan_title">فترة فحص SMS</string>
@@ -125,17 +112,11 @@
     <string name="settings_delete_all_subtitle">امسح سجل معاملاتك — تبقى الحسابات والميزانيات</string>
 
     <!-- Notifications -->
-    <string name="settings_notifications_section">الإشعارات</string>
-    <string name="settings_bank_notif_title">الوصول إلى إشعارات البنك</string>
     <string name="settings_enabled">مُفعّل</string>
-    <string name="settings_bank_notif_subtitle">اضغط لتفعيل إشعارات تطبيقات البنوك</string>
     <string name="settings_on">تشغيل</string>
     <string name="settings_off">إيقاف</string>
 
     <!-- Developer -->
-    <string name="settings_developer_section">المطوّر</string>
-    <string name="settings_developer_mode_title">وضع المطوّر</string>
-    <string name="settings_developer_mode_subtitle">اعرض المعلومات التقنية</string>
 
     <!-- Support & Community -->
     <string name="settings_support_section">الدعم والمجتمع</string>

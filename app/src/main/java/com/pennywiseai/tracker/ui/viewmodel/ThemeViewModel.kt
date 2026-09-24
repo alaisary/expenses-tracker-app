@@ -3,7 +3,6 @@ package com.pennywiseai.tracker.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pennywiseai.tracker.data.preferences.AccentColor
-import com.pennywiseai.tracker.data.preferences.AppFont
 import com.pennywiseai.tracker.data.preferences.CoverStyle
 import com.pennywiseai.tracker.data.preferences.NavBarStyle
 import com.pennywiseai.tracker.data.preferences.ThemeStyle
@@ -30,7 +29,6 @@ class ThemeViewModel @Inject constructor(
                 themeStyle = preferences.themeStyle,
                 accentColor = preferences.accentColor,
                 isAmoledMode = preferences.isAmoledMode,
-                appFont = preferences.appFont,
                 hasSkippedSmsPermission = preferences.hasSkippedSmsPermission,
                 blurEffectsEnabled = preferences.blurEffectsEnabled,
                 navBarStyle = preferences.navBarStyle,
@@ -77,12 +75,6 @@ class ThemeViewModel @Inject constructor(
         }
     }
 
-    fun updateAppFont(appFont: AppFont) {
-        viewModelScope.launch {
-            userPreferencesRepository.updateAppFont(appFont)
-        }
-    }
-
     fun updateBlurEffects(enabled: Boolean) {
         viewModelScope.launch {
             userPreferencesRepository.updateBlurEffectsEnabled(enabled)
@@ -115,7 +107,6 @@ data class ThemeUiState(
     val themeStyle: ThemeStyle = ThemeStyle.BRANDED,
     val accentColor: AccentColor = AccentColor.PINE,
     val isAmoledMode: Boolean = false,
-    val appFont: AppFont = AppFont.SYSTEM,
     val hasSkippedSmsPermission: Boolean = false,
     val blurEffectsEnabled: Boolean = true,
     val navBarStyle: NavBarStyle = NavBarStyle.NORMAL,

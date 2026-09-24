@@ -18,12 +18,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
-import com.pennywiseai.tracker.BuildConfig
 import com.pennywiseai.tracker.R
 import com.pennywiseai.tracker.data.database.entity.TransactionEntity
 import com.pennywiseai.tracker.data.export.ExportResult
-import com.pennywiseai.tracker.ui.components.SupportDevelopmentDialog
-import com.pennywiseai.tracker.ui.components.SupportNudgeCard
 import com.pennywiseai.tracker.ui.components.cards.PennyWiseCardV2
 import com.pennywiseai.tracker.ui.theme.Dimensions
 import com.pennywiseai.tracker.ui.theme.Spacing
@@ -44,19 +41,6 @@ fun ExportTransactionsDialog(
     var exportState by remember { mutableStateOf<ExportState>(ExportState.Ready) }
     val isProEntitled by viewModel.isProEntitled.collectAsState()
     var showUpgradeSheet by remember { mutableStateOf(false) }
-    // F-Droid support nudge: on the open build there's no Pro to sell, so a
-    // successful export (a Pro-equivalent power feature) is a natural, capped
-    // moment to invite a tip. Never shown on Play builds.
-    var showSupportNudge by remember { mutableStateOf(false) }
-    var showSupportDialog by remember { mutableStateOf(false) }
-    LaunchedEffect(exportState) {
-        if (exportState is ExportState.Success &&
-            BuildConfig.IS_FDROID_BUILD &&
-            viewModel.claimSupportNudge()
-        ) {
-            showSupportNudge = true
-        }
-    }
     val csvLimit = com.pennywiseai.tracker.billing.FreeTierLimits.MAX_CSV_EXPORT_ROWS_PER_MONTH
     // Free users get the FIRST `csvLimit` rows on every export — never a
     // hard block. The advertised free tier is "first 100 rows," so we
@@ -269,11 +253,6 @@ fun ExportTransactionsDialog(
                             }
                         }
 
-                        // F-Droid-only, frequency-capped tip-jar nudge.
-                        if (showSupportNudge) {
-                            Spacer(modifier = Modifier.height(12.dp))
-                            SupportNudgeCard(onClick = { showSupportDialog = true })
-                        }
                     }
 
                     is ExportState.Error -> {
@@ -405,10 +384,6 @@ fun ExportTransactionsDialog(
         com.pennywiseai.tracker.presentation.paywall.UpgradeSheet(
             onDismiss = { showUpgradeSheet = false },
         )
-    }
-
-    if (showSupportDialog) {
-        SupportDevelopmentDialog(onDismiss = { showSupportDialog = false })
     }
 }
 

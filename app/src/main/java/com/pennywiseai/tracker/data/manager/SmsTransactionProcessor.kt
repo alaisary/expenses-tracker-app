@@ -398,7 +398,8 @@ class SmsTransactionProcessor @Inject constructor(
                 currency = parsedTransaction.currency,
                 profileId = existingAccount?.profileId ?: ProfileEntity.PERSONAL_ID,
                 alias = existingAccount?.alias,
-                lowBalanceThreshold = existingAccount?.lowBalanceThreshold
+                lowBalanceThreshold = existingAccount?.lowBalanceThreshold,
+                accountType = BalanceCalculator.preservedAccountType(existingAccount)
             )
 
             accountBalanceRepository.insertBalance(balanceEntity)
@@ -437,7 +438,8 @@ class SmsTransactionProcessor @Inject constructor(
             currency = parsedTransaction.currency,
             profileId = existingAccount?.profileId ?: ProfileEntity.PERSONAL_ID,
             alias = existingAccount?.alias,
-            lowBalanceThreshold = existingAccount?.lowBalanceThreshold
+            lowBalanceThreshold = existingAccount?.lowBalanceThreshold,
+            accountType = BalanceCalculator.preservedAccountType(existingAccount)
         )
 
         accountBalanceRepository.insertBalance(balanceEntity)

@@ -11,13 +11,10 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 /**
- * Hilt bindings for the standard (Play Store) flavor. [PurchaseGateway] is
- * implemented by Google Play Billing 9; the narrow interfaces ([EntitlementSource]
- * for readers, [PurchaseLauncher] for the paywall) bind to the same singleton
- * so consumers can depend on only what they need (ISP).
- *
- * F-Droid has a sibling module under `app/src/fdroid/` binding everything to
- * the always-Pro stub. Shared `main` sources only ever import the interfaces.
+ * Hilt bindings for billing. [PurchaseGateway] is implemented by Google Play
+ * Billing 9; the narrow interfaces ([EntitlementSource] for readers,
+ * [PurchaseLauncher] for the paywall) bind to the same singleton so consumers
+ * can depend on only what they need (ISP).
  */
 @Module
 @InstallIn(SingletonComponent::class)
