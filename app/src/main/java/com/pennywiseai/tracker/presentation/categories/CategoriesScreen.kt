@@ -31,8 +31,7 @@ import com.pennywiseai.tracker.ui.components.EmojiIconTile
 import com.pennywiseai.tracker.ui.components.CustomTitleTopAppBar
 import com.pennywiseai.tracker.ui.components.cards.PennyWiseCardV2
 import com.pennywiseai.tracker.ui.components.cards.SectionHeaderV2
-import com.pennywiseai.tracker.ui.icons.CategoryGroup
-import com.pennywiseai.tracker.ui.icons.groupOf
+import com.pennywiseai.tracker.ui.icons.groupedForDisplay
 import com.pennywiseai.tracker.ui.icons.localizedCategoryName
 import com.pennywiseai.tracker.ui.theme.Dimensions
 import com.pennywiseai.tracker.ui.theme.Spacing
@@ -48,6 +47,7 @@ fun CategoriesScreen(
     viewModel: CategoriesViewModel = hiltViewModel()
 ) {
     val categories by viewModel.categories.collectAsStateWithLifecycle()
+    val moveState by viewModel.moveState.collectAsStateWithLifecycle()
     val showAddEditDialog by viewModel.showAddEditDialog.collectAsStateWithLifecycle()
     val editingCategory by viewModel.editingCategory.collectAsStateWithLifecycle()
     val snackbarMessage by viewModel.snackbarMessage.collectAsStateWithLifecycle()
@@ -66,10 +66,7 @@ fun CategoriesScreen(
     }
     
     // Categories organised under their group sections, in display order.
-    val groupedCategories = CategoryGroup.DISPLAY_ORDER.mapNotNull { group ->
-        val groupCategories = categories.filter { groupOf(it.name) == group }
-        if (groupCategories.isEmpty()) null else group to groupCategories
-    }
+    val groupedCategories = groupedForDisplay(categories)
 
     val scrollBehaviorSmall = TopAppBarDefaults.pinnedScrollBehavior()
     val scrollBehaviorLarge = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -134,6 +131,10 @@ fun CategoriesScreen(
                     Box(modifier = Modifier.padding(start = if (category.parentId != null) Spacing.lg else Spacing.none)) {
                         SwipeableCategoryItem(
                             category = category,
+                            canMoveUp = category.id in moveState.canMoveUp,
+                            canMoveDown = category.id in moveState.canMoveDown,
+                            onMoveUp = { viewModel.moveCategory(category, up = true) },
+                            onMoveDown = { viewModel.moveCategory(category, up = false) },
                             onCategoryClick = { onCategoryClick(category.name) },
                             onEdit = { viewModel.showEditDialog(category) },
                             onDelete = { viewModel.deleteCategory(category) },
@@ -168,6 +169,10 @@ fun CategoriesScreen(
 @Composable
 private fun SwipeableCategoryItem(
     category: CategoryEntity,
+    canMoveUp: Boolean,
+    canMoveDown: Boolean,
+    onMoveUp: () -> Unit,
+    onMoveDown: () -> Unit,
     onCategoryClick: () -> Unit,
     onEdit: () -> Unit,
     onDelete: () -> Unit,
@@ -220,6 +225,10 @@ private fun SwipeableCategoryItem(
         content = {
             CategoryItem(
                 category = category,
+                canMoveUp = canMoveUp,
+                canMoveDown = canMoveDown,
+                onMoveUp = onMoveUp,
+                onMoveDown = onMoveDown,
                 onClick = {
                     onCategoryClick()
                     if (!category.isSystem) onEdit()
@@ -236,6 +245,10 @@ private fun SwipeableCategoryItem(
 private fun CategoryItem(
     category: CategoryEntity,
     onClick: (() -> Unit)?,
+    canMoveUp: Boolean = false,
+    canMoveDown: Boolean = false,
+    onMoveUp: () -> Unit = {},
+    onMoveDown: () -> Unit = {},
     onToggleHidden: () -> Unit = {}
 ) {
     PennyWiseCardV2(
@@ -273,6 +286,26 @@ private fun CategoryItem(
                     category = category,
                     showText = true,
                     modifier = Modifier.weight(1f)
+                )
+            }
+
+            // One-step reorder inside the section. Disabled rather than hidden at
+            // the ends, so the controls next to a row don't shift as rows move
+            // past each other. Top-level rows only — see [CategoryMoveState].
+            IconButton(onClick = onMoveUp, enabled = canMoveUp) {
+                Icon(
+                    imageVector = Icons.Default.KeyboardArrowUp,
+                    contentDescription = stringResource(R.string.feat_categories_move_up_cd),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.size(Dimensions.Icon.medium)
+                )
+            }
+            IconButton(onClick = onMoveDown, enabled = canMoveDown) {
+                Icon(
+                    imageVector = Icons.Default.KeyboardArrowDown,
+                    contentDescription = stringResource(R.string.feat_categories_move_down_cd),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.size(Dimensions.Icon.medium)
                 )
             }
 

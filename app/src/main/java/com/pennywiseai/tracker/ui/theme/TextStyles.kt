@@ -4,6 +4,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 
 /**
@@ -81,6 +82,22 @@ object PennyWiseText {
     val metadata: TextStyle
         @Composable @ReadOnlyComposable
         get() = MaterialTheme.typography.bodySmall
+
+    /**
+     * The bank's own SMS, expanded under a transaction.
+     *
+     * Monospace is the cue that this is machine text rather than app copy, and it
+     * stays for a Latin UI. Android's monospace family has no Arabic coverage, so
+     * those glyphs fall back to a second typeface mid-line — an Arabic UI gets the
+     * theme face instead, which is also what keeps the Arabic typeface everywhere.
+     */
+    val smsBody: TextStyle
+        @Composable @ReadOnlyComposable
+        get() = if (isArabicLocale()) {
+            MaterialTheme.typography.bodySmall
+        } else {
+            MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace)
+        }
 
     /** All-caps-ish label above a value in a detail sheet. */
     val fieldLabel: TextStyle

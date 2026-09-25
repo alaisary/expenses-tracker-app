@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.pennywiseai.tracker.R
 import com.pennywiseai.tracker.data.database.entity.CategoryEntity
 import com.pennywiseai.tracker.data.repository.CategoryRepository
+import com.pennywiseai.tracker.ui.icons.CategoryMoveState
+import com.pennywiseai.tracker.ui.icons.groupedForDisplay
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.*
@@ -36,6 +38,33 @@ class CategoriesViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = emptyList()
         )
+
+    /** Which rows can move one step — see [CategoryMoveState]. */
+    val moveState: StateFlow<CategoryMoveState> = categories
+        .map { CategoryMoveState.from(groupedForDisplay(it)) }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = CategoryMoveState.Empty
+        )
+
+    /**
+     * Moves [category] one step within its section — the top-level rows between
+     * its group header and the next. Sub-categories follow their parent, so they
+     * have no move of their own.
+     */
+    fun moveCategory(category: CategoryEntity, up: Boolean) {
+        if (category.parentId != null) return
+        val section = groupedForDisplay(categories.value)
+            .firstOrNull { (_, rows) -> rows.any { it.id == category.id } }
+            ?.second
+            ?.filter { it.parentId == null }
+            ?.map { it.id }
+            ?: return
+        viewModelScope.launch {
+            categoryRepository.moveCategoryWithinSection(section, category.id, up)
+        }
+    }
     
     // Dialog states
     private val _showAddEditDialog = MutableStateFlow(false)

@@ -32,7 +32,6 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.pennywiseai.tracker.ui.theme.Dimensions
@@ -802,9 +801,7 @@ private fun SwipeableSubscriptionItem(
                             ) {
                                 Text(
                                     text = subscription.smsBody,
-                                    style = MaterialTheme.typography.bodySmall.copy(
-                                        fontFamily = FontFamily.Monospace
-                                    ),
+                                    style = PennyWiseText.smsBody,
                                     modifier = Modifier.padding(Spacing.md)
                                 )
                             }

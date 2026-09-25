@@ -37,6 +37,7 @@ import com.pennywiseai.tracker.ui.components.toColorOr
 import com.pennywiseai.tracker.ui.theme.Dimensions
 import com.pennywiseai.tracker.ui.theme.Spacing
 import com.pennywiseai.tracker.utils.CurrencyFormatter
+import com.pennywiseai.tracker.utils.DateRangeUtils
 import java.math.BigDecimal
 import java.time.DayOfWeek
 import java.time.format.DateTimeFormatter
@@ -179,7 +180,7 @@ fun BudgetCard(
                 // days left after today. For a Wed-on-a-Mon-start week:
                 // today=Wed, days remaining=5 (Thu..Mon), renewal in 4d.
                 val renewalIn = (groupSpending.daysRemaining - 1).coerceAtLeast(0)
-                val weekdayName = weekday.name.lowercase().replaceFirstChar { it.titlecase() }
+                val weekdayName = DateRangeUtils.weekdayName(weekday)
                 when {
                     renewalIn == 0 -> stringResource(R.string.cards_resets_today_renew, weekdayName)
                     renewalIn == 1 -> stringResource(R.string.cards_resets_in_1_day_renew, weekdayName)

@@ -96,11 +96,13 @@ import com.pennywiseai.tracker.ui.components.ProfileFilterDropdown
 import com.pennywiseai.tracker.ui.components.profileFilterIcon
 import com.pennywiseai.tracker.ui.components.CoverGradientBanner
 import com.pennywiseai.tracker.ui.components.CustomTitleTopAppBar
+import com.pennywiseai.tracker.ui.components.EditProfileSheet
 import com.pennywiseai.tracker.ui.components.GreetingCard
 import com.pennywiseai.tracker.ui.effects.overScrollVertical
 import com.pennywiseai.tracker.ui.effects.rememberOverscrollFlingBehavior
 import com.pennywiseai.tracker.ui.theme.*
 import com.pennywiseai.tracker.utils.CurrencyFormatter
+import com.pennywiseai.tracker.utils.DateRangeUtils
 import dev.chrisbanes.haze.HazeDefaults
 import dev.chrisbanes.haze.HazeEffectScope
 import dev.chrisbanes.haze.HazeState
@@ -162,6 +164,7 @@ fun HomeScreen(
 
     // Bottom sheet menu state
     var showMenuSheet by remember { mutableStateOf(false) }
+    var showEditProfileSheet by remember { mutableStateOf(false) }
     var showEditWidgetsSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState()
 
@@ -353,7 +356,7 @@ fun HomeScreen(
                         userName = uiState.userName,
                         profileImageUri = uiState.profileImageUri,
                         profileBackgroundColor = uiState.profileBackgroundColor,
-                        onAvatarClick = onNavigateToSettings,
+                        onAvatarClick = { showEditProfileSheet = true },
                         onMenuClick = { showMenuSheet = true },
                         profiles = uiState.profiles,
                         selectedProfileId = uiState.selectedProfileId,
@@ -1119,7 +1122,12 @@ fun HomeScreen(
         }
     }
 
-    // Avatar menu bottom sheet
+    // Tapping your own avatar edits the profile directly — the same name, picture
+    // and colour onboarding collected, without a detour through Settings.
+    if (showEditProfileSheet) {
+        EditProfileSheet(onDismiss = { showEditProfileSheet = false })
+    }
+
     if (showMenuSheet) {
         ModalBottomSheet(
             onDismissRequest = { showMenuSheet = false },
@@ -1265,9 +1273,9 @@ private fun BreakdownDialog(
     onDismiss: () -> Unit
 ) {
     val now = LocalDate.now()
-    val currentPeriod = "${now.month.name.lowercase().let { s -> if (s.isEmpty()) s else s.substring(0, 1).uppercase() + s.substring(1) }} 1-${now.dayOfMonth}"
+    val currentPeriod = "${DateRangeUtils.monthName(now.month)} 1-${now.dayOfMonth}"
     val lastMonth = now.minusMonths(1)
-    val lastPeriod = "${lastMonth.month.name.lowercase().let { s -> if (s.isEmpty()) s else s.substring(0, 1).uppercase() + s.substring(1) }} 1-${now.dayOfMonth}"
+    val lastPeriod = "${DateRangeUtils.monthName(lastMonth.month)} 1-${now.dayOfMonth}"
     
     Dialog(onDismissRequest = onDismiss) {
         PennyWiseCardV2(

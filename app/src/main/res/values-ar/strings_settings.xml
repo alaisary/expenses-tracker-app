@@ -150,4 +150,10 @@
     <string name="settings_save_backup_prompt">اختر كيف تريد حفظها:</string>
     <string name="settings_save_to_files">الحفظ في الملفات</string>
     <string name="settings_share">مشاركة</string>
+
+    <!-- Profile editor (name / avatar / tile colour) -->
+    <string name="prof_edit_title">تعديل الملف الشخصي</string>
+    <string name="prof_edit_subtitle">الاسم والصورة واللون</string>
+    <string name="prof_edit_save">حفظ</string>
+    <string name="prof_edit_saving">جارٍ الحفظ…</string>
 </resources>

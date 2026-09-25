@@ -45,6 +45,19 @@ class CategoryRepository @Inject constructor(
     }
 
     /**
+     * Moves a top-level category one step inside its section.
+     *
+     * [orderedIds] is that section's top-level rows in the order the Categories
+     * screen renders them; a no-op when [categoryId] is at the corresponding end
+     * or is missing from the list. Sections themselves are not reorderable — the
+     * group a category belongs to is a code-level mapping, not data.
+     */
+    suspend fun moveCategoryWithinSection(orderedIds: List<Long>, categoryId: Long, up: Boolean) {
+        val reordered = reorderedSection(orderedIds, categoryId, up) ?: return
+        categoryDao.setSectionDisplayOrder(reordered)
+    }
+
+    /**
      * Flips a category's hidden flag and returns the row as it now stands.
      * See [CategoryDao.toggleCategoryHidden] for why this isn't a read,
      * flip and write from the caller.
@@ -149,4 +162,20 @@ class CategoryRepository @Inject constructor(
             }
         )
     }
+}
+
+/**
+ * [orderedIds] with [categoryId] shifted one place up or down, or null when it is
+ * already at that end of the list — which is also what a missing id returns, so
+ * a stale row from the UI can't reorder anything.
+ *
+ * Pure, and separated from the write, because the interesting part of a reorder
+ * is this arithmetic rather than the UPDATE that follows it.
+ */
+internal fun reorderedSection(orderedIds: List<Long>, categoryId: Long, up: Boolean): List<Long>? {
+    val from = orderedIds.indexOf(categoryId)
+    if (from < 0) return null
+    val to = if (up) from - 1 else from + 1
+    if (to !in orderedIds.indices) return null
+    return orderedIds.toMutableList().apply { add(to, removeAt(from)) }
 }

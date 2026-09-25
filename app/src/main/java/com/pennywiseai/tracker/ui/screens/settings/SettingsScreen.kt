@@ -44,6 +44,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.pennywiseai.tracker.ui.components.CustomTitleTopAppBar
+import com.pennywiseai.tracker.ui.components.EditProfileSheet
 import com.pennywiseai.tracker.ui.components.cards.GroupedColumn
 import com.pennywiseai.tracker.ui.components.cards.GroupedList
 import com.pennywiseai.tracker.ui.components.cards.GroupedRow
@@ -124,6 +125,7 @@ fun SettingsScreen(
     val scheduledFolderBackupEnabled by settingsViewModel.scheduledFolderBackupEnabled.collectAsStateWithLifecycle(initialValue = false)
     val scheduledFolderBackupLastTimestamp by settingsViewModel.scheduledFolderBackupLastTimestamp.collectAsStateWithLifecycle(initialValue = null)
     val requestFolderPicker by settingsViewModel.requestFolderPicker.collectAsStateWithLifecycle()
+    var showEditProfile by remember { mutableStateOf(false) }
     var showSmsScanDialog by remember { mutableStateOf(false) }
     var showSmsScanDatePicker by remember { mutableStateOf(false) }
     var showTimeoutDialog by remember { mutableStateOf(false) }
@@ -227,13 +229,22 @@ fun SettingsScreen(
             SectionHeaderV2(title = stringResource(R.string.settings_personalization_section))
             SettingsGroup {
                 SettingsNavItem(
+                    icon = Icons.Default.Person,
+                    iconBgColor = green_light,
+                    iconTint = green_dark,
+                    title = stringResource(R.string.prof_edit_title),
+                    subtitle = stringResource(R.string.prof_edit_subtitle),
+                    onClick = { showEditProfile = true },
+                    position = ListItemPosition.Top
+                )
+                SettingsNavItem(
                     icon = Icons.Default.Palette,
                     iconBgColor = orange_light,
                     iconTint = orange_dark,
                     title = stringResource(R.string.settings_appearance_title),
                     subtitle = stringResource(R.string.settings_appearance_subtitle),
                     onClick = onNavigateToAppearance,
-                    position = ListItemPosition.Top
+                    position = ListItemPosition.Middle
                 )
                 SettingsNavItem(
                     icon = Icons.Default.Language,
@@ -653,6 +664,10 @@ fun SettingsScreen(
     }
 
     // ── Dialogs ──
+
+    if (showEditProfile) {
+        EditProfileSheet(onDismiss = { showEditProfile = false })
+    }
 
     // Display Currency Dialog
     if (showDisplayCurrencyDialog) {

@@ -47,8 +47,11 @@ fun TagInputField(
     onAddTag: (String) -> Unit,
     onRemoveTag: (String) -> Unit,
     modifier: Modifier = Modifier,
-    label: String = "Tags (Optional)"
+    // Null means "use the localized label": a hardcoded English default here put
+    // "Tags (Optional)" in the middle of the Arabic add/edit forms.
+    label: String? = null
 ) {
+    val resolvedLabel = label ?: stringResource(R.string.txn_tags_optional)
     var input by remember { mutableStateOf("") }
 
     fun commit(raw: String) {
@@ -107,7 +110,7 @@ fun TagInputField(
         TextField(
             value = input,
             onValueChange = { input = it },
-            label = { Text(label) },
+            label = { Text(resolvedLabel) },
             singleLine = true,
             leadingIcon = {
                 Icon(

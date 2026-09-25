@@ -66,6 +66,9 @@
     <string name="txn_detail_borrowed_from">Borrowed from %1$s</string>
     <string name="txn_detail_unmark_as_loan">Unmark as loan</string>
     <string name="txn_detail_mark_as_loan">Mark as loan</string>
+    <string name="txn_tags_optional">Tags (Optional)</string>
+    <string name="txn_detail_account_optional">Account (Optional)</string>
+    <string name="txn_detail_account_placeholder">Select or enter account number</string>
     <string name="txn_detail_exclude_from_analytics">Exclude from analytics</string>
     <string name="txn_detail_exclude_subtitle">Kept in history &amp; balance, ignored in spending stats</string>
     <string name="txn_detail_date_time">Date &amp; Time</string>

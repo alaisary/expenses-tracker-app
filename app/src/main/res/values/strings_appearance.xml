@@ -50,7 +50,13 @@
     <string name="appr_faq_q_transaction_types">What\'s the difference between the 5 transaction types?</string>
     <string name="appr_faq_a_transaction_types">• Expense: Money going out of your account (debits, purchases, bill payments)\n• Income: Money coming into your account (salary, refunds, cashback)\n• Investment: Mutual funds, stocks, SIPs, trading accounts\n• Credit: Credit card transactions and wallet payments (money you\'ll pay later)\n• Transfer: Money moved between your own accounts (self-transfers)</string>
     <string name="appr_faq_q_transfer_vs_expense">When should I use Transfer vs Expense?</string>
-    <string name="appr_faq_a_transfer_vs_expense">Use Transfer when moving money between your own accounts (e.g., savings to checking). These don\'t affect your net worth. Use Expense for actual spending.</string>
+    <string name="appr_faq_a_transfer_vs_expense">Use Transfer when moving money between your own accounts (e.g., savings to checking). These don\'t affect your net worth. Use Expense for actual spending.\n\nPaired transfers from SMS are detected automatically: a merchantless debit and an equal credit on another of your accounts minutes apart become one Transfer, so moving money between your accounts never reads as spending.</string>
+    <string name="appr_faq_q_pass_through">Someone sent me money that I\'ll pass on to someone else. How do I record it?</string>
+    <string name="appr_faq_a_pass_through">Don\'t leave it as income — it would overstate what you earned. Open the transaction and set its type to Transfer (long-pressing the row in the list offers the same shortcut); transfers stay out of both income and spending. If the money isn\'t moving between your own accounts — you\'re simply holding it for someone — turn on \"Exclude from analytics\" instead: the row stays in your history and keeps the account balance honest, but stops counting in income, spending, budgets and insights.</string>
+    <string name="appr_faq_q_paid_for_someone">I paid for something a friend will pay me back for. How should I record it?</string>
+    <string name="appr_faq_a_paid_for_someone">Record the payment as the expense it was, then mark it as a loan: open the transaction, choose \"Mark as loan\", pick Lent and enter their name. Loan-linked rows are kept out of your category spending and budgets, and the Loans screen tracks what is still owed. When they pay you back, record the repayment against that loan rather than as ordinary income. Until it is repaid the outstanding amount still shows as money out on the Home card — you haven\'t got it back yet.</string>
+    <string name="appr_faq_q_exclude_transaction">How do I stop a single transaction from affecting my totals?</string>
+    <string name="appr_faq_a_exclude_transaction">Open it and switch on \"Exclude from analytics\". The row keeps its place in your history, still updates the account balance and is marked as excluded in the list — it simply stops counting in income, spending, budgets, insights and the widgets. That\'s the right switch for money that passes through your account without being yours: pass-through amounts, reimbursements, a mis-detected SMS.</string>
 
     <!-- FAQ: SMS Parsing -->
     <string name="appr_faq_cat_sms_parsing">SMS Parsing</string>
@@ -75,7 +81,11 @@
     <string name="appr_faq_q_manual_accounts">What are manual accounts?</string>
     <string name="appr_faq_a_manual_accounts">Manual accounts let you track cash, investments, or accounts from unsupported banks. You update balances manually.</string>
     <string name="appr_faq_q_multiple_accounts">How do I track multiple accounts from the same bank?</string>
-    <string name="appr_faq_a_multiple_accounts">The app automatically detects different accounts based on the last 4 digits shown in SMS.</string>
+    <string name="appr_faq_a_multiple_accounts">The app automatically detects different accounts based on the last 4 digits shown in SMS. Each account keeps its own balance and currency; the account filter on the Transactions screen views them separately, and \"All accounts\" combines them. Profile switching (Personal / Business) sits separately from accounts.</string>
+    <string name="appr_faq_q_hide_account">How do I hide an account I don\'t want to see?</string>
+    <string name="appr_faq_a_hide_account">Settings → Manage Accounts, then the ⋮ menu on the account and Hide. It moves to the hidden accounts section and drops out of balances and filters; its transactions and history are untouched, and Show brings it straight back. Same menu for cards.</string>
+    <string name="appr_faq_q_hide_category">Can I hide or rename the built-in categories?</string>
+    <string name="appr_faq_a_hide_category">Any category can be hidden — the eye icon on its row takes it out of the pickers while its transactions keep the label. Built-in categories can\'t be renamed or deleted, because SMS categorisation and rules match them by name: renaming one would quietly stop it matching. For your own groupings, add a custom category instead.</string>
 
     <!-- FAQ: expand/collapse + help section -->
     <string name="appr_collapse">Collapse</string>

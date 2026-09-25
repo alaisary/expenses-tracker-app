@@ -58,6 +58,7 @@ import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 import androidx.compose.ui.graphics.SolidColor
 import com.pennywiseai.tracker.utils.CurrencyFormatter
+import com.pennywiseai.tracker.utils.DateRangeUtils
 import com.pennywiseai.tracker.ui.theme.Dimensions
 import com.pennywiseai.tracker.ui.theme.PennyWiseText
 import ir.ehsannarmani.compose_charts.LineChart
@@ -636,9 +637,11 @@ private fun BudgetCard(
                     isOverBudget -> stringResource(R.string.budg_over_by, CurrencyFormatter.formatCurrency(remainingAbs, currency))
                     groupSpending.periodType == BudgetPeriodType.WEEKLY -> {
                         val renewalIn = (groupSpending.daysRemaining - 1).coerceAtLeast(0)
-                        val weekdayName = groupSpending.group.budget.weekStartDay
-                            ?.let { java.time.DayOfWeek.of(it.coerceIn(1, 7)).name.lowercase().replaceFirstChar { ch -> ch.titlecase() } }
-                            ?: "Monday"
+                        val weekdayName = DateRangeUtils.weekdayName(
+                            groupSpending.group.budget.weekStartDay
+                                ?.let { java.time.DayOfWeek.of(it.coerceIn(1, 7)) }
+                                ?: java.time.DayOfWeek.MONDAY
+                        )
                         when {
                             renewalIn == 0 -> stringResource(R.string.budg_resets_today_renew, weekdayName)
                             renewalIn == 1 -> stringResource(R.string.budg_resets_in_one_day_renew, weekdayName)

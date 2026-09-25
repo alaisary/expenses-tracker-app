@@ -149,4 +149,10 @@
     <string name="settings_save_backup_prompt">Choose how you want to save it:</string>
     <string name="settings_save_to_files">Save to Files</string>
     <string name="settings_share">Share</string>
+
+    <!-- Profile editor (name / avatar / tile colour) -->
+    <string name="prof_edit_title">Edit profile</string>
+    <string name="prof_edit_subtitle">Name, picture and colour</string>
+    <string name="prof_edit_save">Save</string>
+    <string name="prof_edit_saving">Saving…</string>
 </resources>

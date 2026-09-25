@@ -3,6 +3,7 @@ package com.pennywiseai.tracker.data.database.dao
 import androidx.room.*
 import com.pennywiseai.tracker.data.database.entity.CategoryEntity
 import kotlinx.coroutines.flow.Flow
+import java.time.LocalDateTime
 
 @Dao
 interface CategoryDao {
@@ -49,6 +50,24 @@ interface CategoryDao {
 
     @Query("SELECT * FROM categories ORDER BY display_order ASC, name ASC")
     suspend fun getAllCategoriesList(): List<CategoryEntity>
+
+    @Query("UPDATE categories SET display_order = :displayOrder, updated_at = :updatedAt WHERE id = :categoryId")
+    suspend fun setDisplayOrder(categoryId: Long, displayOrder: Int, updatedAt: LocalDateTime)
+
+    /**
+     * Rewrites a section's top-level order in one transaction.
+     *
+     * A move is one step, but what gets stored is the section's whole sequence:
+     * every user-created category seeds `display_order` 999, so exchanging the
+     * two values of a move would write the same number twice and nothing would
+     * move. Sub-categories are not in [orderedIds] — they render under their
+     * parent, so their own value is not what positions them.
+     */
+    @Transaction
+    suspend fun setSectionDisplayOrder(orderedIds: List<Long>) {
+        val now = LocalDateTime.now()
+        orderedIds.forEachIndexed { index, id -> setDisplayOrder(id, index, now) }
+    }
 
     @Query("UPDATE categories SET is_hidden = :hidden WHERE parent_id = :parentId")
     suspend fun setChildrenHidden(parentId: Long, hidden: Boolean)

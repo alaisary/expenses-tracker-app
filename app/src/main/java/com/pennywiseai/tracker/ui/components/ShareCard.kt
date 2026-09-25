@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -68,6 +69,12 @@ fun ShareCard(
     data: ShareCardData,
     modifier: Modifier = Modifier,
 ) {
+    // The card keeps its own palette and its own calibrated sizes, but not its own
+    // typeface: it borrows the theme's. Without this the captions fell back to the
+    // platform face, so an Arabic card was the one surface that wasn't in Thmanyah.
+    val textFamily = MaterialTheme.typography.bodyLarge.fontFamily
+    val figureFamily = MaterialTheme.typography.displayLarge.fontFamily
+
     val hero = config.effectiveHero(data.subscriptionCount)
 
     val value = when (hero) {
@@ -116,6 +123,7 @@ fun ShareCard(
                 Text(
                     text = stringResource(R.string.comp_share_wordmark),
                     style = TextStyle(
+                        fontFamily = textFamily,
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 2.sp,
@@ -126,6 +134,7 @@ fun ShareCard(
             Text(
                 text = data.periodLabel,
                 style = TextStyle(
+                    fontFamily = textFamily,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Medium,
                     letterSpacing = 1.sp,
@@ -139,6 +148,7 @@ fun ShareCard(
         Text(
             text = value.toString(),
             style = TextStyle(
+                fontFamily = figureFamily,
                 // Deliberately enormous: at thumbnail scale this is the only element
                 // guaranteed to read, so it carries the whole card.
                 fontSize = 140.sp,
@@ -152,6 +162,7 @@ fun ShareCard(
         Text(
             text = caption,
             style = TextStyle(
+                fontFamily = textFamily,
                 fontSize = 25.sp,
                 fontWeight = FontWeight.SemiBold,
                 letterSpacing = (-0.4).sp,
@@ -173,6 +184,7 @@ fun ShareCard(
         Text(
             text = stringResource(R.string.comp_share_privacy_note),
             style = TextStyle(
+                fontFamily = textFamily,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
                 color = ShareCardColors.Muted,
@@ -182,6 +194,7 @@ fun ShareCard(
         Text(
             text = SHARE_CARD_URL,
             style = TextStyle(
+                fontFamily = textFamily,
                 // The only element that brings anyone back, so it gets a size and contrast
                 // that survive the same reduction as the hero instead of muted grey.
                 fontSize = 20.sp,

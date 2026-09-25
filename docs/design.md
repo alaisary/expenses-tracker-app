@@ -141,6 +141,28 @@ at making hierarchy readable in a dense, number-heavy UI:
    figures get negative tracking so digits group into one number; 11–12sp labels
    keep Material's generous tracking, which is what makes small text legible.
 
+### Arabic — Thmanyah is the app's Arabic face
+
+`theme/Theme.kt` swaps the whole scale's font family when the app runs in
+Arabic: **Thmanyah Sans** for the text roles and **Thmanyah Serif Display** for
+`display*` / `headline*`, where a serif's personality reads at size. A Latin UI
+keeps the platform face. There is no font picker — the language decides.
+
+This is applied through `MaterialTheme.typography`, so it covers everything that
+takes its style from a role or from `PennyWiseText`. Anything that declares
+`TextStyle(...)` with no family, or overrides `fontFamily`, opts out of it and
+renders Arabic in the platform face. Two consequences:
+
+- Reach for a role or `PennyWiseText` rather than a raw `TextStyle` — that is
+  what the share card got wrong for its captions.
+- Use `isArabicLocale()` when behaviour genuinely has to differ; the one current
+  case is `PennyWiseText.smsBody`.
+
+**App widgets can't follow it.** Glance (1.1.1) turns a text style's font family
+into an `android.text.style.TypefaceSpan(String)`, which only resolves *system*
+font families — there is no way to point it at a bundled `.otf`, so widget text
+stays in the platform face.
+
 ### Roles — pick the same style for the same job
 
 | Role | Use |
@@ -166,6 +188,10 @@ the jobs the plain roles don't cover:
   lines up instead of shimmering as digits change width.
 - **Rows:** `rowTitle`, `rowSubtitle`, `metadata`.
 - **Structure:** `sectionHeader`, `fieldLabel`.
+- **Verbatim:** `smsBody` — the bank's own SMS under a transaction. Monospace in
+  a Latin UI, since that is the cue it is machine text; the theme face in
+  Arabic, where monospace has no Arabic coverage and renders it through a
+  fallback typeface mid-line.
 - **Charts:** `chartLabel` — one style for every axis tick, value label and
   legend, since Canvas text takes a `TextStyle` rather than a Material role and
   each chart used to declare its own literal.

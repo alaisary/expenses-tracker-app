@@ -46,7 +46,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -78,6 +77,7 @@ import com.pennywiseai.tracker.ui.components.SplitItem
 import com.pennywiseai.tracker.ui.icons.localizedCategoryName
 import com.pennywiseai.tracker.ui.components.TagInputField
 import com.pennywiseai.tracker.ui.components.SegmentedPillRow
+import com.pennywiseai.tracker.ui.components.typeLabelRes
 import com.pennywiseai.tracker.ui.theme.*
 import com.pennywiseai.tracker.utils.CurrencyFormatter
 import com.pennywiseai.tracker.utils.CurrencyUtils
@@ -90,7 +90,6 @@ import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.Locale
 
 // Reusable filled field colors for edit mode
 @Composable
@@ -627,9 +626,7 @@ private fun TransactionReceipt(
                 Spacer(modifier = Modifier.height(Spacing.sm))
 
                 // Transaction type chip
-                val typeLabel = transaction.transactionType.name.lowercase().let { s ->
-                    if (s.isEmpty()) s else s.substring(0, 1).uppercase() + s.substring(1)
-                }
+                val typeLabel = stringResource(transaction.transactionType.typeLabelRes())
                 val typeIcon = when (transaction.transactionType) {
                     TransactionType.INCOME -> Icons.AutoMirrored.Filled.TrendingUp
                     TransactionType.EXPENSE -> Icons.AutoMirrored.Filled.TrendingDown
@@ -1178,9 +1175,7 @@ private fun ExpandableSmsSection(smsBody: String) {
             ) {
                 Text(
                     text = smsBody,
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontFamily = FontFamily.Monospace
-                    ),
+                    style = PennyWiseText.smsBody,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = Spacing.md, end = Spacing.md, bottom = Spacing.md)
@@ -1328,9 +1323,7 @@ private fun EditableTransactionHeader(
                     onClick = { viewModel.updateTransactionType(type) },
                     label = {
                         Text(
-                            type.name.lowercase(Locale.getDefault()).let { s ->
-                                if (s.isEmpty()) s else s.substring(0, 1).uppercase(Locale.getDefault()) + s.substring(1)
-                            },
+                            text = stringResource(type.typeLabelRes()),
                             maxLines = 1
                         )
                     },
@@ -2007,8 +2000,10 @@ private fun AccountNumberField(
     accountNumber: String?,
     onAccountNumberChange: (String?) -> Unit,
     viewModel: TransactionDetailViewModel,
-    label: String = "Account (Optional)",
-    placeholder: String = "Select or enter account number",
+    // Nulls resolve to the localized strings below; the transfer callers pass their
+    // own From/To labels, which is why these stay parameters.
+    label: String? = null,
+    placeholder: String? = null,
     excludeAccount: String? = null,
     // Fired alongside onAccountNumberChange when a real account is picked from
     // the dropdown, so the transaction's bankName follows the selected account
@@ -2016,6 +2011,8 @@ private fun AccountNumberField(
     // wires this; transfer From/To fields leave it null. See #566 / #570.
     onBankNameChange: ((String?) -> Unit)? = null
 ) {
+    val resolvedLabel = label ?: stringResource(R.string.txn_detail_account_optional)
+    val resolvedPlaceholder = placeholder ?: stringResource(R.string.txn_detail_account_placeholder)
     val availableAccounts by viewModel.availableAccounts.collectAsStateWithLifecycle()
     val filteredAccounts = availableAccounts.filter { it.accountLast4 != excludeAccount }
     var expanded by remember { mutableStateOf(false) }
@@ -2040,7 +2037,7 @@ private fun AccountNumberField(
                     onAccountNumberChange(newValue.ifEmpty { null })
                 }
             },
-            label = { Text(label, fontWeight = FontWeight.SemiBold) },
+            label = { Text(resolvedLabel, fontWeight = FontWeight.SemiBold) },
             leadingIcon = {
                 Icon(
                     if (availableAccounts.any { it.displayName == selectedAccount && it.isCreditCard }) {
@@ -2078,7 +2075,7 @@ private fun AccountNumberField(
                 .fillMaxWidth()
                 .menuAnchor(MenuAnchorType.PrimaryEditable),
             singleLine = true,
-            placeholder = { Text(placeholder) }
+            placeholder = { Text(resolvedPlaceholder) }
         )
         
         if (filteredAccounts.isNotEmpty()) {

@@ -3,6 +3,7 @@ package com.pennywiseai.tracker.ui.icons
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.Color
 import com.pennywiseai.tracker.R
+import com.pennywiseai.tracker.data.database.entity.CategoryEntity
 
 /**
  * High-level bucket a category rolls into for the grouped Categories screen and
@@ -65,4 +66,47 @@ fun groupOf(name: String?): CategoryGroup {
     val key = name?.trim()?.lowercase() ?: return CategoryGroup.OTHER
     if (key.isEmpty()) return CategoryGroup.OTHER
     return GROUP_BY_NAME[key] ?: CategoryGroup.OTHER
+}
+
+/**
+ * The Categories screen's sections: each displayed group with its rows, in the
+ * order they are rendered.
+ *
+ * Takes the list the screen itself receives — already through
+ * `hierarchical()`, so a sub-category sits under its parent — because the reorder
+ * arrows have to agree with the screen about which row is "above" which.
+ */
+fun groupedForDisplay(
+    categories: List<CategoryEntity>
+): List<Pair<CategoryGroup, List<CategoryEntity>>> =
+    CategoryGroup.DISPLAY_ORDER.mapNotNull { group ->
+        categories.filter { groupOf(it.name) == group }
+            .takeIf { it.isNotEmpty() }
+            ?.let { group to it }
+    }
+
+/**
+ * Which rows the reorder arrows are enabled for.
+ *
+ * Only top-level rows can move: a sub-category is rendered directly beneath its
+ * parent by `hierarchical()`, so its place on screen is the parent's — an arrow
+ * on it would appear to do nothing. A section's first top-level row can't move
+ * up and its last can't move down, and rows never cross a section boundary
+ * (the grouping is a code-level mapping, not data).
+ */
+data class CategoryMoveState(
+    val canMoveUp: Set<Long> = emptySet(),
+    val canMoveDown: Set<Long> = emptySet()
+) {
+    companion object {
+        val Empty = CategoryMoveState()
+
+        fun from(sections: List<Pair<CategoryGroup, List<CategoryEntity>>>): CategoryMoveState {
+            val movable = sections.map { (_, rows) -> rows.filter { it.parentId == null } }
+            return CategoryMoveState(
+                canMoveUp = movable.flatMap { it.drop(1) }.mapTo(mutableSetOf()) { it.id },
+                canMoveDown = movable.flatMap { it.dropLast(1) }.mapTo(mutableSetOf()) { it.id }
+            )
+        }
+    }
 }

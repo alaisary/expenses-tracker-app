@@ -1,7 +1,11 @@
 package com.pennywiseai.tracker.utils
 
+import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.Month
 import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
+import java.util.Locale
 
 /**
  * Utility functions for date range formatting
@@ -9,6 +13,21 @@ import java.time.format.DateTimeFormatter
 object DateRangeUtils {
 
     private val defaultFormatter = DateTimeFormatter.ofPattern("MMM d")
+
+    /**
+     * Full month name in the user's language — "سبتمبر" in Arabic, "September"
+     * in English.
+     *
+     * `Month.name` and `DayOfWeek.name` are always English, and title-casing them
+     * left Latin words sitting inside otherwise Arabic labels ("0 أيام متبقية في
+     * September"). This asks the platform for the localized name instead, so the
+     * English UI is unchanged and the Arabic one stops switching scripts
+     * mid-sentence.
+     */
+    fun monthName(month: Month): String = month.getDisplayName(TextStyle.FULL, Locale.getDefault())
+
+    /** Full weekday name in the user's language. See [monthName]. */
+    fun weekdayName(day: DayOfWeek): String = day.getDisplayName(TextStyle.FULL, Locale.getDefault())
 
     /**
      * Formats a date range as a compact label string.

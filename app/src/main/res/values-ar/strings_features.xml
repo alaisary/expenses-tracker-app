@@ -69,6 +69,8 @@
     <string name="feat_categories_delete_cd">حذف</string>
     <string name="feat_categories_show_cd">إظهار الفئة</string>
     <string name="feat_categories_hide_cd">إخفاء الفئة</string>
+    <string name="feat_categories_move_up_cd">تحريك لأعلى</string>
+    <string name="feat_categories_move_down_cd">تحريك لأسفل</string>
     <string name="feat_categories_system_badge">نظامية</string>
     <string name="feat_categories_edit_cd">تعديل</string>
 

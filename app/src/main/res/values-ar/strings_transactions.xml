@@ -66,6 +66,9 @@
     <string name="txn_detail_borrowed_from">اقترضت من %1$s</string>
     <string name="txn_detail_unmark_as_loan">إلغاء وضع علامة القرض</string>
     <string name="txn_detail_mark_as_loan">وضع علامة كقرض</string>
+    <string name="txn_tags_optional">الوسوم (اختياري)</string>
+    <string name="txn_detail_account_optional">الحساب (اختياري)</string>
+    <string name="txn_detail_account_placeholder">اختر رقم حساب أو أدخله</string>
     <string name="txn_detail_exclude_from_analytics">استبعاد من التحليلات</string>
     <string name="txn_detail_exclude_subtitle">يُحتفظ به في السجل والرصيد، ويُتجاهل في إحصاءات الإنفاق</string>
     <string name="txn_detail_date_time">التاريخ والوقت</string>

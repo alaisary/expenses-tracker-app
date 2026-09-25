@@ -12,6 +12,7 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -179,7 +180,7 @@ fun PennyWiseTheme(
     // serif Display cut for headlines and hero figures). Latin keeps the platform
     // face — Thmanyah is not the app's Latin font. Still not user-selectable:
     // there is no font picker, the language decides.
-    val isArabicUi = LocalConfiguration.current.locales[0]?.language == "ar"
+    val isArabicUi = isArabicLocale()
     val fontFamily = if (isArabicUi) ThmanyahSansFontFamily else FontFamily.Default
     val displayFontFamily = if (isArabicUi) ThmanyahSerifDisplayFontFamily else fontFamily
 
@@ -195,6 +196,18 @@ fun PennyWiseTheme(
         )
     }
 }
+
+/**
+ * Whether the app is running in Arabic — the switch for the Arabic typeface above,
+ * and for anything else that has to treat Arabic differently (monospace text, which
+ * has no Arabic coverage and renders it through a second fallback typeface).
+ *
+ * Reads the configuration as a composition local, so it recomposes on a language
+ * change exactly as the theme does.
+ */
+@Composable
+@ReadOnlyComposable
+fun isArabicLocale(): Boolean = LocalConfiguration.current.locales[0]?.language == "ar"
 
 private fun relativeLuminance(color: Color): Double {
     fun linearize(c: Float): Double {

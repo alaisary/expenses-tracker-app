@@ -68,6 +68,22 @@ fun FAQScreen(
                     FAQItem(
                         question = stringResource(R.string.appr_faq_q_transfer_vs_expense),
                         answer = stringResource(R.string.appr_faq_a_transfer_vs_expense)
+                    ),
+                    // The two situations users ask about most: money passing through
+                    // the account, and covering someone who pays you back. Both are
+                    // answered by an existing control (type, exclusion, loan) that
+                    // isn't obvious from the row itself.
+                    FAQItem(
+                        question = stringResource(R.string.appr_faq_q_pass_through),
+                        answer = stringResource(R.string.appr_faq_a_pass_through)
+                    ),
+                    FAQItem(
+                        question = stringResource(R.string.appr_faq_q_paid_for_someone),
+                        answer = stringResource(R.string.appr_faq_a_paid_for_someone)
+                    ),
+                    FAQItem(
+                        question = stringResource(R.string.appr_faq_q_exclude_transaction),
+                        answer = stringResource(R.string.appr_faq_a_exclude_transaction)
                     )
                 )
             ),
@@ -118,6 +134,14 @@ fun FAQScreen(
                     FAQItem(
                         question = stringResource(R.string.appr_faq_q_multiple_accounts),
                         answer = stringResource(R.string.appr_faq_a_multiple_accounts)
+                    ),
+                    FAQItem(
+                        question = stringResource(R.string.appr_faq_q_hide_account),
+                        answer = stringResource(R.string.appr_faq_a_hide_account)
+                    ),
+                    FAQItem(
+                        question = stringResource(R.string.appr_faq_q_hide_category),
+                        answer = stringResource(R.string.appr_faq_a_hide_category)
                     )
                 )
             )

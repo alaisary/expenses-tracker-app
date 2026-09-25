@@ -69,6 +69,8 @@
     <string name="feat_categories_delete_cd">Delete</string>
     <string name="feat_categories_show_cd">Show category</string>
     <string name="feat_categories_hide_cd">Hide category</string>
+    <string name="feat_categories_move_up_cd">Move up</string>
+    <string name="feat_categories_move_down_cd">Move down</string>
     <string name="feat_categories_system_badge">System</string>
     <string name="feat_categories_edit_cd">Edit</string>
 

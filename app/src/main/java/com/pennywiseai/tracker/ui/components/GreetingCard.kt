@@ -40,6 +40,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.pennywiseai.tracker.R
+import com.pennywiseai.tracker.utils.DateRangeUtils
 import com.pennywiseai.tracker.ui.theme.Dimensions
 import com.pennywiseai.tracker.ui.theme.Spacing
 import com.pennywiseai.tracker.ui.theme.yellow_dark
@@ -73,8 +74,7 @@ fun GreetingCard(
         // "X days left" hint lines up with the budget / spending windows.
         val lastDay = cycleEnd ?: now.withDayOfMonth(now.lengthOfMonth())
         val daysLeft = ChronoUnit.DAYS.between(now, lastDay)
-        val rawMonth = now.month.name.lowercase()
-        val monthName = if (rawMonth.isEmpty()) rawMonth else rawMonth.substring(0, 1).uppercase() + rawMonth.substring(1)
+        val monthName = DateRangeUtils.monthName(now.month)
 
         when {
             daysLeft == 0L -> context.getString(R.string.comp_last_day_of, monthName)
