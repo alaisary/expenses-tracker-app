@@ -85,7 +85,8 @@
     <string name="appr_faq_q_hide_account">How do I hide an account I don\'t want to see?</string>
     <string name="appr_faq_a_hide_account">Settings → Manage Accounts, then the ⋮ menu on the account and Hide. It moves to the hidden accounts section and drops out of balances and filters; its transactions and history are untouched, and Show brings it straight back. Same menu for cards.</string>
     <string name="appr_faq_q_hide_category">Can I hide or rename the built-in categories?</string>
-    <string name="appr_faq_a_hide_category">Any category can be hidden — the eye icon on its row takes it out of the pickers while its transactions keep the label. Built-in categories can\'t be renamed or deleted, because SMS categorisation and rules match them by name: renaming one would quietly stop it matching. For your own groupings, add a custom category instead.</string>
+    <string name="appr_faq_a_hide_category">Any category can be hidden — the eye icon on its row takes it out of the pickers while its transactions keep the label. Built-in categories can\'t be renamed or deleted, because SMS categorisation and rules match them by name: renaming one would quietly stop it matching. For your own groupings, add a custom category instead.
+\n\nThe arrows on a row move it one step up or down, which is what decides the order in the category pickers. A category only moves within its own group (Needs, Wants, Savings, Income, Other): those groups come from a fixed mapping, so the arrows grey out at the top and bottom of a group.</string>
 
     <!-- FAQ: expand/collapse + help section -->
     <string name="appr_collapse">Collapse</string>

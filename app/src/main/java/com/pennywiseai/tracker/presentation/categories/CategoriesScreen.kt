@@ -292,11 +292,16 @@ private fun CategoryItem(
             // One-step reorder inside the section. Disabled rather than hidden at
             // the ends, so the controls next to a row don't shift as rows move
             // past each other. Top-level rows only — see [CategoryMoveState].
+            //
+            // No tint override here on purpose: IconButton dims its content colour
+            // when disabled, and that dimming is the only thing telling the user
+            // that this row is already at the end of its section (a move can never
+            // cross a section boundary). Pinning the colour made a dead arrow look
+            // exactly like a live one, so a tap that did nothing looked like a bug.
             IconButton(onClick = onMoveUp, enabled = canMoveUp) {
                 Icon(
                     imageVector = Icons.Default.KeyboardArrowUp,
                     contentDescription = stringResource(R.string.feat_categories_move_up_cd),
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(Dimensions.Icon.medium)
                 )
             }
@@ -304,7 +309,6 @@ private fun CategoryItem(
                 Icon(
                     imageVector = Icons.Default.KeyboardArrowDown,
                     contentDescription = stringResource(R.string.feat_categories_move_down_cd),
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(Dimensions.Icon.medium)
                 )
             }
