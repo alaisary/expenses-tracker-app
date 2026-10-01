@@ -6,7 +6,7 @@ object DefaultCategoryData {
     val ALL: List<CategorySeed> = listOf(
         CategorySeed("Food & Dining",      "#FC8019", false),
         CategorySeed("Groceries",          "#5AC85A", false),
-        CategorySeed("Transportation",     "#000000", false),
+        CategorySeed("Transportation",     "#37474F", false),
         CategorySeed("Shopping",           "#FF9900", false),
         CategorySeed("Bills & Utilities",  "#4CAF50", false),
         CategorySeed("Entertainment",      "#E50914", false),
@@ -19,8 +19,8 @@ object DefaultCategoryData {
         CategorySeed("Fitness",            "#FF3278", false),
         CategorySeed("Insurance",          "#0066CC", false),
         CategorySeed("Travel",             "#00BCD4", false),
-        CategorySeed("Salary",             "#4CAF50", true),
-        CategorySeed("Income",             "#4CAF50", true),
+        CategorySeed("Salary",             "#388E3C", true),
+        CategorySeed("Income",             "#43A047", true),
         CategorySeed("Others",             "#757575", false),
 
         // --- Local (GCC/Arabic-market) additions -----------------------------
@@ -38,7 +38,7 @@ object DefaultCategoryData {
 
         // Income-side canonical names already produced by SharedCategoryMapping
         // but never seeded — now surfaced to existing and new users alike.
-        CategorySeed("Refunds",                 "#4CAF50", true),
+        CategorySeed("Refunds",                 "#81C784", true),
         CategorySeed("Cashback",                "#66BB6A", true),
 
         // Already mapped by SharedCategoryMapping; seeded here so the grouping +

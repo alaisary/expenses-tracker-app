@@ -41,6 +41,10 @@
     <string name="anal_heatmap_day_fri">F</string>
     <string name="anal_heatmap_day_sat">S</string>
     <string name="anal_heatmap_day_sun">S</string>
+    <string name="anal_heatmap_less">Less</string>
+    <string name="anal_heatmap_more">More</string>
+    <string name="anal_heatmap_tooltip">%1$s — %2$s</string>
+    <string name="anal_heatmap_no_spending">No spending</string>
     <string name="anal_empty_headline">Not enough data yet</string>
     <string name="anal_empty_description">Your spending insights will appear here after your first week of tracking</string>
     <string name="anal_empty_action">Scan SMS</string>

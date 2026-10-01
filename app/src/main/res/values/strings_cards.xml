@@ -61,6 +61,10 @@
     <string name="cards_heatmap_day_m">M</string>
     <string name="cards_heatmap_day_w">W</string>
     <string name="cards_heatmap_day_f">F</string>
+    <string name="cards_heatmap_less">Less</string>
+    <string name="cards_heatmap_more">More</string>
+    <string name="cards_heatmap_no_transactions">No transactions</string>
+    <string name="cards_heatmap_tooltip">%1$s — %2$d transactions</string>
     <string name="cards_item_singular">%1$d item</string>
     <string name="cards_item_plural">%1$d items</string>
     <string name="cards_no_transactions_yet">No transactions yet</string>
@@ -70,4 +74,9 @@
     <string name="cards_business">Business</string>
     <string name="cards_excluded">Excluded</string>
     <string name="cards_bal_value">Bal %1$s</string>
+    <string name="cards_daily_avg">~%1$s/day</string>
+    <string name="cards_daily_budget">%1$s/day budget</string>
+    <string name="cards_pace_under">Under pace</string>
+    <string name="cards_pace_on_track">On track</string>
+    <string name="cards_pace_over">Over pace</string>
 </resources>

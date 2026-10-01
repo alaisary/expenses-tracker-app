@@ -41,6 +41,10 @@
     <string name="anal_heatmap_day_fri">ج</string>
     <string name="anal_heatmap_day_sat">س</string>
     <string name="anal_heatmap_day_sun">ح</string>
+    <string name="anal_heatmap_less">أقل</string>
+    <string name="anal_heatmap_more">أكثر</string>
+    <string name="anal_heatmap_tooltip">%1$s — %2$s</string>
+    <string name="anal_heatmap_no_spending">لا يوجد إنفاق</string>
     <string name="anal_empty_headline">لا توجد بيانات كافية بعد</string>
     <string name="anal_empty_description">ستظهر رؤى إنفاقك هنا بعد أسبوعك الأول من التتبع</string>
     <string name="anal_empty_action">مسح SMS</string>

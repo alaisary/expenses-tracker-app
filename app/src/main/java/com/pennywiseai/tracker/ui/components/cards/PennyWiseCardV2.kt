@@ -1,7 +1,12 @@
 package com.pennywiseai.tracker.ui.components.cards
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -13,7 +18,11 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.Dp
 import com.pennywiseai.tracker.ui.theme.Dimensions
 
@@ -73,19 +82,37 @@ fun PennyWiseCardV2(
 
     when {
         onLongClick != null -> {
-            // Combined click + long-click. Material's Card composable doesn't
-            // accept onLongClick directly, so we wrap a non-clickable Card with
-            // combinedClickable on the outer modifier. Require onClick here so
-            // the card never advertises a button affordance whose tap is a
-            // no-op (would mislead screen readers and touch users).
             val tap = requireNotNull(onClick) {
                 "PennyWiseCardV2: onLongClick requires onClick to also be non-null."
             }
+            val interactionSource = remember { MutableInteractionSource() }
+            val isPressed by interactionSource.collectIsPressedAsState()
+            val scale = remember { Animatable(1f) }
+            LaunchedEffect(isPressed) {
+                if (isPressed) {
+                    scale.animateTo(0.97f, spring(stiffness = Spring.StiffnessHigh))
+                } else {
+                    scale.animateTo(
+                        1f,
+                        spring(
+                            dampingRatio = Spring.DampingRatioMediumBouncy,
+                            stiffness = Spring.StiffnessMediumLow
+                        )
+                    )
+                }
+            }
             Card(
-                modifier = modifier.combinedClickable(
-                    onClick = tap,
-                    onLongClick = onLongClick
-                ),
+                modifier = modifier
+                    .graphicsLayer {
+                        scaleX = scale.value
+                        scaleY = scale.value
+                    }
+                    .combinedClickable(
+                        interactionSource = interactionSource,
+                        indication = null,
+                        onClick = tap,
+                        onLongClick = onLongClick
+                    ),
                 colors = colors,
                 shape = shape,
                 elevation = elevation,
@@ -95,9 +122,29 @@ fun PennyWiseCardV2(
             }
         }
         onClick != null -> {
+            val interactionSource = remember { MutableInteractionSource() }
+            val isPressed by interactionSource.collectIsPressedAsState()
+            val scale = remember { Animatable(1f) }
+            LaunchedEffect(isPressed) {
+                if (isPressed) {
+                    scale.animateTo(0.97f, spring(stiffness = Spring.StiffnessHigh))
+                } else {
+                    scale.animateTo(
+                        1f,
+                        spring(
+                            dampingRatio = Spring.DampingRatioMediumBouncy,
+                            stiffness = Spring.StiffnessMediumLow
+                        )
+                    )
+                }
+            }
             Card(
-                modifier = modifier,
+                modifier = modifier.graphicsLayer {
+                    scaleX = scale.value
+                    scaleY = scale.value
+                },
                 onClick = onClick,
+                interactionSource = interactionSource,
                 colors = colors,
                 shape = shape,
                 elevation = elevation,

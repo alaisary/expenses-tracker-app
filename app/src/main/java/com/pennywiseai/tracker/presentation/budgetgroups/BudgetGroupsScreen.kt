@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.graphics.Color
@@ -587,12 +588,19 @@ private fun BudgetCard(
             if (groupSpending.totalBudget > BigDecimal.ZERO) {
                 Spacer(modifier = Modifier.height(Spacing.sm))
 
-                // Row 2: Custom rounded progress bar
+                // Row 2: Progress bar with time marker
                 val barShape = RoundedCornerShape(50)
+                val timeProgress = if (groupSpending.windowDays > 0) {
+                    (groupSpending.daysElapsed.toFloat() / groupSpending.windowDays).coerceIn(0f, 1f)
+                } else 0f
+                val density = LocalDensity.current
+                var barSize by remember { mutableStateOf(androidx.compose.ui.unit.IntSize.Zero) }
+
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(Dimensions.Component.progressBarHeight)
+                        .onSizeChanged { barSize = it }
                         .clip(barShape)
                         .background(barColor.copy(alpha = 0.15f))
                 ) {
@@ -603,6 +611,18 @@ private fun BudgetCard(
                             .clip(barShape)
                             .background(barColor)
                     )
+                    if (timeProgress in 0.02f..0.98f && barSize.width > 0) {
+                        val markerX = with(density) {
+                            (barSize.width * timeProgress).toDp() - 1.dp
+                        }
+                        Box(
+                            modifier = Modifier
+                                .offset(x = markerX)
+                                .width(2.dp)
+                                .fillMaxHeight()
+                                .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f))
+                        )
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(Spacing.md))
@@ -676,16 +696,63 @@ private fun BudgetCard(
 
                 Spacer(modifier = Modifier.height(Spacing.xs))
 
-                // Row 5: Spent X of Y
-                CurrencyText(
-                    text = stringResource(
-                        R.string.budg_spent_of,
-                        CurrencyFormatter.formatCurrency(groupSpending.totalActual, currency),
-                        CurrencyFormatter.formatCurrency(groupSpending.totalBudget, currency)
-                    ),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                // Row 5: Spent X of Y + pace indicator
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    CurrencyText(
+                        text = stringResource(
+                            R.string.budg_spent_of,
+                            CurrencyFormatter.formatCurrency(groupSpending.totalActual, currency),
+                            CurrencyFormatter.formatCurrency(groupSpending.totalBudget, currency)
+                        ),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+
+                    if (groupSpending.windowDays > 0 && groupSpending.daysElapsed > 0 && !groupSpending.isTrackingAllExpenses) {
+                        val timeProg = groupSpending.daysElapsed.toFloat() / groupSpending.windowDays
+                        val expectedPct = (timeProg * 100f).coerceIn(0f, 100f)
+                        val paceLabel = when {
+                            pctUsed > expectedPct + 5f -> stringResource(R.string.cards_pace_over)
+                            pctUsed < expectedPct - 5f -> stringResource(R.string.cards_pace_under)
+                            else -> stringResource(R.string.cards_pace_on_track)
+                        }
+                        val paceColor = when {
+                            pctUsed > expectedPct + 5f -> MaterialTheme.colorScheme.error
+                            pctUsed < expectedPct - 5f -> MaterialTheme.colorScheme.primary
+                            else -> MaterialTheme.colorScheme.tertiary
+                        }
+                        Text(
+                            text = paceLabel,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = paceColor,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
+                }
+
+                // Daily average vs daily budget rate
+                if (groupSpending.daysElapsed > 0 && groupSpending.totalBudget > BigDecimal.ZERO
+                    && groupSpending.windowDays > 0 && !groupSpending.isTrackingAllExpenses
+                ) {
+                    val dailyAvg = groupSpending.totalActual.divide(
+                        BigDecimal(groupSpending.daysElapsed), 2, java.math.RoundingMode.HALF_UP
+                    )
+                    val dailyBudgetRate = groupSpending.totalBudget.divide(
+                        BigDecimal(groupSpending.windowDays), 2, java.math.RoundingMode.HALF_UP
+                    )
+                    Spacer(modifier = Modifier.height(Spacing.xxs))
+                    Text(
+                        text = stringResource(R.string.cards_daily_avg, CurrencyFormatter.formatCurrency(dailyAvg, currency)) +
+                                " · " +
+                                stringResource(R.string.cards_daily_budget, CurrencyFormatter.formatCurrency(dailyBudgetRate, currency)),
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                    )
+                }
             } else if (groupSpending.isTrackingAllExpenses) {
                 Spacer(modifier = Modifier.height(Spacing.sm))
                 CurrencyText(

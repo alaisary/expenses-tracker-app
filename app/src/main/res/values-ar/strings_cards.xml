@@ -61,6 +61,10 @@
     <string name="cards_heatmap_day_m">إث</string>
     <string name="cards_heatmap_day_w">أر</string>
     <string name="cards_heatmap_day_f">جم</string>
+    <string name="cards_heatmap_less">أقل</string>
+    <string name="cards_heatmap_more">أكثر</string>
+    <string name="cards_heatmap_no_transactions">لا توجد معاملات</string>
+    <string name="cards_heatmap_tooltip">%1$s — %2$d معاملات</string>
     <string name="cards_item_singular">%1$d عنصر</string>
     <string name="cards_item_plural">%1$d عناصر</string>
     <string name="cards_no_transactions_yet">لا توجد معاملات بعد</string>
@@ -70,4 +74,9 @@
     <string name="cards_business">أعمال</string>
     <string name="cards_excluded">مستثنى</string>
     <string name="cards_bal_value">الرصيد %1$s</string>
+    <string name="cards_daily_avg">~%1$s/يوم</string>
+    <string name="cards_daily_budget">%1$s/يوم ميزانية</string>
+    <string name="cards_pace_under">دون المعدّل</string>
+    <string name="cards_pace_on_track">ضمن المعدّل</string>
+    <string name="cards_pace_over">فوق المعدّل</string>
 </resources>
